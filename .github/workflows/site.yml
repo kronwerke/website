@@ -1,0 +1,30 @@
+# Builds the site as it is served: the pages plus the fonts from npm. The artifact is
+# what gets deployed.
+name: site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: sh tools/fonts.sh
+      - name: check
+        run: |
+          for f in index.html impressum.html datenschutz.html; do test -s "$f"; done
+          node --check js/galaxy.js
+          node --check js/status.js
+          grep -o 'href="[^"#:]*"\|src="[^"#:]*"' index.html | sed 's/.*="\(.*\)"/\1/' | while read -r p; do test -e "$p" || { echo "missing: $p"; exit 1; }; done
+      - name: package
+        run: mkdir -p dist && cp -r index.html impressum.html datenschutz.html favicon.svg css js fonts dist/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
