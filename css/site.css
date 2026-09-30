@@ -300,3 +300,10 @@ em { font-style: italic; color: var(--brass); }
 /* ---- legal pages ---- */
 .legal .panel { margin-top: 2rem; }
 .legal h3 { font-size: 1.1rem; margin-top: 1.4rem; }
+.legal .panel + .panel { margin-top: -3rem; }
+.legal h2 { font-size: clamp(1.4rem, 6vw, 3.2rem); overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .legal nav { gap: 0.8rem; font-size: 0.8rem; }
+  .legal nav a:not(.discord) { display: inline; }
+  .legal nav a.jump { display: none; }
+}
