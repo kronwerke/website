@@ -22,7 +22,7 @@ The only build step is the mod list: CI checks out [kronwerke/pack](https://gith
 
 ## The sky
 
-The background is not a picture. `js/galaxy.js` simulates a spiral galaxy in WebGL2, following the density wave model:
+The background is not just a picture. `js/galaxy.js` simulates a spiral galaxy in WebGL2, following the density wave model:
 
 - Every star moves on its own ellipse around the centre, and the ellipses are rotated a little more the further out they are. Where neighbouring ellipses crowd, the stars pile up, and those piles are the spiral arms. The stars keep moving through the arms, the arms stay.
 - Stars further out move slower (a flat rotation curve), so the inner galaxy turns faster than the rim.
@@ -30,7 +30,15 @@ The background is not a picture. `js/galaxy.js` simulates a spiral galaxy in Web
 - Star colours come from black body temperatures: old and yellow in the bulge, a mix in the disk, a few hot blue ones.
 - A few distant galaxies, a star field and a hydrogen and oxygen nebula sit behind it. Everything is drawn in HDR, then bloom, a filmic tone curve and a little grain.
 
-It pauses when the tab is hidden, stands still with `prefers-reduced-motion`, and has a button in the footer to stop it. Without WebGL2 the page keeps a plain dark background. `?top` looks straight down on the disk.
+How it stays fast:
+
+- The first thing on screen is a still of the same scene (`img/sky/wide.webp` and `tall.webp`, about 70 and 90 KB), loaded after the page itself. `tools/render_sky.py` renders them from `galaxy.js` with `?poster`.
+- The simulation starts after the load event, when the browser is idle. The 200 000 particles are built in a worker, the shaders compile in parallel where the browser can.
+- Before it shows, it draws ten frames behind the still and waits for the GPU after each. If a frame costs too much it steps down (resolution, share of the stars, bloom, a 30 fps cap) or keeps the still. While running it keeps measuring and steps down further when needed.
+- Haze, dust and the nebula are soft, so they are drawn at a half to a quarter of the resolution; the nebula only every other frame.
+- It never starts with `prefers-reduced-motion`, data saver, less than 4 GB memory, fewer than 4 cores or software rendering: the still is the sky there.
+
+It pauses when the tab is hidden and has a button in the footer to stop it. `?top` looks straight down on the disk, `?sky=0` to `?sky=3` fixes a quality step, `?sky=log` prints the measurements, `?sky=try` skips the device checks.
 
 ## Design rules
 
@@ -57,6 +65,7 @@ The page should look like it was made for this server and nothing else.
 | `js/mascot.js` | A mob from `img/mascots/` peeks in from the lower edge with a tip for the page. Closing it keeps it away for the visit |
 | `impressum.html`, `datenschutz.html`, `discord-bot.html`, `en/` | Legal pages, in German and English |
 | `tools/modlist.py` | Builds `data/mods.json` and `img/mods/` from a checkout of the pack, with the Modrinth API |
+| `tools/render_sky.py` | Renders the stills of the sky from `js/galaxy.js` |
 | `tools/fonts.sh` | Fetches the fonts from npm into `fonts/`, pinned and checksummed |
 
 ## Quick look

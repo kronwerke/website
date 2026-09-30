@@ -11,6 +11,7 @@
 <meta property="og:type" content="website">
 <link rel="preload" href="fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -117,13 +118,13 @@
 
 <footer class="bottom">
   <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
-  <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
+  <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
 
-<script src="js/galaxy.js"></script>
-<script src="js/names.js"></script>
-<script src="js/status.js"></script>
-<script src="js/mascot.js"></script>
+<script src="js/galaxy.js" defer></script>
+<script src="js/names.js" defer></script>
+<script src="js/status.js" defer></script>
+<script src="js/mascot.js" defer></script>
 </body>
 </html>

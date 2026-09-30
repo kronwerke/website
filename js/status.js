@@ -75,6 +75,8 @@
     }
   }
 
-  load();
+  // after the page has loaded, so the first paint does not wait for the server
+  if (document.readyState === "complete") load();
+  else window.addEventListener("load", load, { once: true });
   setInterval(() => { if (!document.hidden) load(); }, 60000);
 })();

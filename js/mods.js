@@ -70,16 +70,23 @@
     for (const b of chips.children) b.setAttribute("aria-pressed", String(b.dataset.group === group));
   }
 
-  for (const [id, label] of GROUPS) {
-    const b = make("button", "chip", label);
-    b.type = "button";
-    b.dataset.group = id;
+  // the buttons are in the page already (so nothing moves when this runs); older copies
+  // of the page without them get them made here
+  if (!chips.children.length) {
+    for (const [id, label] of GROUPS) {
+      const b = make("button", "chip", label);
+      b.type = "button";
+      b.dataset.group = id;
+      chips.append(b);
+    }
+  }
+  for (const b of chips.children) {
+    const id = b.dataset.group;
     b.addEventListener("click", () => {
       group = id;
       history.replaceState(null, "", id === "all" ? location.pathname + location.search : "#" + id);
       render();
     });
-    chips.append(b);
   }
   if (!GROUPS.some(([id]) => id === group)) group = "all";
   q.value = new URLSearchParams(location.search).get("q") || "";

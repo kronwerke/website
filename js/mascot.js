@@ -44,50 +44,56 @@
   const tips = (TIPS[page] || []).concat(ANY);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  fetch("img/mascots/mascots.json")
-    .then((r) => r.json())
-    .then((mobs) => {
-      if (!Array.isArray(mobs) || !mobs.length) return;
-      const mob = pick(mobs);
-      const side = Math.random() < 0.5 ? "left" : "right";
-      const box = document.createElement("aside");
-      box.className = "mascot " + side;
-      box.setAttribute("aria-label", "Tipp");
+  // it peeks in a moment after the page is there, and costs nothing before
+  function show() {
+    fetch("img/mascots/mascots.json")
+      .then((r) => r.json())
+      .then((mobs) => {
+        if (!Array.isArray(mobs) || !mobs.length) return;
+        const mob = pick(mobs);
+        const side = Math.random() < 0.5 ? "left" : "right";
+        const box = document.createElement("aside");
+        box.className = "mascot " + side;
+        box.setAttribute("aria-label", "Tipp");
 
-      const img = new Image();
-      img.src = "img/mascots/" + mob.file;
-      img.alt = "";
-      img.width = mob.w;
-      img.height = mob.h;
-      // look into the page: a mob drawn facing left stands on the left edge mirrored
-      if (mob.facing === side) img.className = "flip";
+        const img = new Image();
+        img.src = "img/mascots/" + mob.file;
+        img.alt = "";
+        img.width = mob.w;
+        img.height = mob.h;
+        // look into the page: a mob drawn facing left stands on the left edge mirrored
+        if (mob.facing === side) img.className = "flip";
 
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      const p = document.createElement("p");
-      p.style.margin = "0";
-      p.innerHTML = pick(tips);
-      const close = document.createElement("button");
-      close.type = "button";
-      close.setAttribute("aria-label", "Schließen");
-      close.textContent = "×";
-      const leave = () => {
-        box.classList.remove("show");
-        setTimeout(() => box.remove(), reduced ? 0 : 700);
-      };
-      close.addEventListener("click", () => {
-        try { sessionStorage.setItem(KEY, "1"); } catch (e) { /* fine */ }
-        leave();
-      });
-      bubble.append(p, close);
-      box.append(img, bubble);
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        const p = document.createElement("p");
+        p.style.margin = "0";
+        p.innerHTML = pick(tips);
+        const close = document.createElement("button");
+        close.type = "button";
+        close.setAttribute("aria-label", "Schließen");
+        close.textContent = "×";
+        const leave = () => {
+          box.classList.remove("show");
+          setTimeout(() => box.remove(), reduced ? 0 : 700);
+        };
+        close.addEventListener("click", () => {
+          try { sessionStorage.setItem(KEY, "1"); } catch (e) { /* fine */ }
+          leave();
+        });
+        bubble.append(p, close);
+        box.append(img, bubble);
 
-      img.addEventListener("load", () => {
-        document.body.append(box);
-        setTimeout(() => box.classList.add("show"), reduced ? 0 : 2500);
-        // it says its thing and goes, so it never sits on the page for good
-        setTimeout(leave, 20000);
-      });
-    })
-    .catch(() => {});
+        img.addEventListener("load", () => {
+          document.body.append(box);
+          setTimeout(() => box.classList.add("show"), reduced ? 0 : 2500);
+          // it says its thing and goes, so it never sits on the page for good
+          setTimeout(leave, 20000);
+        });
+      })
+      .catch(() => {});
+  }
+  function later() { setTimeout(show, 1500); }
+  if (document.readyState === "complete") later();
+  else window.addEventListener("load", later, { once: true });
 })();

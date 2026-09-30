@@ -30,6 +30,35 @@
   font-display: swap;
 }
 
+/* Fallbacks shaped like the real fonts (size and line metrics), so nothing moves when
+   the web fonts arrive. Measured from the woff2 files against Arial and Georgia. */
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial"), local("Helvetica"), local("Roboto");
+  font-weight: 800;
+  size-adjust: 67%;
+  ascent-override: 147%;
+  descent-override: 32%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial"), local("Helvetica"), local("Roboto");
+  font-weight: 600;
+  size-adjust: 57%;
+  ascent-override: 173%;
+  descent-override: 37%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Georgia"), local("Times New Roman"), local("Noto Serif");
+  size-adjust: 94%;
+  ascent-override: 78%;
+  descent-override: 28%;
+  line-gap-override: 0%;
+}
+
 :root {
   --ink: #0e0c11;
   --panel: #131016;
@@ -58,12 +87,31 @@ html.sky-on { background-image: none; }
 body {
   margin: 0;
   color: var(--text);
-  font: 400 1.125rem/1.6 "Newsreader", Georgia, "Times New Roman", serif;
+  font: 400 1.125rem/1.6 "Newsreader", "Newsreader Fallback", Georgia, serif;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
+/* The sky: a still of the galaxy, the live simulation fades in over it (js/galaxy.js).
+   On the start page the still comes after the text has loaded (sky-still is set on
+   load), on the other pages right away and a little darker behind the text. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: 72% 38% / cover no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+html.sky-still body::before { background-image: url("../img/sky/wide.webp"); opacity: 1; }
+@media (max-aspect-ratio: 1/1) {
+  body::before { background-position: 50% 0; }
+  html.sky-still body::before { background-image: url("../img/sky/tall.webp"); }
+}
+html.sky-still body:not([data-page="start"])::before { opacity: 0.55; }
 #sky {
   position: fixed;
   inset: 0;
@@ -71,14 +119,19 @@ body {
   height: 100%;
   display: block;
   z-index: -1;
+  opacity: 0;
+  transition: opacity 1.6s ease;
 }
+#sky.on { opacity: 1; }
+html.sky-poster body > :not(#sky) { display: none !important; }
+html.sky-poster #sky { transition: none; }
 
 a { color: var(--text); text-decoration-color: var(--brass); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { color: var(--brass); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 
 h1, h2, h3, .mark, .kicker, .label, .pillar-name, nav, dt, .button, .n, .when {
-  font-family: "Big Shoulders", "Arial Narrow", sans-serif;
+  font-family: "Big Shoulders", "Big Shoulders Fallback", sans-serif;
 }
 
 code {
@@ -109,7 +162,11 @@ nav a:hover { color: var(--text); }
 nav .discord { color: var(--brass); }
 @media (max-width: 760px) {
   .top { flex-wrap: wrap; row-gap: 0.4rem; }
-  nav { flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.85rem; }
+  /* one row that scrolls sideways if it must: the header keeps its height whichever
+     font is showing, so the page does not jump when the web font arrives */
+  nav { flex-wrap: nowrap; gap: 0.3rem 1rem; font-size: 0.85rem; white-space: nowrap;
+        overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+  nav::-webkit-scrollbar { display: none; }
 }
 nav a[aria-current="page"] { color: var(--text); text-decoration: underline; text-decoration-color: var(--brass); text-underline-offset: 0.35em; }
 
@@ -296,7 +353,7 @@ em { font-style: italic; color: var(--brass); }
 .made { color: #968b7b; }
 
 @media print {
-  #sky { display: none; }
+  #sky, body::before { display: none; }
   html, body { background: #fff; color: #000; }
   .panel { background: none; border: 0; }
 }
@@ -446,3 +503,6 @@ td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: now
 @media (prefers-reduced-motion: reduce) { .mascot { transition: none; } }
 @media (max-width: 640px) { .mascot .bubble { max-width: 12rem; font-size: 0.85rem; } }
 @media print { .mascot { display: none; } }
+
+/* the mod list comes from data/mods.json; keep its room so nothing jumps when it arrives */
+.modlist:empty { min-height: 100vh; }
