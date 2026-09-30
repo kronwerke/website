@@ -1,1 +1,4 @@
 fonts/*.woff2
+data/
+img/mods/
+.pack/

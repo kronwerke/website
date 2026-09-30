@@ -37,15 +37,16 @@
     const g = goals.find((x) => x.state === "active" || x.state === "held");
     if (!g) return;
     text(goalEl.querySelector(".label"), g.state === "held" ? "Wartet auf das Event" : "Aktuelles Ziel");
-    text(document.getElementById("goal-title"), g.title);
+    const N = window.KW && window.KW.names;
+    text(document.getElementById("goal-title"), N ? N.goal(g) : g.title);
     const box = document.getElementById("goal-pillars");
     box.textContent = "";
     for (const p of g.pillars || []) {
       const pillar = make("div", "pillar");
-      pillar.append(make("p", "pillar-name", p.title));
+      pillar.append(make("p", "pillar-name", N ? N.pillar(p.title) : p.title));
       for (const it of p.items || []) {
         const row = make("p", "row");
-        row.append(make("span", "", it.name || it.item), make("span", "", nf.format(it.have) + " / " + nf.format(it.target)));
+        row.append(make("span", "", N ? N.item(it) : it.name || it.item), make("span", "", nf.format(it.have) + " / " + nf.format(it.target)));
         const meter = make("div", "meter");
         const fill = make("span");
         fill.style.width = Math.min(100, it.target ? (100 * it.have) / it.target : 0).toFixed(1) + "%";
