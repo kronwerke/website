@@ -5,13 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kronwerke Season 2</title>
 <meta name="description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start Mitte Januar 2027.">
-<meta name="theme-color" content="#0e0c11">
+<meta name="theme-color" content="#0f1024">
 <meta property="og:title" content="Kronwerke Season 2">
 <meta property="og:description" content="Fünf Stufen, Technik und Magie, und niemand kommt allein voran. Start Mitte Januar 2027.">
 <meta property="og:type" content="website">
-<link rel="preload" href="fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -19,105 +17,150 @@
 <canvas id="sky" aria-hidden="true"></canvas>
 
 <header class="top">
-  <a class="mark" href="#">Kronwerke</a>
+  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite">Kronwerke</a>
   <nav aria-label="Seiten">
     <a href="stufen.html">Stufen</a>
     <a href="mods.html">Mods</a>
     <a href="installieren.html">Installieren</a>
-    <a href="faq.html">FAQ</a>
+    <a href="faq.html">Fragen</a>
     <a href="status.html">Status</a>
-    <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
   </nav>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
 <main>
   <section class="hero">
-    <p class="kicker">Minecraft 1.21.1 · NeoForge · Season 2</p>
     <h1>Kronwerke</h1>
-    <p class="lead">Ein Modpack-Server, auf dem niemand allein vorankommt. Fünf Stufen, und jede öffnet für alle zugleich, sobald der ganze Server sie gemeinsam freigeschaltet hat.</p>
-    <dl class="facts">
-      <div><dt>Start</dt><dd>Mitte Januar 2027</dd></div>
-      <div><dt>Beta</dt><dd>Dezember</dd></div>
-      <div><dt>Dauer</dt><dd>sechs bis acht Wochen</dd></div>
-      <div><dt>Spieler</dt><dd>rund 30</dd></div>
-    </dl>
+    <p class="lead">Ein Modpack-Server für Streamer und ihre Communities, auf dem niemand allein vorankommt. Season&nbsp;2 startet Mitte Januar 2027.</p>
     <p class="actions">
-      <a class="button" href="https://discord.gg/DZs3XyyHDj">Zum Discord</a>
-      <a class="quiet" href="#rein">Wie man auf die Whitelist kommt</a>
+      <a class="btn" href="https://discord.gg/DZs3XyyHDj">Discord beitreten</a>
+      <a class="link" href="#dabei">So bist du beim Start dabei</a>
     </p>
-    <p class="status" id="status" aria-live="polite">Server: noch nicht offen. Start Mitte Januar.</p>
+    <ol class="season" aria-label="Wo die Season steht">
+      <li class="now"><strong>Jetzt</strong><span>Streamer bewerben sich, Communities sammeln sich im Discord.</span></li>
+      <li><strong>Dezember</strong><span>Beta mit einer kleinen Gruppe. Das Pack wird fertig.</span></li>
+      <li><strong>Mitte Januar</strong><span id="countdown">Der Server öffnet für alle.</span></li>
+    </ol>
   </section>
 
-  <section class="panel idee" id="idee">
+  <section class="band idea" id="idee">
     <div class="copy">
-      <h2>Die Idee</h2>
-      <p>In Season 1 waren die, die Modpacks kannten, nach einer Woche im Endgame. Alle anderen standen noch am Steinwerkzeug, und irgendwann spielte jeder für sich. Diesmal geht der Server nur gemeinsam weiter.</p>
-      <p>Am Spawn steht der Obelisk. Jede Stufe verlangt zwei Säulen, <em>Technik</em> und <em>Magie</em>, und beide müssen voll werden. Wer nur Maschinen baut, bringt den Server nicht weiter.</p>
-      <p>Bei 98 Prozent nimmt der Obelisk nichts mehr an. Dann wird ein Termin gesetzt, alle Streamer gehen live, und die letzten Items gehen zusammen rein. Erst dann öffnet die nächste Stufe, für alle auf einmal. Wer später dazukommt, bekommt die Starterkits der offenen Stufen und ist schnell wieder dabei.</p>
+      <h2>Der Server kommt nur gemeinsam weiter</h2>
+      <p>In Season&nbsp;1 waren die, die Modpacks kannten, nach einer Woche im Endgame. Alle anderen standen noch am Steinwerkzeug, und irgendwann spielte jeder für sich.</p>
+      <p>Diesmal steht am Spawn ein Obelisk. Jede Stufe verlangt Technik und Magie, und beides muss voll werden, bevor es weitergeht. Dazu kommen ein paar Meilensteine, die nur zusammen entstehen: ein Getriebe aus Create, gebaut mit Eisen vom Naturaltar.</p>
+      <p>Kurz vor dem Ziel hält der Obelisk an. Dann gehen alle Streamer zusammen live, die letzten Items gehen rein, und die nächste Stufe öffnet für alle auf einmal.</p>
     </div>
-    <aside class="goal" id="goal" aria-label="Aktuelles Gemeinschaftsziel">
-      <p class="label">Ziel zum Start</p>
+    <aside class="goal" id="goal" aria-labelledby="goal-title">
+      <p class="label">Das erste Ziel</p>
       <h3 id="goal-title">Fundament des Kronwerks</h3>
       <div id="goal-pillars">
-        <div class="pillar">
+        <div class="pillar stone">
           <p class="pillar-name">Stein</p>
           <p class="row"><span>Bruchstein</span><span>20 000</span></p>
         </div>
-        <div class="pillar">
+        <div class="pillar tech">
           <p class="pillar-name">Technik</p>
           <p class="row"><span>Andesitlegierung</span><span>1 500</span></p>
-          <p class="row"><span>Steinwerk-Getriebe</span><span>12</span></p>
+          <p class="row mile"><span><img src="img/items/stone_gearbox.png" alt="" width="24" height="24">Steinwerk-Getriebe</span><span>12</span></p>
         </div>
-        <div class="pillar">
+        <div class="pillar magic">
           <p class="pillar-name">Magie</p>
           <p class="row"><span>Source Gems</span><span>800</span></p>
-          <p class="row"><span>Quellschlussstein</span><span>12</span></p>
+          <p class="row mile"><span><img src="img/items/source_keystone.png" alt="" width="24" height="24">Quellschlussstein</span><span>12</span></p>
         </div>
       </div>
-      <p class="note" id="goal-note">Die Mengen gelten für 30 aktive Spieler. Sind es weniger oder mehr, passt der Obelisk sie beim Öffnen der Stufe an. Die Meilensteine bleiben immer gleich.</p>
+      <p class="note" id="goal-note">Die Mengen gelten für 30 aktive Spieler und passen sich an, wenn die Stufe öffnet. Meilensteine bleiben immer gleich.</p>
     </aside>
   </section>
 
-  <section class="panel stufen" id="stufen">
-    <h2>Fünf Stufen</h2>
-    <p class="intro">Die Balken zeigen, wie lange jede Stufe geplant ist. Wie lange sie wirklich dauert, entscheidet der Server. Was jede Stufe öffnet und verlangt, steht bei den <a href="stufen.html">Stufen im Detail</a>.</p>
-    <ol class="timeline">
-      <li style="--days:5"><span class="bar"></span><span class="n">1</span><strong>Steinwerk</strong><span class="when">ab Tag 1</span><span class="what">Holz, Stein, Wasserräder, die ersten Zauber.</span></li>
-      <li style="--days:9"><span class="bar"></span><span class="n">2</span><strong>Messingwerk</strong><span class="when">ab Tag 6</span><span class="what">Messing, der Nether, Mana. Das Portal wird im Stream entzündet.</span></li>
-      <li style="--days:12"><span class="bar"></span><span class="n">3</span><strong>Stahlwerk</strong><span class="when">ab Tag 15</span><span class="what">Stahl, Erzverdopplung, Speichernetze, Rituale mit Folgen.</span></li>
-      <li style="--days:12"><span class="bar"></span><span class="n">4</span><strong>Sternwerk</strong><span class="when">ab Tag 27</span><span class="what">Das End, die Sterne, Maschinen, die Strom fressen. Der Drache ist der erste gemeinsame Boss.</span></li>
-      <li style="--days:14"><span class="bar"></span><span class="n">5</span><strong>Chaoswerk</strong><span class="when">ab Tag 39</span><span class="what">Die letzten Maschinen und der letzte Kampf: der Chaos Guardian, zusammen.</span></li>
+  <section class="band stages" id="stufen">
+    <div class="head">
+      <h2>Fünf Stufen, sechs bis acht Wochen</h2>
+      <p>Die Breite zeigt, wie lange jede Stufe geplant ist, die Mobs stehen im echten Größenverhältnis. Wie lange eine Stufe wirklich dauert, entscheidet der Server. <a href="stufen.html">Was jede Stufe öffnet</a></p>
+    </div>
+    <ol class="path">
+      <li class="s1" style="--days:5;--h:1.95">
+        <img src="img/mascots/villager.webp" alt="" width="130" height="256" loading="lazy">
+        <span class="day">Ab Tag 1</span>
+        <strong>Steinwerk</strong>
+        <span class="what">Holz, Stein, Wasserräder, die ersten Zauber.</span>
+      </li>
+      <li class="s2" style="--days:9;--h:1.8">
+        <img src="img/mascots/blaze.webp" alt="" width="136" height="231" loading="lazy">
+        <span class="day">Ab Tag 6</span>
+        <strong>Messingwerk</strong>
+        <span class="what">Messing, der Nether, Mana. Das Portal wird im Stream entzündet.</span>
+      </li>
+      <li class="s3" style="--days:12;--h:0.6">
+        <img src="img/mascots/allay.webp" alt="" width="157" height="148" loading="lazy">
+        <span class="day">Ab Tag 15</span>
+        <strong>Stahlwerk</strong>
+        <span class="what">Stahl, Speichernetze, Alfheim, Rituale mit Folgen.</span>
+      </li>
+      <li class="s4" style="--days:12;--h:2.9">
+        <img src="img/mascots/enderman.webp" alt="" width="82" height="250" loading="lazy">
+        <span class="day">Ab Tag 27</span>
+        <strong>Sternwerk</strong>
+        <span class="what">Das End, Draconium, Gaia. Der Drache ist der erste gemeinsame Boss.</span>
+      </li>
+      <li class="s5" style="--days:14;--h:3.5">
+        <img src="img/mascots/wither.webp" alt="" width="187" height="218" loading="lazy">
+        <span class="day">Ab Tag 39</span>
+        <strong>Chaoswerk</strong>
+        <span class="what">Die letzten Maschinen und der letzte Kampf, zusammen und live.</span>
+      </li>
     </ol>
   </section>
 
-  <section class="panel rein" id="rein">
-    <h2>So kommst du drauf</h2>
+  <section class="band join" id="dabei">
+    <h2>Bis zum Start</h2>
+    <p class="intro">Spielen kannst du ab Mitte Januar. Deinen Platz holst du dir schon jetzt.</p>
     <ol class="steps">
       <li>
-        <h3>Discord beitreten</h3>
-        <p>Im Kanal <code>verifizierung</code> das Captcha lösen. Ohne Discord kein Platz: Wer den Server verlässt, fliegt auch von der Whitelist.</p>
+        <h3>Komm in den Discord</h3>
+        <p>Dort passiert alles vor dem Start: Neuigkeiten, Bewerbungen, die Plätze. Im Kanal <code>verifizierung</code> löst du ein kurzes Captcha.</p>
       </li>
       <li>
-        <h3>Einen Platz bekommen</h3>
-        <p>Jeder Streamer hat Plätze für seine Community und trägt dich mit <code>/whitelist add</code> ein. Streamer bewerben sich mit <code>/apply</code>.</p>
-        <p class="s1">Du hast in Season 1 gespielt? Dann reicht <code>/link</code> mit deinem Minecraft-Namen. Du bist sofort drauf und hast zwei eigene Plätze für Freunde, als Dankeschön.</p>
+        <h3>Hol dir einen Platz</h3>
+        <p>Jeder Streamer bringt Plätze für seine Community mit und trägt dich ein. Streamer bewerben sich im Discord mit <code>/apply</code>.</p>
+        <p class="aside">Du hast Season&nbsp;1 gespielt? Mit <code>/link</code> und deinem Minecraft-Namen ist dein Platz sicher, dazu zwei für Freunde.</p>
       </li>
       <li>
-        <h3>Pack installieren</h3>
-        <p>Das Pack gibt es für die Modrinth App, CurseForge und Prism. Die <a href="installieren.html">Anleitung</a> führt Schritt für Schritt durch und verlinkt immer die Version, die der Server gerade will.</p>
+        <h3>Mach dein Spiel bereit</h3>
+        <p>Das Pack läuft über die Modrinth App, CurseForge oder Prism. Die <a href="installieren.html">Anleitung</a> zeigt, wie viel Speicher es braucht und was du einstellen solltest.</p>
       </li>
     </ol>
   </section>
 
-  <section class="panel pack" id="pack">
-    <h2>Im Pack</h2>
-    <p class="mods"><span>Create</span> <span>Ars Nouveau</span> <span>Botania</span> <span>Mekanism</span> <span>Occultism</span> <span>Immersive Engineering</span> <span>Hexerei</span> <span>Applied Energistics 2</span> <span>Iron's Spells</span> <span>Malum</span> <span>Eidolon</span> <span>Theurgy</span> <span>Mahou Tsukai</span> <span>Draconic Evolution</span> <span>Farmer's Delight</span> <span>Silent Gear</span> <span>Apotheosis</span> <span>Neo Origins</span> <span>Waystones</span></p>
-    <p>Über 220 <a href="mods.html">Mods</a>, Technik und Magie zu gleichen Teilen. Dazu ein Questbuch nach dem Vorbild von All the Mods, allein in Stufe 1 mit 92 Quests, und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. Der Code ist offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
+  <section class="band pack" id="pack">
+    <h2>Über 220 Mods, Technik und Magie zu gleichen Teilen</h2>
+    <ul class="mods" aria-label="Einige Mods aus dem Pack">
+      <li><img src="img/mods/create.webp" alt="" width="48" height="48" loading="lazy">Create</li>
+      <li><img src="img/mods/ars-nouveau.webp" alt="" width="48" height="48" loading="lazy">Ars Nouveau</li>
+      <li><img src="img/mods/mekanism.webp" alt="" width="48" height="48" loading="lazy">Mekanism</li>
+      <li><img src="img/mods/natures-aura.webp" alt="" width="48" height="48" loading="lazy">Nature's Aura</li>
+      <li><img src="img/mods/ae2.webp" alt="" width="48" height="48" loading="lazy">Applied Energistics&nbsp;2</li>
+      <li><img src="img/mods/occultism.webp" alt="" width="48" height="48" loading="lazy">Occultism</li>
+      <li><img src="img/mods/immersiveengineering.webp" alt="" width="48" height="48" loading="lazy">Immersive Engineering</li>
+      <li><img src="img/mods/malum.webp" alt="" width="48" height="48" loading="lazy">Malum</li>
+      <li><img src="img/mods/draconic-evolution.webp" alt="" width="48" height="48" loading="lazy">Draconic Evolution</li>
+      <li><img src="img/mods/theurgy.webp" alt="" width="48" height="48" loading="lazy">Theurgy</li>
+      <li><img src="img/mods/powah.webp" alt="" width="48" height="48" loading="lazy">Powah</li>
+      <li><img src="img/mods/mahou-tsukai.webp" alt="" width="48" height="48" loading="lazy">Mahou Tsukai</li>
+    </ul>
+    <p>Dazu ein Questbuch mit fast 700 Quests auf Deutsch und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. <a href="mods.html">Alle Mods</a>, der Code liegt offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
   </section>
 </main>
 
 <footer class="bottom">
-  <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
+  <nav aria-label="Weitere Seiten">
+    <a href="https://discord.gg/DZs3XyyHDj">Discord</a>
+    <a href="https://github.com/kronwerke">GitHub</a>
+    <a href="overlay.html">Stream-Overlay</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="discord-bot.html">Discord-Bot</a>
+  </nav>
   <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
@@ -125,6 +168,5 @@
 <script src="js/galaxy.js" defer></script>
 <script src="js/names.js" defer></script>
 <script src="js/status.js" defer></script>
-<script src="js/mascot.js" defer></script>
 </body>
 </html>
