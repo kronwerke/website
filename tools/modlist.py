@@ -6,8 +6,10 @@ Usage: modlist.py <path to a checkout of kronwerke/pack> <output folder>
 Every mod file of the pack becomes one entry: name, a short description, a group,
 which side it runs on, and links to Modrinth and CurseForge. Descriptions, groups and
 icons come from the Modrinth API; mods that are only on CurseForge are looked up on
-Modrinth by name, and keep their CurseForge link either way. Icons are downloaded and
-scaled down, so the page loads nothing from other hosts.
+Modrinth by name, and keep their CurseForge link either way. What Modrinth does not have
+(an icon, a text, the CurseForge page) comes from api.cfwidget.com, a public cache of
+CurseForge project pages that needs no key. Icons are downloaded and scaled down, so the
+page loads nothing from other hosts.
 """
 import io
 import json
@@ -21,6 +23,7 @@ import urllib.request
 from PIL import Image
 
 API = "https://api.modrinth.com/v2"
+CFWIDGET = "https://api.cfwidget.com"
 UA = "kronwerke-website/modlist (github.com/kronwerke/website)"
 
 # Modrinth categories to the groups on the page, first match wins
@@ -36,6 +39,8 @@ GROUPS = [
 OVERRIDE = {
     "kronwerke-core": "tech", "botania": "magic", "jei": "comfort", "jade": "comfort",
 }
+# icons that live in this repository
+LOCAL_ICONS = {"kronwerke-core": "favicon.svg"}
 # mods Modrinth does not know: (group, description)
 KNOWN = {
     "Ars Elemental": ("magic", "Elemental schools, foci and armour for Ars Nouveau."),
@@ -81,6 +86,23 @@ def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read()
+
+
+def curseforge(ref):
+    """A CurseForge project by id or by path (minecraft/mc-mods/<slug>), or None."""
+    try:
+        d = json.loads(get(f"{CFWIDGET}/{ref}"))
+    except Exception as err:  # not listed, or the cache is still fetching it
+        print(f"cfwidget {ref}: {err}", file=sys.stderr)
+        return None
+    return d if d.get("id") else None
+
+
+def save_icon(url, name, icons):
+    img = Image.open(io.BytesIO(get(url))).convert("RGBA")
+    img.thumbnail((64, 64), Image.LANCZOS)
+    img.save(icons / name, "WEBP", quality=85)
+    return "img/mods/" + name
 
 
 def group(categories):
@@ -139,6 +161,8 @@ def main(pack, out):
     for m in mods:
         p = info.get(m.get("modrinth") or m.get("lookup"))
         e = {"name": clean(m["name"]), "side": m["side"]}
+        if e["name"] in KNOWN:
+            e["group"], e["text"] = KNOWN[e["name"]]
         if p:
             e["name"] = clean(p["title"])
             e["text"] = tidy(p["description"])
@@ -147,20 +171,32 @@ def main(pack, out):
                 e["modrinth"] = "https://modrinth.com/mod/" + p["slug"]
             if p.get("icon_url"):
                 try:
-                    img = Image.open(io.BytesIO(get(p["icon_url"]))).convert("RGBA")
-                    img.thumbnail((64, 64), Image.LANCZOS)
-                    name = m["key"] + ".webp"
-                    img.save(icons / name, "WEBP", quality=85)
-                    e["icon"] = "img/mods/" + name
+                    e["icon"] = save_icon(p["icon_url"], m["key"] + ".webp", icons)
                 except Exception as err:  # an icon is nice to have, not worth failing for
                     print(f"icon of {m['key']}: {err}", file=sys.stderr)
-        elif e["name"] in KNOWN:
-            e["group"], e["text"] = KNOWN[e["name"]]
+        elif "group" in e:
+            pass
         else:
             e["group"] = OVERRIDE.get(m["key"], "comfort")
             print(f"no description for {e['name']}", file=sys.stderr)
+        # CurseForge: the project page, and an icon or text when Modrinth had none
+        cf = None
         if "curseforge" in m:
             e["curseforge"] = f"https://www.curseforge.com/projects/{m['curseforge']}"
+            cf = curseforge(m["curseforge"])
+        elif "icon" not in e and m["key"] not in LOCAL_ICONS:
+            cf = curseforge("minecraft/mc-mods/" + slug(e["name"]))
+        if cf:
+            e["curseforge"] = cf.get("urls", {}).get("curseforge") or e.get("curseforge")
+            if not e.get("text") and cf.get("summary"):
+                e["text"] = tidy(cf["summary"])
+            if "icon" not in e and cf.get("thumbnail"):
+                try:
+                    e["icon"] = save_icon(cf["thumbnail"], m["key"] + ".webp", icons)
+                except Exception as err:
+                    print(f"icon of {m['key']}: {err}", file=sys.stderr)
+        if m["key"] in LOCAL_ICONS:
+            e["icon"] = LOCAL_ICONS[m["key"]]
         if "source" in m:
             e["source"] = m["source"]
         out_mods.append(e)
