@@ -84,6 +84,7 @@
     if (m.modrinth) links.append(link(m.modrinth, "Modrinth"));
     if (m.curseforge) links.append(link(m.curseforge, "CurseForge"));
     if (m.source) links.append(link(m.source, "Quelle"));
+    if (info && info.last > 1) links.append(link("stufen.html?mod=" + encodeURIComponent(m.name) + "#finder", "Wann öffnet was"));
     if (m.side === "server") links.append(make("span", "pill", "nur Server"));
     if (m.side === "client") links.append(make("span", "pill", "nur Client"));
     li.append(links);
