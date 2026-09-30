@@ -57,6 +57,14 @@
     });
   }
 
+  // ---- the season strip: the current phase lights up by date
+  const season = document.querySelector(".season");
+  if (season) {
+    const now = Date.now();
+    const phase = now >= Date.parse("2027-01-11T00:00:00+01:00") ? 2 : now >= Date.parse("2026-12-01T00:00:00+01:00") ? 1 : 0;
+    season.querySelectorAll("li").forEach((li, i) => li.classList.toggle("now", i === phase));
+  }
+
   // ---- how far away the start is, in rough terms because the day is not fixed yet
   const cd = document.getElementById("countdown");
   if (cd) {
