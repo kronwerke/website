@@ -106,6 +106,15 @@
     setTimeout(() => img.classList.remove("poke"), 1500);
   });
 
+  // ---- the overlay preview is the real thing at 1920 by 1080, scaled to the box it sits in
+  const demo = document.querySelector(".demo");
+  if (demo) {
+    const fit = () => demo.style.setProperty("--k", (demo.clientWidth / 1920).toFixed(4));
+    fit();
+    let t = 0;
+    window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(fit, 200); });
+  }
+
   // ---- the pill in the header: what the server does right now
   const live = document.getElementById("live");
   if (live) {
