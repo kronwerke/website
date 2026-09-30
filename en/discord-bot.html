@@ -3,62 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Discord bot · Kronwerke</title>
-<meta name="description" content="Terms of service and privacy policy of the Kronwerke bot on Discord.">
-<link rel="preload" href="../fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<title>Discord bot, Kronwerke</title>
+<meta name="description" content="Terms of service and privacy of the Kronwerke Discord bot.">
+<meta name="theme-color" content="#0f1024">
+<meta property="og:title" content="Discord bot, Kronwerke">
+<meta property="og:description" content="Terms of service and privacy of the Kronwerke Discord bot.">
+<meta property="og:type" content="website">
+<link rel="preload" href="../fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/site.css">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 </head>
-<body class="legal">
+<body class="page" data-page="en-discord-bot">
 <header class="top">
-  <a class="mark" href="../index.html">Kronwerke</a>
-  <nav aria-label="Pages"><a class="jump" href="#terms">Terms</a> <a class="jump" href="#privacy">Privacy</a> <a href="../discord-bot.html" lang="de">Deutsch</a> <a href="../index.html">Back</a></nav>
+  <a class="mark" href="../index.html" aria-label="Kronwerke, home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
+  <nav aria-label="Pages">
+    <a href="../stufen.html">Stages</a>
+    <a href="../mods.html">Mods</a>
+    <a href="../installieren.html">Install</a>
+    <a href="../faq.html">Questions</a>
+  </nav>
+  <a class="live" id="live" href="../status.html"><span class="dot"></span><span>Opens mid-January</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
+
 <main>
-<section class="panel">
-<h2>Discord bot</h2>
+<div class="intro"><h1>Discord bot</h1><p class="lede">The Kronwerke bot verifies members, manages whitelist slots and takes streamer applications. This is what it may do and what it stores.</p></div><div class="legal">
+<section class="sec">
+
 <p>The bot "Kronwerke" runs only on the Kronwerke Discord. It checks new members with a captcha, takes applications from streamers, manages the places on the Minecraft server's whitelist and shows whether the server is up. It is built and run by <a href="https://elchi.dev">Elchi Studios</a>, see the <a href="imprint.html">imprint</a>.</p>
 <p class="note">This is a translation. If it differs from the <a href="../discord-bot.html">German version</a>, the German version applies.</p>
 <p class="stand">Last updated: 30 September 2026</p>
 </section>
 
-<section class="panel" id="terms">
+<section class="sec" id="terms">
 <h2>Terms of service</h2>
-<h3>Scope</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Scope</h2>
 <p>By using the bot, that is solving the captcha, applying with <code>/apply</code> or using <code>/link</code> and <code>/whitelist</code>, you agree to these terms. Discord's terms and the rules of the Kronwerke Discord apply as well.</p>
-<h3>No entitlement</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">No entitlement</h2>
 <p>Kronwerke is a free community project. There is no entitlement to the bot or the Minecraft server being available, to an application being accepted or to a place on the whitelist. Features can change or go away at any time.</p>
-<h3>Whitelist places</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Whitelist places</h2>
 <p>A place is valid only while you are on the Kronwerke Discord. Leaving the Discord ends your place, and the places you gave to others become free. Places may not be sold or passed on for money or anything else in return.</p>
-<h3>Not allowed</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Not allowed</h2>
 <p>Solving or bypassing the captcha automatically, flooding the bot with requests, giving false information in an application, or entering Minecraft names that are not yours. The team can then take places and roles away and remove you from the Discord.</p>
-<h3>Liability</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Liability</h2>
 <p>As far as the law allows, we are liable only for intent and gross negligence.</p>
-<h3>Changes</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Changes</h2>
 <p>Changes appear on this page with a new date. Using the bot afterwards means you accept them.</p>
 </section>
 
-<section class="panel" id="privacy">
+<section class="sec" id="privacy">
 <h2>Privacy of the bot</h2>
-<h3>Controller</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Controller</h2>
 <p>Elchi Studios, Samuel Krauss, see the <a href="imprint.html">imprint</a>. Questions and requests to legal@elchi.dev.</p>
-<h3>What Discord sends the bot</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">What Discord sends the bot</h2>
 <p>For every member of the Kronwerke Discord, Discord sends the bot the user ID, the username, the display name and the roles, and the messages in the channels the bot can see. The bot reads messages as commands only in the team's channel, and deletes messages in the "trash" channel after a minute. It does not store message content.</p>
-<h3>What the bot stores</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">What the bot stores</h2>
 <p><strong>Verification:</strong> the code of your captcha for at most ten minutes, wrong attempts and a ten minute lock after three of them, and when you were verified.</p>
 <p><strong>Applications:</strong> the bot posts your answers in the form (your channel, viewer count, how often you stream, your experience, why Kronwerke) into a private channel on the Kronwerke Discord that only you and the team can see. The channel is deleted 48 hours after the decision. After that only the decision, who made it and when remain, as a line in the team's log channel.</p>
 <p><strong>Whitelist:</strong> your Minecraft name, who gave you the place and when, and for a place of your own whether you are a streamer or a Season 1 player. The name goes to our Minecraft server, which puts it on the whitelist.</p>
 <p><strong>Logs:</strong> what the bot does, such as "is verified" or "is on the whitelist", appears with your username in the team's log and whitelist channels and in the system log of the server the bot runs on.</p>
-<h3>Purpose and legal basis</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Purpose and legal basis</h2>
 <p>To protect the Discord from spam accounts, to handle applications and to keep the whitelist, and for nothing else. Under the GDPR the basis is Art. 6(1)(b) (taking part in Kronwerke, which you ask for) and Art. 6(1)(f) (protection from abuse). Under the Swiss FADP the data is processed only for these purposes.</p>
-<h3>Where the data is</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Where the data is</h2>
 <p>The bot runs on a server of 24fire GmbH in Germany, the Minecraft server at a game server host. Both process the data only on our behalf. Discord Inc. in the USA processes your data under its own privacy policy, which we have no influence on.</p>
-<h3>How long</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">How long</h2>
 <p>When you leave the Kronwerke Discord, the bot takes back your whitelist place and deletes your Minecraft name, your verification and the captcha. Application channels are deleted 48 hours after the decision. Everything else is kept until the end of the season or until you ask for deletion. The server's system log overwrites older entries over time.</p>
-<h3>Your rights</h3>
+<h2 style="font-size:1.4rem;margin-top:2rem">Your rights</h2>
 <p>You can ask what we hold, and have data corrected, deleted or restricted. You can object and get your data in a common format. Write to legal@elchi.dev. You can complain to the FDPIC in Switzerland or to the data protection authority of your country in the EU.</p>
 </section>
+</div>
 </main>
+
+<footer class="bottom">
+  <div class="cols">
+    <div><h4>Play</h4><a href="../stufen.html">Stages</a><a href="../herkunft.html">Origins</a><a href="../mods.html">Mods</a><a href="../installieren.html">Install</a><a href="../faq.html">Questions</a><a href="../status.html">Status</a></div>
+    <div><h4>Take part</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="../streamer.html">For streamers</a><a href="../partner.html">Partners</a><a href="../overlay.html">Stream overlay</a></div>
+    <div><h4>Project</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord bot</a><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a><a href="../discord-bot.html" lang="de">Deutsch</a></div>
+  </div>
+  <p class="made">A project by <a href="https://elchi.dev">Elchi Studios</a>. Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+</footer>
+
+<script src="../js/site.js" defer></script>
 </body>
 </html>

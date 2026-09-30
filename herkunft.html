@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de" class="sky-still">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herkunft und Rolle, Kronwerke</title>
+<meta name="description" content="Neun Herkünfte und sieben Rollen für Kronwerke Season 2, jede mit Kräften, einem echten Nachteil und dem Grund dahinter.">
+<meta name="theme-color" content="#0f1024">
+<meta property="og:title" content="Herkunft und Rolle, Kronwerke">
+<meta property="og:description" content="Neun Herkünfte und sieben Rollen für Kronwerke Season 2, jede mit Kräften, einem echten Nachteil und dem Grund dahinter.">
+<meta property="og:type" content="website">
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="page" data-page="herkunft">
+<header class="top">
+  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
+  <nav aria-label="Seiten">
+    <a href="stufen.html">Stufen</a>
+    <a href="herkunft.html" aria-current="page">Herkunft</a>
+    <a href="mods.html">Mods</a>
+    <a href="installieren.html">Installieren</a>
+    <a href="streamer.html">Streamer</a>
+    <a href="faq.html">Fragen</a>
+  </nav>
+  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start Mitte Januar</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+</header>
+
+<main>
+<div class="intro"><div class="with"><div><h1>Herkunft und Rolle</h1><p class="lede">Beim ersten Beitritt wählst du beides. Eine Herkunft prägt, wie du spielst, und hat immer einen echten Nachteil. Eine Rolle sagt, was du für den Server tust, und hat nur drei kleine Boni.</p></div><img class="mob-enderman" src="img/mascots/enderman.webp" alt="" width="82" height="250" loading="lazy"></div></div>
+<div class="docs">
+<nav class="rail" aria-label="Auf dieser Seite"><ol>
+  <li><a href="#quiz"><span class="n plain">?</span>Welche passt zu mir</a></li>
+  <li><a href="#herkuenfte"><span class="n plain">9</span>Herkünfte</a></li>
+  <li><a href="#rollen"><span class="n plain">7</span>Rollen</a></li>
+  <li><a href="#grundsaetze"><span class="n plain">!</span>Grundsätze</a></li>
+</ol></nav>
+<div class="body">
+<section class="sec" id="quiz">
+<h2>Welche passt zu mir?</h2>
+<form class="quiz" id="quiz-form">
+  <fieldset><legend>Was machst du in Minecraft am liebsten?</legend><div class="opts">
+    <label><input type="radio" name="do" value="build"><span>Bauen</span></label>
+    <label><input type="radio" name="do" value="tech"><span>Maschinen</span></label>
+    <label><input type="radio" name="do" value="magic"><span>Zaubern</span></label>
+    <label><input type="radio" name="do" value="fight"><span>Kämpfen</span></label>
+    <label><input type="radio" name="do" value="explore"><span>Erkunden</span></label>
+    <label><input type="radio" name="do" value="mine"><span>Graben</span></label>
+  </div></fieldset>
+  <fieldset><legend>Wie viel willst du im Kopf behalten?</legend><div class="opts">
+    <label><input type="radio" name="care" value="low"><span>So wenig wie möglich</span></label>
+    <label><input type="radio" name="care" value="mid"><span>Ein bisschen ist okay</span></label>
+    <label><input type="radio" name="care" value="high"><span>Gib mir was zu managen</span></label>
+  </div></fieldset>
+  <fieldset><legend>Wie spielst du meistens?</legend><div class="opts">
+    <label><input type="radio" name="who" value="group"><span>Mit anderen</span></label>
+    <label><input type="radio" name="who" value="solo"><span>Eher für mich</span></label>
+  </div></fieldset>
+  <p class="result" id="quiz-out" hidden></p>
+</form>
+</section>
+<section class="sec" id="herkuenfte">
+<h2>Neun Herkünfte</h2>
+<p>Klick eine an. Die Striche zeigen, wie stark sie dein Spiel verändert.</p>
+<div class="origins" id="origins"><button class="origin" type="button" data-id="kronbuerger" aria-expanded="false" aria-controls="o-kronbuerger"><img src="img/origins/kronbuerger.png" alt="" width="48" height="48"><strong>Kronbürger</strong><span class="sub">Aus der Stadt um den Obelisken</span><span class="imp" aria-label="Auswirkung gering"><i class="on"></i><i class=""></i><i class=""></i> gering</span></button><div class="detail" id="o-kronbuerger" hidden><h3><img src="img/origins/kronbuerger.png" alt="">Kronbürger</h3><p>Die Wahl für alle, die neu sind: nichts zu lernen, nichts zu managen, und der Gedanke der Season als Kraft.</p><ul class="powers"><li><b>Gemeinsinn</b><span>Regeneration I, solange ein anderer Spieler im Umkreis von 16 Blöcken ist und du fünf Sekunden nicht gekämpft hast.<em class="why">Belohnt das Zusammenspielen, ohne Alleinspielen schlechter als Vanilla zu machen.</em></span></li><li><b>Zupackende Hände</b><span>Hunger sinkt 15 Prozent langsamer.<em class="why">Klein, immer nützlich, nichts zu lernen.</em></span></li><li class="down"><b>Heimweh</b><span>Hunger sinkt 30 Prozent schneller außerhalb der Oberwelt.<em class="why">Auf langen Nether- und End-Reisen spürbar, in der Basis egal.</em></span></li></ul></div><button class="origin" type="button" data-id="muehlenkind" aria-expanded="false" aria-controls="o-muehlenkind"><img src="img/origins/muehlenkind.png" alt="" width="48" height="48"><strong>Mühlenkind</strong><span class="sub">Unter den Wasserrädern des Steinwerks</span><span class="imp" aria-label="Auswirkung gering"><i class="on"></i><i class=""></i><i class=""></i> gering</span></button><div class="detail" id="o-muehlenkind" hidden><h3><img src="img/origins/muehlenkind.png" alt="">Mühlenkind</h3><p>Die zweite Wahl für Neulinge: Wasser ist dein Element, Hitze nicht.</p><ul class="powers"><li><b>Flussatem</b><span>Luft reicht etwa dreimal so lange.<em class="why">Wasserräder, Schleusen und Fundamente im Fluss in Stufe 1.</em></span></li><li><b>Stromschwimmer</b><span>Schwimmt 30 Prozent schneller.</span></li><li><b>Nasse Hände</b><span>Kein Abbau-Malus unter Wasser.<em class="why">Kein Extra-Drop, nur Tempo.</em></span></li><li class="down"><b>Trockene Kehle</b><span>Langsamkeit I und Hunger I in heißen Biomen (Wüste, Savanne, Badlands, Nether), außer du stehst im Wasser.<em class="why">Der Nether wird ein Ort, an den man mit anderen geht.</em></span></li></ul></div><button class="origin" type="button" data-id="tiefgraeber" aria-expanded="false" aria-controls="o-tiefgraeber"><img src="img/origins/tiefgraeber.png" alt="" width="48" height="48"><strong>Tiefgräber</strong><span class="sub">Aus den Stollen der Mining Dimension</span><span class="imp" aria-label="Auswirkung mittel"><i class="on"></i><i class="on"></i><i class=""></i> mittel</span></button><div class="detail" id="o-tiefgraeber" hidden><h3><img src="img/origins/tiefgraeber.png" alt="">Tiefgräber</h3><p>Der Bergmann. Unter Tage stark, am Tag unter freiem Himmel nicht.</p><ul class="powers"><li><b>Stollenaugen</b><span>Nachtsicht, mit der Taste für Nachtsicht an und aus.</span></li><li><b>Hauerhand</b><span>Baut Spitzhacken-Blöcke 25 Prozent schneller ab.<em class="why">Nur Tempo. Kein Glück, kein Extra-Erz.</em></span></li><li><b>Heimat unter Tage</b><span>Eile I in der Mining Dimension.<em class="why">Ein Ort, der am ersten Tag offen ist.</em></span></li><li class="down"><b>Lichtscheu</b><span>Schwäche I und Langsamkeit I am Tag unter offenem Himmel. Ein Helm hilft nicht.<em class="why">Der Tiefgräber baut unter einem Dach oder arbeitet nachts.</em></span></li></ul></div><button class="origin" type="button" data-id="messingblut" aria-expanded="false" aria-controls="o-messingblut"><img src="img/origins/messingblut.png" alt="" width="48" height="48"><strong>Messingblut</strong><span class="sub">Aus den Schmieden des Messingwerks</span><span class="imp" aria-label="Auswirkung mittel"><i class="on"></i><i class="on"></i><i class=""></i> mittel</span></button><div class="detail" id="o-messingblut" hidden><h3><img src="img/origins/messingblut.png" alt="">Messingblut</h3><p>Der Nether-Pionier für Stufe 2: Lohenstaub wird Messing, und Messing ist das Ziel.</p><ul class="powers"><li><b>Hitzefest</b><span>Halber Schaden durch Feuer, Lava und Brennen.<em class="why">Lava ist immer noch tödlich, nur langsamer.</em></span></li><li><b>Schmiedeglut</b><span>Eile I in der Nähe von Öfen, Lohenbrennern und Lagerfeuern.<em class="why">Belohnt die Schmiede-Ecke der Basis.</em></span></li><li class="down"><b>Rostig</b><span>Langsamkeit I und Abbaulähmung I im Wasser und im Regen.<em class="why">Regen gibt es überall in der Oberwelt, das merkt man oft.</em></span></li></ul></div><button class="origin" type="button" data-id="aurakind" aria-expanded="false" aria-controls="o-aurakind"><img src="img/origins/aurakind.png" alt="" width="48" height="48"><strong>Aurakind</strong><span class="sub">Neben einem Naturaltar aufgewachsen</span><span class="imp" aria-label="Auswirkung mittel"><i class="on"></i><i class="on"></i><i class=""></i> mittel</span></button><div class="detail" id="o-aurakind" hidden><h3><img src="img/origins/aurakind.png" alt="">Aurakind</h3><p>Naturmagie: heilt im Wald, hat Glück, und kommt mit dem Nether und dem End nicht klar.</p><ul class="powers"><li><b>Waldatem</b><span>Heilt alle vier Sekunden ein halbes Herz in Wald, Taiga und Dschungel.</span></li><li><b>Kräuterblut</b><span>Immun gegen Gift.</span></li><li><b>Naturglück</b><span>+1 Glück.<em class="why">Besseres Angeln und bessere Kisten, kein Erz.</em></span></li><li class="down"><b>Fern der Wurzeln</b><span>Schwäche I und Abbaulähmung I im Nether und im End.<em class="why">Genau da müssen andere für das Aurakind graben.</em></span></li></ul></div><button class="origin" type="button" data-id="quellgeborene" aria-expanded="false" aria-controls="o-quellgeborene"><img src="img/origins/quellgeborene.png" alt="" width="48" height="48"><strong>Quellgeborene</strong><span class="sub">An einer Quelle von Ars Nouveau geboren</span><span class="imp" aria-label="Auswirkung mittel"><i class="on"></i><i class="on"></i><i class=""></i> mittel</span></button><div class="detail" id="o-quellgeborene" hidden><h3><img src="img/origins/quellgeborene.png" alt="">Quellgeborene</h3><p>Die Magierin, der Magier: mehr Mana, weniger Herzen, keine schwere Rüstung.</p><ul class="powers"><li><b>Tiefe Quelle</b><span>+50 Ars-Nouveau-Mana (Basis 100).<em class="why">Mehr Zauber, keine neuen: die Glyphen-Stufen bleiben.</em></span></li><li><b>Zaubersinn</b><span>+50 Mana bei Iron's Spells (Basis 100).</span></li><li class="down"><b>Zarter Leib</b><span>Ein Herz weniger.</span></li><li class="down"><b>Kein Eisen am Leib</b><span>Keine Rüstung aus Eisen, Gold, Diamant oder Netherit.<em class="why">Magierroben und Leder.</em></span></li></ul></div><button class="origin" type="button" data-id="runentraeger" aria-expanded="false" aria-controls="o-runentraeger"><img src="img/origins/runentraeger.png" alt="" width="48" height="48"><strong>Runenträger</strong><span class="sub">Die Runen des Obelisken auf der Haut</span><span class="imp" aria-label="Auswirkung mittel"><i class="on"></i><i class="on"></i><i class=""></i> mittel</span></button><div class="detail" id="o-runentraeger" hidden><h3><img src="img/origins/runentraeger.png" alt="">Runenträger</h3><p>Der Tank für die Bosskämpfe: Afrits, der Drache, Gaia, der Chaoswächter.</p><ul class="powers"><li><b>Runenhaut</b><span>+2 Rüstung.</span></li><li><b>Bannzeichen</b><span>30 Prozent weniger Schaden durch Magie.</span></li><li><b>Standfest</b><span>+0,25 Rückstoßwiderstand.<em class="why">Hält die Linie.</em></span></li><li class="down"><b>Schwere Zeichen</b><span>10 Prozent langsamer.<em class="why">Auf jedem Weg spürbar.</em></span></li></ul></div><button class="origin" type="button" data-id="sternensplitter" aria-expanded="false" aria-controls="o-sternensplitter"><img src="img/origins/sternensplitter.png" alt="" width="48" height="48"><strong>Sternensplitter</strong><span class="sub">Trägt einen Splitter des Sternwerks</span><span class="imp" aria-label="Auswirkung hoch"><i class="on"></i><i class="on"></i><i class="on"></i> hoch</span></button><div class="detail" id="o-sternensplitter" hidden><h3><img src="img/origins/sternensplitter.png" alt="">Sternensplitter</h3><p>Die Beweglichste von allen, mit dem größten Preis.</p><ul class="powers"><li><b>Sternensprung</b><span>Teleportiert dich auf den Block, den du ansiehst, bis 16 Blöcke weit. Zehn Sekunden Abklingzeit, kostet zwei Hunger. Nicht durch Wände.<em class="why">Eine Enderperle mit kurzer Reichweite. Beweglichkeit ohne Fliegen.</em></span></li><li><b>Sternenstaub</b><span>Halber Fallschaden.</span></li><li><b>Endblick</b><span>Endermen werden nicht wütend, wenn du sie ansiehst.<em class="why">Für das End in Stufe 4.</em></span></li><li class="down"><b>Splitterleib</b><span>Zwei Herzen weniger.<em class="why">Der größte Abzug aller Herkünfte.</em></span></li></ul></div><button class="origin" type="button" data-id="chaosgezeichnete" aria-expanded="false" aria-controls="o-chaosgezeichnete"><img src="img/origins/chaosgezeichnete.png" alt="" width="48" height="48"><strong>Chaosgezeichnete</strong><span class="sub">Vom Chaos am Ende aller Stufen gezeichnet</span><span class="imp" aria-label="Auswirkung hoch"><i class="on"></i><i class="on"></i><i class="on"></i> hoch</span></button><div class="detail" id="o-chaosgezeichnete" hidden><h3><img src="img/origins/chaosgezeichnete.png" alt="">Chaosgezeichnete</h3><p>Die Kämpferin, der Kämpfer: mehr Schaden, Heilung im Kampf, und danach lange nichts.</p><ul class="powers"><li><b>Chaosfunke</b><span>+2 Angriffsschaden.</span></li><li><b>Zehrendes Chaos</b><span>Heilt ein Herz bei jedem Kill.</span></li><li class="down"><b>Unstet</b><span>Natürliche Regeneration nur halb so schnell.<em class="why">Zwischen den Kämpfen helfen Tränke oder ein Kronbürger in der Nähe.</em></span></li></ul></div></div>
+</section>
+<section class="sec" id="rollen">
+<h2>Sieben Rollen</h2>
+<p>Ohne Nachteil und klein. Jede zeigt auf einen Teil der Obeliskenziele.</p>
+<div class="origins" id="roles"><div class="origin" data-id="ingenieur" tabindex="0"><img src="img/origins/ingenieur.png" alt="" width="48" height="48"><strong>Ingenieur</strong><span class="sub">Die Technik-Säule</span><span class="txt">Startet mit einem Schraubenschlüssel. +1 Zahnrad pro von Hand gebautem Zahnrad. Halber Schaden durch Create-Maschinen.</span></div><div class="origin" data-id="arkanist" tabindex="0"><img src="img/origins/arkanist.png" alt="" width="48" height="48"><strong>Arkanist</strong><span class="sub">Die Magie-Säule</span><span class="txt">+1 Mana-Regeneration pro Sekunde bei Ars Nouveau. Tränke wirken 25 Prozent länger. Startet mit einem Novizen-Zauberbuch.</span></div><div class="origin" data-id="baumeister" tabindex="0"><img src="img/origins/baumeister.png" alt="" width="48" height="48"><strong>Baumeister</strong><span class="sub">20 000 Bruchstein und die Stadt</span><span class="txt">Baut Stein 30 Prozent schneller ab. +1,5 Blöcke Reichweite. 40 Prozent weniger Fallschaden.</span></div><div class="origin" data-id="entdecker" tabindex="0"><img src="img/origins/entdecker.png" alt="" width="48" height="48"><strong>Entdecker</strong><span class="sub">Biome, Strukturen, was der Stadt fehlt</span><span class="txt">Hunger sinkt 20 Prozent langsamer. 5 Prozent schneller zu Fuß. Startet mit einem Nature's Compass.</span></div><div class="origin" data-id="hueter" tabindex="0"><img src="img/origins/hueter.png" alt="" width="48" height="48"><strong>Hüter</strong><span class="sub">Afrits, der Drache, Gaia, der Chaoswächter</span><span class="txt">+2 Rüstung. +1 Herz. Untote, die du triffst, bekommen vier Sekunden Schwäche.</span></div><div class="origin" data-id="versorger" tabindex="0"><img src="img/origins/versorger.png" alt="" width="48" height="48"><strong>Versorger</strong><span class="sub">Dreißig Spieler sieben Wochen lang satt</span><span class="txt">30 Prozent Chance auf Zwillinge beim Züchten. Selbst gekochtes Essen sättigt mehr. Immun gegen Hunger und Übelkeit.</span></div><div class="origin" data-id="haendler" tabindex="0"><img src="img/origins/haendler.png" alt="" width="48" height="48"><strong>Händler</strong><span class="sub">Handel und Transport zwischen den Basen</span><span class="txt">Etwa 15 Prozent günstigere Dorfbewohner. +1 Glück. Neun Extra-Slots im Inventar, offen mit der Fähigkeiten-Taste, fallen beim Tod.</span></div></div>
+</section>
+<section class="sec" id="grundsaetze">
+<h2>Grundsätze</h2>
+<ol class="opens">
+  <li>Wenige, gute Wahlmöglichkeiten. Jede sagt im ersten Satz, woher sie in Kronwerke kommt.</li>
+  <li>Jede Herkunft hat einen Nachteil, den man jede Session merkt, keine Fußnote.</li>
+  <li>Nichts überspringt die Stufen. Kein Fliegen, kein Extra-Erz, kein Bonus auf Ziel-Items. Kräfte machen dich schneller oder zäher bei dem, was du ohnehin darfst.</li>
+  <li>Herkünfte prägen, wie du spielst. Rollen prägen, was du für den Server tust.</li>
+  <li>Zwei Herkünfte für Neulinge: Kronbürger und Mühlenkind.</li>
+  <li>Niemand kommt allein voran. Das Aurakind braucht Freunde im Nether, der Tiefgräber meidet den Tag, der Kronbürger heilt am besten in Gesellschaft.</li>
+</ol>
+<p class="note">Beim Wechseln hilft der Orb of Origin. Die Kräfte werden nach der Beta im Dezember noch nachgestellt.</p>
+</section>
+</div>
+</div>
+</main>
+
+<footer class="bottom">
+  <div class="cols">
+    <div><h4>Spielen</h4><a href="stufen.html">Stufen</a><a href="herkunft.html">Herkunft und Rolle</a><a href="mods.html">Mods</a><a href="installieren.html">Installieren</a><a href="faq.html">Fragen</a><a href="status.html">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer.html">Für Streamer</a><a href="partner.html">Partner</a><a href="overlay.html">Stream-Overlay</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord-Bot</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="en/discord-bot.html" lang="en">English</a></div>
+  </div>
+  <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
+  <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
+</footer>
+
+<script src="js/herkunft.js" defer></script>
+<script src="js/site.js" defer></script>
+</body>
+</html>

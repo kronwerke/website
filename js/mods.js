@@ -1,19 +1,21 @@
 // The mod list: loads data/mods.json (built from the pack by tools/modlist.py), filters by
-// group and by what is typed into the search box. The state lives in the address (#tech, ?q=).
+// group, by stage and by what is typed into the search box. The state lives in the address
+// (#tech, ?q=, ?stufe=). Which stage a mod opens in comes from modstages.js.
 
 (function () {
   "use strict";
 
-  const GROUPS = [
-    ["all", "Alle"], ["tech", "Technik"], ["magic", "Magie"], ["world", "Welt"], ["gear", "Ausrüstung"],
-    ["food", "Essen"], ["build", "Bauen"], ["comfort", "Komfort"], ["performance", "Leistung"], ["library", "Bibliotheken"],
-  ];
   const list = document.getElementById("mods");
   const q = document.getElementById("q");
   const count = document.getElementById("count");
   const chips = document.getElementById("groups");
+  const stageChips = document.getElementById("stages");
+  const ST = window.KW.modstages;
+  const key = window.KW.stageKey;
+  const params = new URLSearchParams(location.search);
   let mods = [];
   let group = (location.hash || "#all").slice(1);
+  let stage = Number(params.get("stufe")) || 0;
 
   function make(tag, cls, s) {
     const el = document.createElement(tag);
@@ -26,6 +28,32 @@
     a.href = href;
     a.rel = "noopener";
     return a;
+  }
+
+  // the five fields: full colour where the mod has most of its items, faint where a few
+  function strip(by) {
+    const el = make("span", "strip");
+    const total = Object.values(by).reduce((a, b) => a + b, 0);
+    const parts = [];
+    for (let n = 1; n <= 5; n++) {
+      const i = document.createElement("i");
+      const c = by[n] || 0;
+      if (c) { i.className = "s" + n + (c / total < 0.15 ? " half" : ""); parts.push("Stufe " + n + ": " + c); }
+      el.append(i);
+    }
+    el.setAttribute("title", parts.join(", ") + " Items");
+    return el;
+  }
+  function stageInfo(m) {
+    const st = ST[key(m.name)];
+    if (!st) return null;
+    const stages = Object.keys(st.by).map(Number).sort();
+    return { by: st.by, first: stages[0], last: stages[stages.length - 1] };
+  }
+  function stageText(info) {
+    if (!info) return "";
+    if (info.first === info.last) return "ab Stufe " + info.first;
+    return "ab Stufe " + info.first + ", voll ab Stufe " + info.last;
   }
 
   function item(m) {
@@ -41,17 +69,24 @@
     } else {
       li.append(make("span", "noicon"));
     }
-    const body = make("div");
-    body.append(make("h3", "", m.name));
-    if (m.text) body.append(make("p", "", m.text));
+    const h = make("h3", "", m.name);
+    li.append(h);
+    const info = stageInfo(m);
+    if (info) {
+      const note = make("p", "stage-note");
+      note.append(strip(info.by), stageText(info));
+      li.append(note);
+    } else if (m.group !== "library") {
+      li.append(make("p", "stage-note", "immer offen"));
+    }
+    if (m.text) li.append(make("p", "", m.text));
     const links = make("p", "links");
     if (m.modrinth) links.append(link(m.modrinth, "Modrinth"));
     if (m.curseforge) links.append(link(m.curseforge, "CurseForge"));
     if (m.source) links.append(link(m.source, "Quelle"));
     if (m.side === "server") links.append(make("span", "pill", "nur Server"));
     if (m.side === "client") links.append(make("span", "pill", "nur Client"));
-    body.append(links);
-    li.append(body);
+    li.append(links);
     return li;
   }
 
@@ -59,6 +94,10 @@
     const words = q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const shown = mods.filter((m) => {
       if (group !== "all" && m.group !== group) return false;
+      if (stage) {
+        const info = stageInfo(m);
+        if (!info || !info.by[stage]) return false;
+      }
       const hay = (m.name + " " + (m.text || "")).toLowerCase();
       return words.every((w) => hay.includes(w));
     });
@@ -68,28 +107,22 @@
     list.append(frag);
     count.textContent = shown.length === mods.length ? mods.length + " Mods" : shown.length + " von " + mods.length + " Mods";
     for (const b of chips.children) b.setAttribute("aria-pressed", String(b.dataset.group === group));
+    for (const b of stageChips.children) b.setAttribute("aria-pressed", String(Number(b.dataset.stage) === stage));
+    const url = new URL(location.href);
+    if (q.value.trim()) url.searchParams.set("q", q.value.trim()); else url.searchParams.delete("q");
+    if (stage) url.searchParams.set("stufe", stage); else url.searchParams.delete("stufe");
+    url.hash = group === "all" ? "" : "#" + group;
+    history.replaceState(null, "", url);
   }
 
-  // the buttons are in the page already (so nothing moves when this runs); older copies
-  // of the page without them get them made here
-  if (!chips.children.length) {
-    for (const [id, label] of GROUPS) {
-      const b = make("button", "chip", label);
-      b.type = "button";
-      b.dataset.group = id;
-      chips.append(b);
-    }
-  }
   for (const b of chips.children) {
-    const id = b.dataset.group;
-    b.addEventListener("click", () => {
-      group = id;
-      history.replaceState(null, "", id === "all" ? location.pathname + location.search : "#" + id);
-      render();
-    });
+    b.addEventListener("click", () => { group = b.dataset.group; render(); });
   }
-  if (!GROUPS.some(([id]) => id === group)) group = "all";
-  q.value = new URLSearchParams(location.search).get("q") || "";
+  for (const b of stageChips.children) {
+    b.addEventListener("click", () => { const n = Number(b.dataset.stage); stage = stage === n ? 0 : n; render(); });
+  }
+  if (![...chips.children].some((b) => b.dataset.group === group)) group = "all";
+  q.value = params.get("q") || "";
   q.addEventListener("input", render);
 
   fetch("data/mods.json")

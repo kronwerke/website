@@ -8,7 +8,7 @@
   const API = "/api/status";
   const statusEl = document.getElementById("status");
   const goalEl = document.getElementById("goal");
-  const nf = new Intl.NumberFormat("de-DE");
+  const nf = { format: window.KW.fmt };
 
   function text(el, s) { el.textContent = s; return el; }
   function make(tag, cls, s) {

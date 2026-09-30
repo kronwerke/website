@@ -3,93 +3,120 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Installieren · Kronwerke</title>
-<meta name="description" content="Das Kronwerke-Pack installieren: Schritt für Schritt für die Modrinth App, CurseForge und Prism.">
-<meta name="theme-color" content="#0e0c11">
-<link rel="preload" href="fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<title>Installieren, Kronwerke</title>
+<meta name="description" content="Das Kronwerke-Pack installieren: Schritt für Schritt für die Modrinth App, CurseForge und Prism, mit Speicher-Tipps.">
+<meta name="theme-color" content="#0f1024">
+<meta property="og:title" content="Installieren, Kronwerke">
+<meta property="og:description" content="Das Kronwerke-Pack installieren: Schritt für Schritt für die Modrinth App, CurseForge und Prism, mit Speicher-Tipps.">
+<meta property="og:type" content="website">
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="page" data-page="installieren">
 <header class="top">
-  <a class="mark" href="index.html">Kronwerke</a>
+  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
   <nav aria-label="Seiten">
     <a href="stufen.html">Stufen</a>
+    <a href="herkunft.html">Herkunft</a>
     <a href="mods.html">Mods</a>
     <a href="installieren.html" aria-current="page">Installieren</a>
-    <a href="faq.html">FAQ</a>
-    <a href="status.html">Status</a>
-    <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+    <a href="streamer.html">Streamer</a>
+    <a href="faq.html">Fragen</a>
   </nav>
+  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start Mitte Januar</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
 <main>
-<section class="panel wide">
-<h2>Installieren</h2>
-<p class="lede">In fünf Minuten im Spiel. Womit spielst du Minecraft?</p>
+<div class="intro"><h1>Installieren</h1><p class="lede">In fünf Minuten spielbereit. Womit spielst du Minecraft?</p><p class="note">Du brauchst Minecraft Java Edition und einen PC mit mindestens 16 GB Arbeitsspeicher. Welche Version das Pack gerade hat, holt sich die Seite vom Server: <strong id="packver">aktuell</strong>. Die Links unten führen immer zu genau dieser Version.</p></div>
 <div class="choices" id="launchers" role="group" aria-label="Launcher">
-  <button class="choice" type="button" data-guide="modrinth" aria-pressed="false"><strong>Modrinth App</strong><span>Empfohlen, am einfachsten</span></button>
-  <button class="choice" type="button" data-guide="curseforge" aria-pressed="false"><strong>CurseForge App</strong><span>Wenn du die schon hast</span></button>
-  <button class="choice" type="button" data-guide="prism" aria-pressed="false"><strong>Prism Launcher</strong><span>Für alle, die gern selbst einstellen</span></button>
-  <button class="choice" type="button" data-guide="none" aria-pressed="false"><strong>Nichts davon</strong><span>Nur der normale Launcher oder gar nichts</span></button>
+  <button class="choice" type="button" data-guide="modrinth" aria-pressed="false"><strong>Modrinth App</strong><span>Empfohlen, am einfachsten</span><img src="img/mascots/allay.webp" alt="" width="157" height="148"></button>
+  <button class="choice" type="button" data-guide="curseforge" aria-pressed="false"><strong>CurseForge App</strong><span>Wenn du die schon hast</span><img src="img/mascots/cat.webp" alt="" width="200" height="180"></button>
+  <button class="choice" type="button" data-guide="prism" aria-pressed="false"><strong>Prism Launcher</strong><span>Für alle, die gern selbst einstellen</span><img src="img/mascots/axolotl.webp" alt="" width="227" height="160"></button>
+  <button class="choice" type="button" data-guide="none" aria-pressed="false"><strong>Nichts davon</strong><span>Nur der normale Launcher oder gar nichts</span><img src="img/mascots/villager.webp" alt="" width="130" height="256"></button>
 </div>
-<p class="note">Du brauchst Minecraft Java Edition und einen PC mit mindestens 16 GB Arbeitsspeicher. Welche Version das Pack gerade hat, holt sich die Seite vom Server: <strong id="packver">aktuell</strong>. Die Links unten führen immer zu genau dieser Version.</p>
-</section>
-
-<section class="panel wide guide" id="guide-none" hidden>
+<section class="guide" id="guide-none" hidden>
+<div>
 <h2>Erst die Modrinth App</h2>
-<p>Der normale Minecraft-Launcher kann keine Modpacks. Die Modrinth App ist kostenlos, braucht kein Konto und erledigt Java und NeoForge selbst.</p>
-<ol class="steps">
-  <li><h3>Herunterladen</h3><p>Auf <a href="https://modrinth.com/app">modrinth.com/app</a> die App für dein System laden und installieren.</p></li>
-  <li><h3>Mit Microsoft anmelden</h3><p>Beim ersten Start mit dem Microsoft-Konto anmelden, mit dem du Minecraft gekauft hast.</p></li>
-  <li><h3>Weiter</h3><p><button class="chip" type="button" data-guide="modrinth">Weiter mit der Modrinth App</button></p></li>
+<p>Der normale Minecraft-Launcher kann keine Modpacks. Die Modrinth App ist kostenlos, braucht kein eigenes Konto und erledigt Java und NeoForge selbst.</p>
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 von 3 Schritten</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Herunterladen</span><span class="d"><p>Auf <a href="https://modrinth.com/app">modrinth.com/app</a> die App für dein System laden und installieren.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Mit Microsoft anmelden</span><span class="d"><p>Beim ersten Start mit dem Microsoft-Konto anmelden, mit dem du Minecraft gekauft hast.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Weiter mit der Modrinth App</span><span class="d"><p>Ab hier gilt die Anleitung für die Modrinth App. <button class="chip" type="button" data-guide="modrinth">Zur Modrinth-Anleitung</button></p></span></label></li>
 </ol>
-</section>
-
-<section class="panel wide guide" id="guide-modrinth" hidden>
+<p class="hint" style="margin-top:1.2rem">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="img/mascots/villager.webp" alt="" data-tips="[&quot;Ohne Modpack-App geht es nicht, aber die Modrinth App ist in zwei Minuten drauf.&quot;, &quot;Das Microsoft-Konto ist das, mit dem du Minecraft gekauft hast.&quot;, &quot;Und weiter geht es bei der Modrinth App.&quot;]"><div class="bubble">Ohne Modpack-App geht es nicht, aber die Modrinth App ist in zwei Minuten drauf.</div></aside>
+</section><section class="guide" id="guide-modrinth" hidden>
+<div>
 <h2>Modrinth App</h2>
-<ol class="steps">
-  <li><h3>Pack laden</h3><p><a class="dl" data-kind="mrpack" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.mrpack)</a> herunterladen.</p></li>
-  <li><h3>Importieren</h3><p>In der App links auf <strong>+</strong>, dann oben <strong>Import from file</strong> und die heruntergeladene Datei wählen. Die App lädt jetzt rund 600 MB Mods, das dauert ein paar Minuten.</p></li>
-  <li><h3>Speicher einstellen</h3><p>Die Instanz öffnen, oben rechts auf das Zahnrad, <strong>Java and memory</strong>, und den Speicher auf <strong>8 GB</strong> stellen. Mit den voreingestellten 2 GB startet das Pack nicht richtig.</p></li>
-  <li><h3>Spielen</h3><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
-</ol>
-<p class="hint">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
-</section>
 
-<section class="panel wide guide" id="guide-curseforge" hidden>
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 von 4 Schritten</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Pack laden</span><span class="d"><p><a class="dl" data-kind="mrpack" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.mrpack)</a> herunterladen.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Importieren</span><span class="d"><p>In der App links auf <strong>+</strong>, dann oben <strong>Import from file</strong> und die heruntergeladene Datei wählen. Die App lädt jetzt rund 600 MB Mods, das dauert ein paar Minuten.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Speicher einstellen</span><span class="d"><p>Die Instanz öffnen, oben rechts auf das Zahnrad, <strong>Java and memory</strong>, und den Speicher auf <strong>8 GB</strong> stellen. Mit den voreingestellten 2 GB startet das Pack nicht richtig.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Spielen</span><span class="d"><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr"><button class="copy" type="button" data-copy="93.90.74.243">93.90.74.243<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span> eintragen. Ab Mitte Januar lässt dich der Server rein, wenn dein Name auf der Whitelist steht.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="img/mascots/allay.webp" alt="" data-tips="[&quot;Die Datei ist klein, die Mods lädt die App selbst nach.&quot;, &quot;Import from file, dann einen Kaffee holen.&quot;, &quot;8 GB. Das ist der Schritt, den fast alle vergessen.&quot;, &quot;Adresse eintragen, und ab Mitte Januar sehen wir uns drin.&quot;]"><div class="bubble">Die Datei ist klein, die Mods lädt die App selbst nach.</div></aside>
+</section><section class="guide" id="guide-curseforge" hidden>
+<div>
 <h2>CurseForge App</h2>
-<ol class="steps">
-  <li><h3>Pack laden</h3><p><a class="dl" data-kind="zip" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.zip)</a> herunterladen.</p></li>
-  <li><h3>Importieren</h3><p>In der App bei Minecraft auf <strong>Create Custom Profile</strong>, dann unten <strong>Import</strong> und die Zip-Datei wählen.</p></li>
-  <li><h3>Speicher einstellen</h3><p>Zahnrad unten links, <strong>Minecraft</strong>, <strong>Java Settings</strong>, <strong>Allocated Memory</strong> auf <strong>8 GB</strong> (8192 MB).</p></li>
-  <li><h3>Spielen</h3><p>Profil starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
-</ol>
-</section>
 
-<section class="panel wide guide" id="guide-prism" hidden>
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 von 4 Schritten</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Pack laden</span><span class="d"><p><a class="dl" data-kind="zip" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.zip)</a> herunterladen.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Importieren</span><span class="d"><p>In der App bei Minecraft auf <strong>Create Custom Profile</strong>, dann unten <strong>Import</strong> und die Zip-Datei wählen.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Speicher einstellen</span><span class="d"><p>Zahnrad unten links, <strong>Minecraft</strong>, <strong>Java Settings</strong>, <strong>Allocated Memory</strong> auf <strong>8 GB</strong> (8192 MB).</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Spielen</span><span class="d"><p>Profil starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr"><button class="copy" type="button" data-copy="93.90.74.243">93.90.74.243<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span> eintragen.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="img/mascots/cat.webp" alt="" data-tips="[&quot;Die Zip-Datei ist für CurseForge, nicht entpacken.&quot;, &quot;Create Custom Profile, dann Import. Nicht Browse.&quot;, &quot;8192 MB, sonst bleibt das Pack beim Laden hängen.&quot;, &quot;Fertig. Ab Mitte Januar geht die Tür auf.&quot;]"><div class="bubble">Die Zip-Datei ist für CurseForge, nicht entpacken.</div></aside>
+</section><section class="guide" id="guide-prism" hidden>
+<div>
 <h2>Prism Launcher</h2>
-<ol class="steps">
-  <li><h3>Importieren</h3><p><strong>Add Instance</strong>, links <strong>Import</strong>, und diese Adresse einfügen: <span class="addr" id="mrurl">https://github.com/kronwerke/pack/releases</span></p></li>
-  <li><h3>Speicher einstellen</h3><p>Instanz bearbeiten, <strong>Settings</strong>, <strong>Java</strong>, Maximum auf <strong>8192 MB</strong>.</p></li>
-  <li><h3>Spielen</h3><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
-</ol>
-<p class="hint">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Adresse genauso importieren.</p>
-</section>
 
-<section class="panel wide">
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 von 3 Schritten</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Importieren</span><span class="d"><p><strong>Add Instance</strong>, links <strong>Import</strong>, und diese Adresse einfügen: <span class="addr"><button class="copy" type="button" id="mrurl" data-copy="https://github.com/kronwerke/pack/releases">https://github.com/kronwerke/pack/releases<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span></p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Speicher einstellen</span><span class="d"><p>Instanz bearbeiten, <strong>Settings</strong>, <strong>Java</strong>, Maximum auf <strong>8192 MB</strong>.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Spielen</span><span class="d"><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr"><button class="copy" type="button" data-copy="93.90.74.243">93.90.74.243<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span> eintragen.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="img/mascots/axolotl.webp" alt="" data-tips="[&quot;Prism zieht sich das Pack direkt von der Adresse.&quot;, &quot;Java 21 braucht das Pack, Prism findet es meist selbst.&quot;, &quot;Das war es schon. Prism-Leute sind schnell fertig.&quot;]"><div class="bubble">Prism zieht sich das Pack direkt von der Adresse.</div></aside>
+</section>
+<section class="sec" id="speicher" style="margin-top:3rem">
+<h2>Wie viel Speicher?</h2>
+<p>Das Pack braucht viel Arbeitsspeicher, aber nicht alles: Windows und dein Browser wollen auch noch leben.</p>
+<div class="ram">
+  <label for="ram">Dein PC hat <span id="ram-val">16 GB</span></label>
+  <input type="range" id="ram" min="8" max="64" step="8" value="16">
+  <output for="ram" id="ram-out"></output>
+</div>
+</section>
+<section class="sec" id="hilfe">
 <h2>Klappt nicht?</h2>
-<p>Die meisten Probleme sind zu wenig Speicher. Hilft das nicht, frag im Discord und häng die Datei <code>logs/latest.log</code> aus deiner Instanz an. Mehr dazu in den <a href="faq.html">häufigen Fragen</a>.</p>
+<p>Die meisten Probleme sind zu wenig Speicher. Hilft das nicht, frag im <a href="https://discord.gg/DZs3XyyHDj">Discord</a> und häng die Datei <code>logs/latest.log</code> aus deiner Instanz an. Mehr dazu in den <a href="faq.html#technik">häufigen Fragen</a>.</p>
 </section>
 </main>
 
 <footer class="bottom">
-  <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
+  <div class="cols">
+    <div><h4>Spielen</h4><a href="stufen.html">Stufen</a><a href="herkunft.html">Herkunft und Rolle</a><a href="mods.html">Mods</a><a href="installieren.html">Installieren</a><a href="faq.html">Fragen</a><a href="status.html">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer.html">Für Streamer</a><a href="partner.html">Partner</a><a href="overlay.html">Stream-Overlay</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord-Bot</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="en/discord-bot.html" lang="en">English</a></div>
+  </div>
+  <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
 
 <script src="js/install.js" defer></script>
-<script src="js/mascot.js" defer></script>
+<script src="js/site.js" defer></script>
 </body>
 </html>

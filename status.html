@@ -3,53 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Status · Kronwerke</title>
+<title>Status, Kronwerke</title>
 <meta name="description" content="Ob der Kronwerke-Server läuft, wer gerade spielt und wie weit die Gemeinschaftsziele sind.">
-<meta name="theme-color" content="#0e0c11">
-<link rel="preload" href="fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#0f1024">
+<meta property="og:title" content="Status, Kronwerke">
+<meta property="og:description" content="Ob der Kronwerke-Server läuft, wer gerade spielt und wie weit die Gemeinschaftsziele sind.">
+<meta property="og:type" content="website">
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="page" data-page="status">
 <header class="top">
-  <a class="mark" href="index.html">Kronwerke</a>
+  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
   <nav aria-label="Seiten">
     <a href="stufen.html">Stufen</a>
+    <a href="herkunft.html">Herkunft</a>
     <a href="mods.html">Mods</a>
     <a href="installieren.html">Installieren</a>
-    <a href="faq.html">FAQ</a>
-    <a href="status.html" aria-current="page">Status</a>
-    <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+    <a href="streamer.html">Streamer</a>
+    <a href="faq.html">Fragen</a>
   </nav>
+  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start Mitte Januar</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
 <main>
-<section class="panel wide">
-<h2>Status</h2>
-<dl class="statusline" id="server">
-  <div><dt>Server</dt><dd id="s-state">wird abgefragt</dd></div>
-  <div><dt>Spieler</dt><dd id="s-players">-</dd></div>
-  <div><dt>Pack</dt><dd id="s-pack">-</dd></div>
+<div class="intro"><h1>Status</h1><p class="lede">Ob der Server läuft, wer gerade drauf ist und wie weit der Obelisk ist. Die Seite fragt einmal pro Minute nach.</p></div>
+<dl class="server" id="server">
+  <div><dt>Server</dt><dd id="s-state"><span class="pill">öffnet Mitte Januar</span></dd></div>
+  <div><dt>Spieler</dt><dd id="s-players">0</dd></div>
+  <div><dt>Pack</dt><dd id="s-pack">wird abgefragt</dd></div>
 </dl>
-<p class="names" id="s-names"></p>
-<p class="note">Die Seite fragt einmal pro Minute beim Server nach.</p>
-</section>
-
-<section class="panel wide">
+<div class="names" id="s-names"></div>
+<section class="sec" id="obelisk" style="margin-top:2.5rem">
 <h2>Der Obelisk</h2>
-<p class="lede">Die Gemeinschaftsziele aller Stufen. Das aktive Ziel füllt sich live, sobald jemand am Obelisken etwas abgibt.</p>
-<div id="goals"><p class="note">Die Ziele erscheinen, sobald der Server antwortet.</p></div>
+<p>Die Gemeinschaftsziele aller Stufen. Das aktive Ziel füllt sich live, sobald jemand am Obelisken etwas abgibt. Vor dem Start stehen hier die geplanten Mengen.</p>
+<div class="goals" id="goals"></div>
 </section>
 </main>
 
 <footer class="bottom">
-  <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
+  <div class="cols">
+    <div><h4>Spielen</h4><a href="stufen.html">Stufen</a><a href="herkunft.html">Herkunft und Rolle</a><a href="mods.html">Mods</a><a href="installieren.html">Installieren</a><a href="faq.html">Fragen</a><a href="status.html">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer.html">Für Streamer</a><a href="partner.html">Partner</a><a href="overlay.html">Stream-Overlay</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord-Bot</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="en/discord-bot.html" lang="en">English</a></div>
+  </div>
+  <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
 
 <script src="js/names.js" defer></script>
 <script src="js/statuspage.js" defer></script>
-<script src="js/mascot.js" defer></script>
+<script src="js/site.js" defer></script>
 </body>
 </html>

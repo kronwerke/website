@@ -3,71 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stream-Overlay · Kronwerke</title>
+<title>Stream-Overlay, Kronwerke</title>
 <meta name="description" content="Das Gemeinschaftsziel von Kronwerke als Overlay für OBS: Fortschritt, Einzahlungen live, Meilensteine.">
 <meta name="robots" content="noindex">
-<link rel="preload" href="fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/big-shoulders-display-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
-@font-face { font-family: "Big Shoulders"; src: url("fonts/big-shoulders-display-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-display: block; }
-@font-face { font-family: "Big Shoulders"; src: url("fonts/big-shoulders-display-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: block; }
-@font-face { font-family: "Newsreader"; src: url("fonts/newsreader-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Schibsted Grotesk"; src: url("fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"), url("fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; font-display: block; }
 
 :root {
-  --ink: #0e0c11;
-  --glass: rgba(14, 12, 17, 0.86);
-  --line: rgba(214, 173, 95, 0.28);
-  --text: #ece4d6;
-  --soft: #c2b6a3;
-  --brass: #d6ad5f;
-  --magic: #7fc1c4;
-  --stone: #a8a197;
-  --ha: #c8584a;
+  --night: #0f1024;
+  --glass: rgba(15, 16, 36, 0.86);
+  --line: rgba(242, 237, 227, 0.16);
+  --text: #f2ede3;
+  --soft: #aaa8c4;
+  --s1: #a8b596; --s2: #e5b451; --s3: #8bb6dc; --s4: #bb98f4; --s5: #f06579;
+  --tech: var(--s2);
+  --magic: #7fd0c8;
+  --stone: #b7b2a6;
+  --sc: var(--s2);
   --s: 1;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: transparent; color: var(--text); overflow: hidden; }
-body { font: 400 calc(18px * var(--s)) / 1.35 "Newsreader", Georgia, serif; -webkit-font-smoothing: antialiased; }
-.caps { font-family: "Big Shoulders", "Arial Narrow", sans-serif; text-transform: uppercase; letter-spacing: 0.08em; }
+body { font: 500 calc(17px * var(--s)) / 1.3 "Schibsted Grotesk", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body[data-stage="1"], .st1 { --sc: var(--s1); } body[data-stage="2"], .st2 { --sc: var(--s2); } body[data-stage="3"], .st3 { --sc: var(--s3); } body[data-stage="4"], .st4 { --sc: var(--s4); } body[data-stage="5"], .st5 { --sc: var(--s5); }
 
 /* ---- shared pieces ---- */
-.box { background: var(--glass); border: 1px solid var(--line); border-radius: calc(6px * var(--s)); box-shadow: 0 calc(8px * var(--s)) calc(30px * var(--s)) rgba(0, 0, 0, 0.45); }
-.stage { color: var(--brass); font-weight: 600; font-size: 0.78em; }
-.goal { font-weight: 800; font-size: 1.35em; line-height: 1; letter-spacing: 0.04em; }
-.pct { font-weight: 800; font-size: 2.2em; line-height: 0.9; color: var(--text); font-variant-numeric: tabular-nums; }
-.pct small { font-size: 0.45em; color: var(--soft); margin-left: 0.1em; }
-.meter { position: relative; height: calc(10px * var(--s)); background: rgba(255, 255, 255, 0.08); border-radius: 99px; overflow: hidden; }
-.meter i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 99px; overflow: hidden; background: var(--c, var(--brass)); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+.box { background: var(--glass); border: 1px solid var(--line); border-radius: calc(14px * var(--s)); box-shadow: 0 calc(10px * var(--s)) calc(40px * var(--s)) rgba(0, 0, 0, 0.5); }
+.stage { color: var(--sc); font-weight: 700; font-size: 0.8em; letter-spacing: -0.005em; }
+.goal { font-weight: 800; font-size: 1.3em; line-height: 1.05; letter-spacing: -0.03em; }
+.pct { font-weight: 900; font-size: 2.3em; line-height: 0.9; letter-spacing: -0.05em; color: var(--text); font-variant-numeric: tabular-nums; }
+.pct small { font-size: 0.42em; color: var(--soft); margin-left: 0.15em; font-weight: 600; letter-spacing: 0; }
+.meter { position: relative; height: calc(9px * var(--s)); background: rgba(242, 237, 227, 0.1); border-radius: 99px; overflow: hidden; }
+.meter i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 99px; overflow: hidden; background: var(--c, var(--tech)); transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
 .meter i::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent); transform: translateX(-100%); animation: shine 3.2s ease-in-out infinite; }
-.meter.hold { outline: 1px solid var(--brass); }
+.meter.hold { outline: 1px solid var(--sc); outline-offset: 2px; }
 @keyframes shine { 60%, 100% { transform: translateX(100%); } }
-.pillar { --c: var(--brass); }
+.pillar { --c: var(--tech); }
 .pillar.magic { --c: var(--magic); }
 .pillar.stone { --c: var(--stone); }
-.pname { font-weight: 600; font-size: 0.8em; color: var(--c); display: flex; justify-content: space-between; gap: 1em; }
+.pname { font-weight: 700; font-size: 0.82em; color: var(--c); display: flex; justify-content: space-between; gap: 1em; margin-bottom: 0.25em; }
 .pname b { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
-.miles { display: flex; gap: 0.35em; align-items: center; margin-top: 0.3em; }
-.mile { width: calc(22px * var(--s)); height: calc(22px * var(--s)); image-rendering: pixelated; opacity: 0.28; filter: grayscale(1); transition: opacity .6s, filter .6s; }
-.mile.have { opacity: 1; filter: none; }
-.mcount { font-family: "Big Shoulders", sans-serif; font-weight: 600; font-size: 0.8em; color: var(--soft); margin-left: 0.2em; }
-.note { font-size: 0.72em; color: var(--brass); }
+.miles { display: flex; gap: 0.3em; align-items: center; margin-top: 0.4em; }
+.mile { width: calc(22px * var(--s)); height: calc(22px * var(--s)); image-rendering: pixelated; opacity: 0.25; filter: grayscale(1); transition: opacity .6s, filter .6s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.mile.have { opacity: 1; filter: none; transform: scale(1.1); }
+.mcount { font-weight: 600; font-size: 0.8em; color: var(--soft); margin-left: 0.2em; font-variant-numeric: tabular-nums; }
+.note { font-size: 0.74em; color: var(--sc); font-weight: 600; }
 
 /* ---- bar: a strip along the lower edge ---- */
-#bar { position: fixed; left: calc(24px * var(--s)); right: calc(24px * var(--s)); bottom: calc(20px * var(--s)); display: grid; grid-template-columns: auto 1fr auto; gap: calc(28px * var(--s)); align-items: center; padding: calc(12px * var(--s)) calc(20px * var(--s)); }
+#bar { position: fixed; left: calc(24px * var(--s)); right: calc(24px * var(--s)); bottom: calc(20px * var(--s)); display: grid; grid-template-columns: auto 1fr auto; gap: calc(28px * var(--s)); align-items: center; padding: calc(12px * var(--s)) calc(22px * var(--s)); border-left: calc(5px * var(--s)) solid var(--sc); }
+#bar .head { min-width: calc(220px * var(--s)); }
 #bar .pillars { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: calc(22px * var(--s)); }
-#bar .head { min-width: calc(210px * var(--s)); }
 
 /* ---- card: a corner panel ---- */
-#card { position: fixed; width: calc(380px * var(--s)); padding: calc(16px * var(--s)) calc(18px * var(--s)); display: grid; gap: calc(12px * var(--s)); }
+#card { position: fixed; width: calc(380px * var(--s)); padding: calc(16px * var(--s)) calc(18px * var(--s)); display: grid; gap: calc(12px * var(--s)); border-top: calc(5px * var(--s)) solid var(--sc); }
 #card .top { display: flex; justify-content: space-between; align-items: end; gap: 1em; }
 #card .pillar { display: grid; gap: 0.3em; }
 #card .pillar + .pillar { margin-top: 0.5em; }
-#card .row { display: flex; justify-content: space-between; font-size: 0.78em; color: var(--soft); }
-#card .row b { color: var(--text); font-weight: 400; font-variant-numeric: tabular-nums; }
-#card .lead { border-top: 1px solid var(--line); padding-top: 0.6em; font-size: 0.78em; color: var(--soft); }
+#card .row { display: flex; justify-content: space-between; font-size: 0.8em; color: var(--soft); font-weight: 500; }
+#card .row b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+#card .lead { border-top: 1px solid var(--line); padding-top: 0.6em; font-size: 0.8em; color: var(--soft); }
 #card .lead ol { margin: 0.2em 0 0; padding-left: 1.2em; }
-#card .lead li b { color: var(--text); font-weight: 400; }
+#card .lead li b { color: var(--text); font-weight: 600; }
 .tl { top: calc(24px * var(--s)); left: calc(24px * var(--s)); }
 .tr { top: calc(24px * var(--s)); right: calc(24px * var(--s)); }
 .bl { bottom: calc(24px * var(--s)); left: calc(24px * var(--s)); }
@@ -76,38 +74,41 @@ body { font: 400 calc(18px * var(--s)) / 1.35 "Newsreader", Georgia, serif; -web
 /* ---- feed: deposits as they come in ---- */
 #feed { position: fixed; display: flex; flex-direction: column; gap: calc(8px * var(--s)); width: calc(360px * var(--s)); pointer-events: none; }
 #feed.above-bar { right: calc(24px * var(--s)); bottom: calc(118px * var(--s)); align-items: flex-end; }
-.toast { display: flex; align-items: center; gap: 0.6em; padding: 0.45em 0.8em; font-size: 0.85em; animation: in .5s cubic-bezier(.2,.8,.2,1) both; white-space: nowrap; }
+.toast { display: flex; align-items: center; gap: 0.6em; padding: 0.45em 0.9em; font-size: 0.85em; border-radius: 999px; animation: in .5s cubic-bezier(.2,.8,.2,1) both; white-space: nowrap; }
 .toast.out { animation: out .6s ease both; }
-.toast .who { font-family: "Big Shoulders", sans-serif; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass); }
-.toast .n { font-variant-numeric: tabular-nums; font-weight: 400; }
+.toast .who { font-weight: 800; color: var(--sc); letter-spacing: -0.01em; }
+.toast .n { font-variant-numeric: tabular-nums; font-weight: 500; color: var(--soft); }
 .toast img { width: calc(20px * var(--s)); height: calc(20px * var(--s)); image-rendering: pixelated; }
-.toast.milestone { border-color: var(--brass); box-shadow: 0 0 calc(24px * var(--s)) rgba(214, 173, 95, 0.45); }
+.toast.milestone { border-color: var(--sc); box-shadow: 0 0 calc(24px * var(--s)) color-mix(in srgb, var(--sc) 50%, transparent); }
 @keyframes in { from { opacity: 0; transform: translateY(12px) scale(.96); } }
 @keyframes out { to { opacity: 0; transform: translateY(-10px); } }
 
 /* ---- the moment a stage opens ---- */
 #open { position: fixed; inset: 0; display: grid; place-items: center; pointer-events: none; }
 #open[hidden] { display: none; }
-#open div { text-align: center; padding: calc(28px * var(--s)) calc(56px * var(--s)); animation: rise 1s cubic-bezier(.2,.8,.2,1) both; }
-#open .caps { color: var(--brass); font-weight: 600; font-size: 1.1em; }
-#open h1 { margin: 0.1em 0 0; font: 800 calc(96px * var(--s)) / 0.9 "Big Shoulders", sans-serif; text-transform: uppercase; letter-spacing: 0.02em; text-shadow: 0 0 calc(40px * var(--s)) rgba(214, 173, 95, 0.55); }
+#open div { text-align: center; padding: calc(32px * var(--s)) calc(64px * var(--s)); animation: rise 1s cubic-bezier(.2,.8,.2,1) both; border-top: calc(6px * var(--s)) solid var(--sc); }
+#open .caps { color: var(--sc); font-weight: 700; font-size: 1.1em; }
+#open h1 { margin: 0.05em 0 0; font-weight: 900; font-size: calc(96px * var(--s)); line-height: 0.9; letter-spacing: -0.05em; text-shadow: 0 0 calc(40px * var(--s)) color-mix(in srgb, var(--sc) 55%, transparent); }
 @keyframes rise { from { opacity: 0; transform: scale(.9); } }
 
 /* ---- opened in a normal browser: how to set it up ---- */
-body.setup { overflow: auto; background: var(--ink) url("img/sky/wide.webp") 72% 38% / cover fixed; }
-#setup { max-width: 44rem; margin: 3rem auto 16rem; padding: 1.4rem 1.6rem; font-size: 17px; line-height: 1.55; }
+body.setup { overflow: auto; background: var(--night) url("img/sky/wide.webp") 72% 38% / cover fixed; }
+#setup { max-width: 46rem; margin: 3rem auto 18rem; padding: 1.6rem 1.8rem; font-size: 16px; line-height: 1.55; font-weight: 400; }
 #setup[hidden] { display: none; }
-#setup h1 { margin: 0 0 0.4rem; font: 800 2.6rem/1 "Big Shoulders", sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
-#setup code { color: var(--brass); font: 600 0.82em/1.4 ui-monospace, monospace; }
+#setup .stage { font-size: 0.9rem; }
+#setup h1 { margin: 0 0 0.6rem; font-weight: 900; font-size: 2.6rem; line-height: 1; letter-spacing: -0.045em; }
+#setup code { color: var(--text); font: 600 0.9em/1.4 "Schibsted Grotesk", sans-serif; background: rgba(242, 237, 227, 0.08); padding: 0.05em 0.4em; border-radius: 4px; }
 #setup td code { white-space: nowrap; }
 #setup table { border-collapse: collapse; width: 100%; font-size: 0.95em; }
-#setup td { border-top: 1px solid var(--line); padding: 0.35em 0.6em 0.35em 0; vertical-align: top; }
-#setup a { color: var(--text); text-decoration-color: var(--brass); }
+#setup td { border-top: 1px solid var(--line); padding: 0.45em 0.6em 0.45em 0; vertical-align: top; color: var(--soft); }
+#setup td:first-child { color: var(--text); }
+#setup a { color: var(--text); text-decoration-color: var(--line); text-underline-offset: 0.2em; }
+#setup p:last-child { margin-bottom: 0; }
 @media (prefers-reduced-motion: reduce) { .meter i::after { animation: none; } }
 </style>
 </head>
 <body>
-<section id="setup" class="box" hidden>
+<section id="setup" class="box st2" hidden>
   <p class="stage caps">Für Streamer</p>
   <h1>Stream-Overlay</h1>
   <p>Diese Seite zeigt das aktuelle Gemeinschaftsziel live, für OBS oder Streamlabs. In OBS: <b>Quelle hinzufügen, Browser</b>, als URL eine der Adressen unten, Breite 1920, Höhe 1080. Der Hintergrund ist durchsichtig, du siehst hier eine Vorschau mit Beispieldaten.</p>
@@ -116,7 +117,7 @@ body.setup { overflow: auto; background: var(--ink) url("img/sky/wide.webp") 72%
     <tr><td><code>https://kronwerke.com/overlay.html?view=card&amp;corner=tr</code></td><td>Karte in einer Ecke (<code>tl</code>, <code>tr</code>, <code>bl</code>, <code>br</code>) mit allen Items und den Top-Spendern</td></tr>
     <tr><td><code>https://kronwerke.com/overlay.html?view=feed&amp;corner=br</code></td><td>Nur die Einzahlungen</td></tr>
   </table>
-  <p>Dazu nach Wunsch: <code>&amp;scale=0.8</code> macht alles kleiner, <code>&amp;feed=0</code> blendet die Einzahlungen aus, <code>&amp;demo</code> zeigt Beispieldaten zum Einrichten. Die Daten kommen alle 15 Sekunden vom Server. Öffnet eine Stufe, erscheint sie groß in der Mitte.</p>
+  <p>Dazu nach Wunsch: <code>&amp;scale=0.8</code> macht alles kleiner, <code>&amp;feed=0</code> blendet die Einzahlungen aus, <code>&amp;demo</code> zeigt Beispieldaten zum Einrichten. Die Daten kommen alle 15 Sekunden vom Server. Öffnet eine Stufe, erscheint sie groß in der Mitte. Die Farbe der Leiste ist die Farbe der laufenden Stufe. <a href="streamer.html">Zurück zur Seite für Streamer</a></p>
 </section>
 <div id="stage-root"></div>
 <div id="feed"></div>

@@ -7,7 +7,7 @@
 <meta name="description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start Mitte Januar 2027.">
 <meta name="theme-color" content="#0f1024">
 <meta property="og:title" content="Kronwerke Season 2">
-<meta property="og:description" content="Fünf Stufen, Technik und Magie, und niemand kommt allein voran. Start Mitte Januar 2027.">
+<meta property="og:description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start Mitte Januar 2027.">
 <meta property="og:type" content="website">
 <link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
@@ -15,22 +15,23 @@
 </head>
 <body data-page="start">
 <canvas id="sky" aria-hidden="true"></canvas>
-
 <header class="top">
-  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite">Kronwerke</a>
+  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
   <nav aria-label="Seiten">
     <a href="stufen.html">Stufen</a>
+    <a href="herkunft.html">Herkunft</a>
     <a href="mods.html">Mods</a>
     <a href="installieren.html">Installieren</a>
+    <a href="streamer.html">Streamer</a>
     <a href="faq.html">Fragen</a>
-    <a href="status.html">Status</a>
   </nav>
+  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start Mitte Januar</span></a>
   <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
 <main>
   <section class="hero">
-    <h1>Kronwerke</h1>
+    <h1 id="name">Kronwerke</h1>
     <p class="lead">Ein Modpack-Server für Streamer und ihre Communities, auf dem niemand allein vorankommt. Season&nbsp;2 startet Mitte Januar 2027.</p>
     <p class="actions">
       <a class="btn" href="https://discord.gg/DZs3XyyHDj">Discord beitreten</a>
@@ -39,12 +40,12 @@
     <ol class="season" aria-label="Wo die Season steht">
       <li class="now"><strong>Jetzt</strong><span>Streamer bewerben sich, Communities sammeln sich im Discord.</span></li>
       <li><strong>Dezember</strong><span>Beta mit einer kleinen Gruppe. Das Pack wird fertig.</span></li>
-      <li><strong>Mitte Januar</strong><span id="countdown">Der Server öffnet für alle.</span></li>
+      <li><strong>Mitte Januar</strong><span>Der Server öffnet für alle. <span class="cd" id="countdown"></span></span></li>
     </ol>
   </section>
 
   <section class="band idea" id="idee">
-    <div class="copy">
+    <div class="copy-block">
       <h2>Der Server kommt nur gemeinsam weiter</h2>
       <p>In Season&nbsp;1 waren die, die Modpacks kannten, nach einer Woche im Endgame. Alle anderen standen noch am Steinwerkzeug, und irgendwann spielte jeder für sich.</p>
       <p>Diesmal steht am Spawn ein Obelisk. Jede Stufe verlangt Technik und Magie, und beides muss voll werden, bevor es weitergeht. Dazu kommen ein paar Meilensteine, die nur zusammen entstehen: ein Getriebe aus Create, gebaut mit Eisen vom Naturaltar.</p>
@@ -56,17 +57,17 @@
       <div id="goal-pillars">
         <div class="pillar stone">
           <p class="pillar-name">Stein</p>
-          <p class="row"><span>Bruchstein</span><span>20 000</span></p>
+          <p class="row" data-tip="Jeder kann ab der ersten Minute mithelfen."><span>Bruchstein</span><span>20 000</span></p>
         </div>
         <div class="pillar tech">
           <p class="pillar-name">Technik</p>
-          <p class="row"><span>Andesitlegierung</span><span>1 500</span></p>
-          <p class="row mile"><span><img src="img/items/stone_gearbox.png" alt="" width="24" height="24">Steinwerk-Getriebe</span><span>12</span></p>
+          <p class="row" data-tip="Der Mixer macht zwei pro Durchgang, die Werkbank eine."><span>Andesitlegierung</span><span>1 500</span></p>
+          <p class="row mile" data-tip="Meilenstein aus Andesitgehäuse, Presse, Mühlstein, Wasserrad und Infused Iron. Zählt viel auf dem Balken."><span><img src="img/items/stone_gearbox.png" alt="" width="24" height="24">Steinwerk-Getriebe</span><span>12</span></p>
         </div>
         <div class="pillar magic">
           <p class="pillar-name">Magie</p>
-          <p class="row"><span>Source Gems</span><span>800</span></p>
-          <p class="row mile"><span><img src="img/items/source_keystone.png" alt="" width="24" height="24">Quellschlussstein</span><span>12</span></p>
+          <p class="row" data-tip="Braucht Quellgefäße und die Imbuement Chamber."><span>Source Gems</span><span>800</span></p>
+          <p class="row mile" data-tip="Meilenstein aus Source-Gem-Blöcken, einem Quellgefäß, Manadiamanten, Goldblättern und Andesitlegierung."><span><img src="img/items/source_keystone.png" alt="" width="24" height="24">Quellschlussstein</span><span>12</span></p>
         </div>
       </div>
       <p class="note" id="goal-note">Die Mengen gelten für 30 aktive Spieler und passen sich an, wenn die Stufe öffnet. Meilensteine bleiben immer gleich.</p>
@@ -79,35 +80,50 @@
       <p>Die Breite zeigt, wie lange jede Stufe geplant ist, die Mobs stehen im echten Größenverhältnis. Wie lange eine Stufe wirklich dauert, entscheidet der Server. <a href="stufen.html">Was jede Stufe öffnet</a></p>
     </div>
     <ol class="path">
-      <li class="s1" style="--days:5;--h:1.95">
-        <img src="img/mascots/villager.webp" alt="" width="130" height="256" loading="lazy">
-        <span class="day">Ab Tag 1</span>
-        <strong>Steinwerk</strong>
-        <span class="what">Holz, Stein, Wasserräder, die ersten Zauber.</span>
+      <li class="s1" style="--days:5;--h:1.95;--i:0">
+        <a href="stufen.html#stufe-1">
+          <img class="mob-villager" src="img/mascots/villager.webp" alt="" width="130" height="256" loading="lazy">
+          <span class="day">Ab Tag 1</span>
+          <strong>Steinwerk</strong>
+          <span class="what">Holz, Stein, Wasserräder, die ersten Zauber.</span>
+          <span class="more">Alles zur Stufe 1</span>
+        </a>
       </li>
-      <li class="s2" style="--days:9;--h:1.8">
-        <img src="img/mascots/blaze.webp" alt="" width="136" height="231" loading="lazy">
-        <span class="day">Ab Tag 6</span>
-        <strong>Messingwerk</strong>
-        <span class="what">Messing, der Nether, Mana. Das Portal wird im Stream entzündet.</span>
+      <li class="s2" style="--days:9;--h:1.8;--i:1">
+        <a href="stufen.html#stufe-2">
+          <img class="mob-blaze" src="img/mascots/blaze.webp" alt="" width="136" height="231" loading="lazy">
+          <span class="day">Ab Tag 6</span>
+          <strong>Messingwerk</strong>
+          <span class="what">Messing, der Nether, Mana. Das Portal wird im Stream entzündet.</span>
+          <span class="more">Alles zur Stufe 2</span>
+        </a>
       </li>
-      <li class="s3" style="--days:12;--h:0.6">
-        <img src="img/mascots/allay.webp" alt="" width="157" height="148" loading="lazy">
-        <span class="day">Ab Tag 15</span>
-        <strong>Stahlwerk</strong>
-        <span class="what">Stahl, Speichernetze, Alfheim, Rituale mit Folgen.</span>
+      <li class="s3" style="--days:12;--h:0.6;--i:2">
+        <a href="stufen.html#stufe-3">
+          <img class="mob-allay" src="img/mascots/allay.webp" alt="" width="157" height="148" loading="lazy">
+          <span class="day">Ab Tag 15</span>
+          <strong>Stahlwerk</strong>
+          <span class="what">Stahl, Speichernetze, Alfheim, Rituale mit Folgen.</span>
+          <span class="more">Alles zur Stufe 3</span>
+        </a>
       </li>
-      <li class="s4" style="--days:12;--h:2.9">
-        <img src="img/mascots/enderman.webp" alt="" width="82" height="250" loading="lazy">
-        <span class="day">Ab Tag 27</span>
-        <strong>Sternwerk</strong>
-        <span class="what">Das End, Draconium, Gaia. Der Drache ist der erste gemeinsame Boss.</span>
+      <li class="s4" style="--days:12;--h:2.9;--i:3">
+        <a href="stufen.html#stufe-4">
+          <img class="mob-enderman" src="img/mascots/enderman.webp" alt="" width="82" height="250" loading="lazy">
+          <span class="day">Ab Tag 27</span>
+          <strong>Sternwerk</strong>
+          <span class="what">Das End, Draconium, Gaia. Der Drache ist der erste gemeinsame Boss.</span>
+          <span class="more">Alles zur Stufe 4</span>
+        </a>
       </li>
-      <li class="s5" style="--days:14;--h:3.5">
-        <img src="img/mascots/wither.webp" alt="" width="187" height="218" loading="lazy">
-        <span class="day">Ab Tag 39</span>
-        <strong>Chaoswerk</strong>
-        <span class="what">Die letzten Maschinen und der letzte Kampf, zusammen und live.</span>
+      <li class="s5" style="--days:14;--h:3.5;--i:4">
+        <a href="stufen.html#stufe-5">
+          <img class="mob-wither" src="img/mascots/wither.webp" alt="" width="187" height="218" loading="lazy">
+          <span class="day">Ab Tag 39</span>
+          <strong>Chaoswerk</strong>
+          <span class="what">Die letzten Maschinen und der letzte Kampf, zusammen und live.</span>
+          <span class="more">Alles zur Stufe 5</span>
+        </a>
       </li>
     </ol>
   </section>
@@ -122,12 +138,12 @@
       </li>
       <li>
         <h3>Hol dir einen Platz</h3>
-        <p>Jeder Streamer bringt Plätze für seine Community mit und trägt dich ein. Streamer bewerben sich im Discord mit <code>/apply</code>.</p>
-        <p class="aside">Du hast Season&nbsp;1 gespielt? Mit <code>/link</code> und deinem Minecraft-Namen ist dein Platz sicher, dazu zwei für Freunde.</p>
+        <p>Jeder Streamer bringt Plätze für seine Community mit und trägt dich ein. Streamer bewerben sich im Discord mit <button class="copy" type="button" data-copy="/apply">/apply<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>.</p>
+        <p class="aside">Du hast Season&nbsp;1 gespielt? Mit <button class="copy" type="button" data-copy="/link">/link<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button> und deinem Minecraft-Namen ist dein Platz sicher, dazu zwei für Freunde.</p>
       </li>
       <li>
         <h3>Mach dein Spiel bereit</h3>
-        <p>Das Pack läuft über die Modrinth App, CurseForge oder Prism. Die <a href="installieren.html">Anleitung</a> zeigt, wie viel Speicher es braucht und was du einstellen solltest.</p>
+        <p>Das Pack läuft über die Modrinth App, CurseForge oder Prism. Die <a href="installieren.html">Anleitung</a> zeigt Schritt für Schritt, was du einstellen musst, und merkt sich, wo du bist.</p>
       </li>
     </ol>
   </section>
@@ -135,32 +151,53 @@
   <section class="band pack" id="pack">
     <h2>Über 220 Mods, Technik und Magie zu gleichen Teilen</h2>
     <ul class="mods" aria-label="Einige Mods aus dem Pack">
-      <li><img src="img/mods/create.webp" alt="" width="48" height="48" loading="lazy">Create</li>
-      <li><img src="img/mods/ars-nouveau.webp" alt="" width="48" height="48" loading="lazy">Ars Nouveau</li>
-      <li><img src="img/mods/mekanism.webp" alt="" width="48" height="48" loading="lazy">Mekanism</li>
-      <li><img src="img/mods/natures-aura.webp" alt="" width="48" height="48" loading="lazy">Nature's Aura</li>
-      <li><img src="img/mods/ae2.webp" alt="" width="48" height="48" loading="lazy">Applied Energistics&nbsp;2</li>
-      <li><img src="img/mods/occultism.webp" alt="" width="48" height="48" loading="lazy">Occultism</li>
-      <li><img src="img/mods/immersiveengineering.webp" alt="" width="48" height="48" loading="lazy">Immersive Engineering</li>
-      <li><img src="img/mods/malum.webp" alt="" width="48" height="48" loading="lazy">Malum</li>
-      <li><img src="img/mods/draconic-evolution.webp" alt="" width="48" height="48" loading="lazy">Draconic Evolution</li>
-      <li><img src="img/mods/theurgy.webp" alt="" width="48" height="48" loading="lazy">Theurgy</li>
-      <li><img src="img/mods/powah.webp" alt="" width="48" height="48" loading="lazy">Powah</li>
-      <li><img src="img/mods/mahou-tsukai.webp" alt="" width="48" height="48" loading="lazy">Mahou Tsukai</li>
+      <li><a href="mods.html?q=create"><img src="img/mods/create.webp" alt="" width="48" height="48" loading="lazy">Create</a></li>
+      <li><a href="mods.html?q=ars nouveau"><img src="img/mods/ars-nouveau.webp" alt="" width="48" height="48" loading="lazy">Ars Nouveau</a></li>
+      <li><a href="mods.html?q=mekanism"><img src="img/mods/mekanism.webp" alt="" width="48" height="48" loading="lazy">Mekanism</a></li>
+      <li><a href="mods.html?q=nature&#x27;s aura"><img src="img/mods/natures-aura.webp" alt="" width="48" height="48" loading="lazy">Nature's Aura</a></li>
+      <li><a href="mods.html?q=applied energistics"><img src="img/mods/ae2.webp" alt="" width="48" height="48" loading="lazy">Applied Energistics&nbsp;2</a></li>
+      <li><a href="mods.html?q=occultism"><img src="img/mods/occultism.webp" alt="" width="48" height="48" loading="lazy">Occultism</a></li>
+      <li><a href="mods.html?q=immersive engineering"><img src="img/mods/immersiveengineering.webp" alt="" width="48" height="48" loading="lazy">Immersive Engineering</a></li>
+      <li><a href="mods.html?q=malum"><img src="img/mods/malum.webp" alt="" width="48" height="48" loading="lazy">Malum</a></li>
+      <li><a href="mods.html?q=draconic"><img src="img/mods/draconic-evolution.webp" alt="" width="48" height="48" loading="lazy">Draconic Evolution</a></li>
+      <li><a href="mods.html?q=theurgy"><img src="img/mods/theurgy.webp" alt="" width="48" height="48" loading="lazy">Theurgy</a></li>
+      <li><a href="mods.html?q=powah"><img src="img/mods/powah.webp" alt="" width="48" height="48" loading="lazy">Powah</a></li>
+      <li><a href="mods.html?q=mahou"><img src="img/mods/mahou-tsukai.webp" alt="" width="48" height="48" loading="lazy">Mahou Tsukai</a></li>
     </ul>
-    <p>Dazu ein Questbuch mit fast 700 Quests auf Deutsch und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. <a href="mods.html">Alle Mods</a>, der Code liegt offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
+    <p>Dazu ein Questbuch mit fast 700 Quests auf Deutsch und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. <a href="mods.html">Alle Mods, und ab welcher Stufe sie offen sind</a>. Der Code liegt offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
+  </section>
+
+  <section class="band" id="mehr">
+    <h2>Mehr zu Kronwerke</h2>
+    <div class="doors">
+      <a class="door" href="herkunft.html">
+        <h3>Herkunft und Rolle</h3>
+        <p>Neun Herkünfte und sieben Rollen, jede mit einem echten Nachteil. Finde in drei Fragen deine.</p>
+        <span class="go">Herkunft wählen</span>
+        <span class="icons"><img src="img/origins/messingblut.png" alt="" width="34" height="34" loading="lazy"><img src="img/origins/quellgeborene.png" alt="" width="34" height="34" loading="lazy"><img src="img/origins/sternensplitter.png" alt="" width="34" height="34" loading="lazy"><img src="img/origins/ingenieur.png" alt="" width="34" height="34" loading="lazy"><img src="img/origins/arkanist.png" alt="" width="34" height="34" loading="lazy"><img src="img/origins/hueter.png" alt="" width="34" height="34" loading="lazy"></span>
+      </a>
+      <a class="door" href="streamer.html">
+        <h3>Für Streamer</h3>
+        <p>Plätze für deine Community, ein Overlay für OBS und fünf Events, bei denen alle zusammen live sind.</p>
+        <span class="go">Was Streamer bekommen</span>
+        <img src="img/mascots/parrot.webp" alt="" width="180" height="180" loading="lazy">
+      </a>
+      <a class="door" href="partner.html">
+        <h3>Partner</h3>
+        <p>Dreißig Streams, ein gemeinsamer Termin pro Stufe, ein Projekt mit offenem Code. Wo ein Partner dazupasst.</p>
+        <span class="go">Partner werden</span>
+        <img src="img/mascots/wandering_trader.webp" alt="" width="180" height="256" loading="lazy">
+      </a>
+    </div>
   </section>
 </main>
 
 <footer class="bottom">
-  <nav aria-label="Weitere Seiten">
-    <a href="https://discord.gg/DZs3XyyHDj">Discord</a>
-    <a href="https://github.com/kronwerke">GitHub</a>
-    <a href="overlay.html">Stream-Overlay</a>
-    <a href="impressum.html">Impressum</a>
-    <a href="datenschutz.html">Datenschutz</a>
-    <a href="discord-bot.html">Discord-Bot</a>
-  </nav>
+  <div class="cols">
+    <div><h4>Spielen</h4><a href="stufen.html">Stufen</a><a href="herkunft.html">Herkunft und Rolle</a><a href="mods.html">Mods</a><a href="installieren.html">Installieren</a><a href="faq.html">Fragen</a><a href="status.html">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer.html">Für Streamer</a><a href="partner.html">Partner</a><a href="overlay.html">Stream-Overlay</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord-Bot</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="en/discord-bot.html" lang="en">English</a></div>
+  </div>
   <p class="sky-note">Der Himmel ist eine Simulation, die in deinem Browser läuft: eine Spiralgalaxie nach dem Dichtewellen-Modell, jeder Stern auf seiner eigenen Bahn. Sie misst selbst, was dein Gerät schafft, und bleibt ein Standbild, wo sie ruckeln würde. <button id="sky-toggle" type="button" aria-pressed="false" hidden>Himmel anhalten</button></p>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
@@ -168,5 +205,6 @@
 <script src="js/galaxy.js" defer></script>
 <script src="js/names.js" defer></script>
 <script src="js/status.js" defer></script>
+<script src="js/site.js" defer></script>
 </body>
 </html>

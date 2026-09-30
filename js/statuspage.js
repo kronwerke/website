@@ -1,11 +1,12 @@
 // The status page: server state, who is online, and every community goal with its pillars.
+// Before the season, or when the server does not answer, the planned goals are shown.
 
 (function () {
   "use strict";
 
   const API = "/api/status";
   const N = window.KW.names;
-  const nf = new Intl.NumberFormat("de-DE");
+  const nf = { format: window.KW.fmt };
   const $ = (id) => document.getElementById(id);
 
   function make(tag, cls, s) {
@@ -16,33 +17,69 @@
   }
 
   function showServer(s) {
-    if (!s) return;
     const state = $("s-state");
     state.textContent = "";
+    const names = $("s-names");
+    names.textContent = "";
+    if (!s || (!s.online && !s.state)) {
+      state.append(make("span", "pill", "öffnet Mitte Januar"));
+      $("s-players").textContent = "0";
+      $("s-pack").textContent = s && s.pack ? s.pack : "in Arbeit";
+      return;
+    }
     let pill;
     if (s.online) pill = make("span", "pill on", "online");
     else if (s.state === "starting") pill = make("span", "pill hold", "startet");
     else pill = make("span", "pill off", "offline");
     state.append(pill);
-    $("s-players").textContent = s.online ? nf.format(s.players || 0) + " / " + nf.format(s.max || 0) : "-";
-    $("s-pack").textContent = s.pack || "-";
-    const names = Array.isArray(s.names) ? s.names : [];
-    $("s-names").textContent = s.online ? (names.length ? "Gerade drauf: " + names.join(", ") : "Gerade ist niemand drauf.") : "";
+    $("s-players").textContent = s.online ? nf.format(s.players || 0) + " / " + nf.format(s.max || 0) : "0";
+    $("s-pack").textContent = s.pack || "in Arbeit";
+    const list = Array.isArray(s.names) ? s.names : [];
+    if (s.online && list.length) for (const n of list) names.append(make("span", "", n));
+    else if (s.online) names.append(make("span", "", "Gerade ist niemand drauf"));
+  }
+
+  function itemName(id) {
+    const span = make("span");
+    const icon = N.icons[id];
+    if (icon) {
+      const img = make("img");
+      img.src = "img/items/" + icon + ".png";
+      img.alt = "";
+      img.width = 24;
+      img.height = 24;
+      span.append(img, " ");
+      span.style.display = "inline-flex";
+      span.style.alignItems = "center";
+      span.style.gap = "0.5rem";
+    }
+    span.append(N.item({ item: id }));
+    return span;
   }
 
   function goalCard(g) {
     const meta = N.stages[g.id] || {};
-    const card = make("article", "goalcard " + g.state);
+    const card = make("article", "goalcard s" + (meta.n || 1) + " " + g.state);
     const h = make("h3");
     h.append(make("span", "", (meta.n ? "Stufe " + meta.n + ": " : "") + (meta.stage || "")));
-    const pillCls = { active: "on", held: "hold", done: "on", locked: "" }[g.state] || "";
+    const pillCls = { active: "on", held: "hold", done: "on", locked: "", planned: "" }[g.state] || "";
     h.append(make("span", "pill " + pillCls, N.states[g.state] || g.state));
     card.append(h);
-    card.append(make("p", "theme", N.goal(g) + (g.state === "locked" ? "" : ", " + g.percent + " Prozent")));
-    if (g.state !== "locked") {
+    const mob = N.mobs[g.id];
+    if (mob) {
+      const img = make("img", "mob mob-" + mob);
+      img.src = "img/mascots/" + mob + ".webp";
+      img.alt = "";
+      img.loading = "lazy";
+      card.append(img);
+    }
+    const live = g.state === "active" || g.state === "held" || g.state === "done";
+    card.append(make("p", "theme", N.goal(g) + (live ? ", " + g.percent + " Prozent" : "")));
+    if (live) {
       const bar = make("div", "bigbar");
       const fill = make("span");
-      fill.style.width = Math.max(0, Math.min(100, g.percent)) + "%";
+      fill.style.width = "0%";
+      requestAnimationFrame(() => { fill.style.width = Math.max(0, Math.min(100, g.percent)) + "%"; });
       bar.append(fill);
       bar.setAttribute("role", "progressbar");
       bar.setAttribute("aria-valuenow", g.percent);
@@ -53,16 +90,17 @@
     const pillars = make("div", "pillars");
     let planned = false;
     for (const p of g.pillars || []) {
-      const box = make("div", "pillar");
+      const box = make("div", "pillar " + (p.title || "").toLowerCase());
       box.append(make("p", "pillar-name", N.pillar(p.title)));
       for (const it of p.items || []) {
         let target = it.target;
         if (!target) { target = N.base[it.item] || 0; planned = true; }
         const row = make("p", "row");
-        const amount = g.state === "locked" ? nf.format(target) : nf.format(it.have) + " / " + nf.format(target);
-        row.append(make("span", "", N.item(it)), make("span", "", amount));
+        const fixed = N.fixed.includes(it.item) ? ", fest" : "";
+        const amount = live ? nf.format(it.have) + " / " + nf.format(target) : nf.format(target) + fixed;
+        row.append(itemName(it.item), make("span", "", amount));
         box.append(row);
-        if (g.state !== "locked") {
+        if (live) {
           const meter = make("div", "meter");
           const fill = make("span");
           fill.style.width = Math.min(100, target ? (100 * it.have) / target : 0).toFixed(1) + "%";
@@ -76,7 +114,7 @@
     if (g.state === "held") {
       card.append(make("p", "hint", "Der Obelisk hält bei 98 Prozent. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."));
     }
-    if (planned && g.state === "locked") {
+    if (planned && !live) {
       card.append(make("p", "note", "Geplante Mengen für 30 Spieler. Beim Öffnen der Stufe passt der Server sie an die echte Spielerzahl an."));
     }
     if (Array.isArray(g.top) && g.top.length) {
@@ -87,9 +125,11 @@
   }
 
   function showGoals(goals) {
-    if (!Array.isArray(goals) || !goals.length) return;
     const box = $("goals");
     box.textContent = "";
+    if (!Array.isArray(goals) || !goals.length) {
+      goals = N.planned.map((p) => ({ id: p.id, state: "planned", pillars: p.pillars.map((pl) => ({ title: pl.title, items: pl.items.map((i) => ({ item: i, have: 0, target: 0 })) })) }));
+    }
     for (const g of goals) box.append(goalCard(g));
   }
 
@@ -101,7 +141,8 @@
       showServer(data.server);
       showGoals(data.goals);
     } catch (e) {
-      $("s-state").textContent = "keine Antwort";
+      showServer(null);
+      showGoals(null);
     }
   }
 

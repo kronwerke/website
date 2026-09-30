@@ -44,30 +44,38 @@ It pauses when the tab is hidden and has a button in the footer to stop it. `?to
 
 The page should look like it was made for this server and nothing else.
 
-- Type: Big Shoulders Display (condensed, industrial, fits "Werke") for headings and labels, Newsreader (a text serif) for reading. Self hosted from Fontsource, so no request goes to Google.
-- Colour: warm ink instead of black, brass as the one accent, hydrogen red for the last stage and Season 1. No purple to blue gradients, no gradient text, no glass.
-- Layout: left aligned with the galaxy on the right, a to scale timeline instead of cards, numbered steps instead of an icon grid, specific numbers instead of claims.
+- Type: one family, Schibsted Grotesk, from 400 for text to 900 for the name. Self hosted from Fontsource, so no request goes to Google. A metric matched fallback keeps the layout still while it loads.
+- Colour: night indigo instead of black, and a colour for each of the five stages (moss, brass, steel blue, starlight violet, chaos red). Stage colours only ever mark stages, the pillar colours (brass for tech, teal for magic, grey for stone) only ever mark pillars. No gradients on text, no glass.
+- Motion answers the visitor. Hover and press move things; nothing fades in on its own except the stage bars, which grow once when scrolled to. The five mobs of the stages have a small idle life and a habit each when hovered (the villager nods, the blaze flares, the allay zips, the enderman teleports, the wither shakes). On touch screens a tap does the same. With `prefers-reduced-motion` everything stands still.
+- Mobs stand where they mean something: each stage has its mob, the install guide has one per launcher that comments on the current step, an inner page has one that fits its topic. Nothing pops up at random.
+- Layout: left aligned with the galaxy on the right, a to scale timeline instead of cards, numbered steps only where something is a sequence, specific numbers instead of claims. Long pages have a rail on the left that follows the reading position.
+- Before the season the page says so everywhere: the header pill shows the start, the status page shows the planned goals, the install guide ends with "ab Mitte Januar".
 
 ## Parts
 
 | Part | What it does |
 | --- | --- |
-| `index.html` | The start page |
-| `stufen.html` | The five stages: what each opens, what stays locked, the goal and why its numbers are what they are |
-| `mods.html`, `js/mods.js` | Every mod, searchable, by group, with links to Modrinth and CurseForge |
-| `installieren.html`, `js/install.js` | Install guide for the Modrinth App, CurseForge and Prism; the download links follow the pack version the server runs |
-| `faq.html` | The usual questions |
-| `overlay.html`, `js/overlay.js` | The stream overlay for OBS: the active goal as a bar or a corner card, deposits as they come in, the stage that opens in the middle of the screen. Opened in a browser it explains how to set it up, over sample data |
-| `status.html`, `js/statuspage.js` | Server state, who is online, every goal with both pillars |
+| `index.html` | The start page: the name over the galaxy, where the season stands, the idea, the five stages to scale, the steps until the start, the pack, three doors |
+| `stufen.html`, `js/stufen.js` | The five stages: what each opens, what stays locked, the goal and why its numbers are what they are, a finder that says in which stage a mod gets something new |
+| `herkunft.html`, `js/herkunft.js` | The nine origins and seven roles of the pack, with every power and its downside, and three questions that point at one |
+| `mods.html`, `js/mods.js` | Every mod, searchable, by group and by stage, with links to Modrinth and CurseForge and five fields that show in which stages it has something to open |
+| `js/modstages.js` | Which stage every mod's items belong to, built from `tools/stages` of the pack (see `tools/modstages.py`) |
+| `installieren.html`, `js/install.js` | Install guide for the Modrinth App, CurseForge and Prism as a checklist that stays ticked in the browser, a mob that comments on the current step, a memory helper; the download links follow the pack version the server runs |
+| `streamer.html` | What streamers get, the five events, the overlay with a live preview, what is expected, how to apply |
+| `partner.html` | Where a partner fits and where not, and how to get in touch |
+| `faq.html`, `js/faq.js` | The usual questions in three groups, searchable, each with its own address |
+| `overlay.html`, `js/overlay.js` | The stream overlay for OBS: the active goal as a bar or a corner card, deposits as they come in, the stage that opens in the middle of the screen, all in the colour of the running stage. Opened in a browser it explains how to set it up, over sample data |
+| `status.html`, `js/statuspage.js` | Server state, who is online, every goal with its pillars; before the season the planned goals |
 | `css/site.css` | All styles |
+| `js/site.js` | What every page shares: the header pill, copy buttons, the countdown, the rail, the pointer parallax of the still, the mobs on touch |
 | `js/galaxy.js` | The sky |
 | `js/status.js` | Server state and the current goal on the start page, from `/api/status`, answered by the bot that also serves the page |
-| `js/names.js` | German names for goals, pillars and items, and the planned amounts of stages not yet open |
-| `js/mascot.js` | A mob from `img/mascots/` peeks in from the lower edge with a tip for the page. Closing it keeps it away for the visit |
+| `js/names.js` | German names for goals, pillars and items, the planned amounts, and the number format |
 | `impressum.html`, `datenschutz.html`, `discord-bot.html`, `en/` | Legal pages, in German and English |
 | `tools/modlist.py` | Builds `data/mods.json` and `img/mods/` from a checkout of the pack, with the Modrinth API |
+| `tools/modstages.py` | Builds `js/modstages.js` from the pack's stage files and the mod jars of a server |
 | `tools/render_sky.py` | Renders the stills of the sky from `js/galaxy.js` |
-| `tools/fonts.sh` | Fetches the fonts from npm into `fonts/`, pinned and checksummed |
+| `tools/fonts.sh` | Fetches the font from npm into `fonts/`, pinned and checksummed |
 
 ## Quick look
 
@@ -81,6 +89,6 @@ Then open http://127.0.0.1:8000. CI builds the same folder and keeps it as the `
 
 ## Licence
 
-Code MIT. The fonts are under the SIL Open Font Licence, see `fonts/`.
+Code MIT. The font is under the SIL Open Font Licence, see `fonts/`. The item icons on the origins page are drawn from the textures of the mods they stand for.
 
 Made by [Elchi](https://github.com/Elchi-dev)

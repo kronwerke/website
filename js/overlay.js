@@ -24,7 +24,7 @@
   }
 
   const N = window.KW && window.KW.names;
-  const nf = new Intl.NumberFormat("de-DE");
+  const nf = { format: window.KW.fmt };
   const root = document.getElementById("stage-root");
   const feed = document.getElementById("feed");
   const MILESTONES = ["stone_gearbox", "source_keystone", "brass_heart", "rune_core", "steel_core", "elven_star"];
@@ -85,9 +85,11 @@
     const box = el("section", "box");
     box.id = view;
     if (view === "card") box.classList.add(corner);
+    box.classList.add("st" + st.n);
+    document.body.dataset.stage = st.n;
     const head = el("div", view === "card" ? "top" : "head");
     const titles = el("div");
-    titles.append(el("div", "stage caps", "Stufe " + st.n + " · " + st.stage), el("div", "goal caps", st.goal));
+    titles.append(el("div", "stage caps", "Stufe " + st.n + ", " + st.stage), el("div", "goal caps", st.goal));
     const pct = el("div", "pct caps");
     head.append(titles, pct);
     box.append(head);
@@ -249,6 +251,7 @@
     const box = document.getElementById("open");
     document.getElementById("open-kicker").textContent = next ? "Stufe " + next.n + " ist offen" : "Geschafft";
     document.getElementById("open-name").textContent = next ? next.stage : stageOf(g).goal;
+    box.firstElementChild.className = "box st" + (next ? next.n : stageOf(g).n);
     box.hidden = false;
     setTimeout(() => { box.hidden = true; }, 14000);
   }
