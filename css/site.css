@@ -290,7 +290,8 @@ h1 {
 h1 .l { display: inline-block; transition: transform 0.5s var(--spring), color 0.3s ease; }
 h1 .l:hover { transform: translateY(-0.06em) rotate(-3deg); color: #fff; }
 .lead { font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.45; max-width: 34rem; margin-bottom: 1.8rem; }
-.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin: 0 0 3.2rem; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin: 0 0 4.6rem; }
+@media (max-width: 700px) { .actions { margin-bottom: 3rem; } }
 
 /* where the season stands: three steps, the current one lit */
 .season {
@@ -322,6 +323,10 @@ h1 .l:hover { transform: translateY(-0.06em) rotate(-3deg); color: #fff; }
 .season li.now::before { background: var(--s2); box-shadow: 0 0 0 5px rgba(229, 180, 81, 0.22); }
 .season li.now:hover::before { background: var(--s2); }
 .season .cd { display: inline-block; color: var(--star); font-weight: 600; }
+/* the villager stands where the season is right now */
+.season .here { position: absolute; left: -4px; bottom: calc(100% + 1.5rem); height: 50px; width: auto; transform-origin: 50% 100%; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.5)); cursor: help; }
+.season .here::after { bottom: calc(100% + 4px); }
+@media (max-width: 700px) { .season .here { display: none; } }
 @media (max-width: 700px) {
   .season { grid-template-columns: 1fr; gap: 1rem; border-top: 0; border-left: 1px solid var(--line); padding: 0 0 0 1.2rem; }
   .season li::before { top: 0.55rem; left: calc(-1.2rem - 4px); }

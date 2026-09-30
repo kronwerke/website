@@ -62,7 +62,10 @@
   if (season) {
     const now = Date.now();
     const phase = now >= Date.parse("2027-01-11T00:00:00+01:00") ? 2 : now >= Date.parse("2026-12-01T00:00:00+01:00") ? 1 : 0;
-    season.querySelectorAll("li").forEach((li, i) => li.classList.toggle("now", i === phase));
+    const items = season.querySelectorAll("li");
+    items.forEach((li, i) => li.classList.toggle("now", i === phase));
+    const here = season.querySelector(".here");
+    if (here && items[phase] && here.parentElement !== items[phase]) items[phase].prepend(here);
   }
 
   // ---- how far away the start is, in rough terms because the day is not fixed yet
