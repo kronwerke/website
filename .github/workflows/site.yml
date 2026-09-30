@@ -22,13 +22,13 @@ jobs:
       - run: sh tools/fonts.sh
       - name: check
         run: |
-          for f in index.html impressum.html datenschutz.html; do test -s "$f"; done
+          for f in index.html impressum.html datenschutz.html discord-bot.html; do test -s "$f"; done
           node --check js/galaxy.js
           node --check js/status.js
-          grep -o 'href="[^"#:]*"\|src="[^"#:]*"' index.html | sed 's/.*="\(.*\)"/\1/' | while read -r p; do test -e "$p" || { echo "missing: $p"; exit 1; }; done
+          grep -ho 'href="[^"#:]*"\|src="[^"#:]*"' *.html | sed 's/.*="\(.*\)"/\1/' | while read -r p; do test -e "$p" || { echo "missing: $p"; exit 1; }; done
       - name: package
         run: |
-          mkdir -p dist && cp -r index.html impressum.html datenschutz.html favicon.svg css js fonts dist/
+          mkdir -p dist && cp -r *.html favicon.svg css js fonts img dist/
           tar -czf site.tar.gz -C dist .
           sha256sum site.tar.gz > SHA256SUMS
       - uses: actions/upload-artifact@v4
