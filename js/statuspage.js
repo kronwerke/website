@@ -96,9 +96,9 @@
         let target = it.target;
         if (!target) { target = N.base[it.item] || 0; planned = true; }
         const row = make("p", "row");
-        const fixed = N.fixed.includes(it.item) ? ", fest" : "";
-        const amount = live ? nf.format(it.have) + " / " + nf.format(target) : nf.format(target) + fixed;
-        row.append(itemName(it.item), make("span", "", amount));
+        const amount = make("span", "", live ? nf.format(it.have) + " / " + nf.format(target) : nf.format(target));
+        if (!live && N.fixed.includes(it.item)) amount.append(" ", make("small", "fixed", "fest"));
+        row.append(itemName(it.item), amount);
         box.append(row);
         if (live) {
           const meter = make("div", "meter");
