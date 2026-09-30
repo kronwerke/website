@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installieren · Kronwerke</title>
+<meta name="description" content="Das Kronwerke-Pack installieren: Schritt für Schritt für die Modrinth App, CurseForge und Prism.">
+<meta name="theme-color" content="#0e0c11">
+<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="page" data-page="installieren">
+<header class="top">
+  <a class="mark" href="index.html">Kronwerke</a>
+  <nav aria-label="Seiten">
+    <a href="stufen.html">Stufen</a>
+    <a href="mods.html">Mods</a>
+    <a href="installieren.html" aria-current="page">Installieren</a>
+    <a href="faq.html">FAQ</a>
+    <a href="status.html">Status</a>
+    <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+  </nav>
+</header>
+
+<main>
+<section class="panel wide">
+<h2>Installieren</h2>
+<p class="lede">In fünf Minuten im Spiel. Womit spielst du Minecraft?</p>
+<div class="choices" id="launchers" role="group" aria-label="Launcher">
+  <button class="choice" type="button" data-guide="modrinth" aria-pressed="false"><strong>Modrinth App</strong><span>Empfohlen, am einfachsten</span></button>
+  <button class="choice" type="button" data-guide="curseforge" aria-pressed="false"><strong>CurseForge App</strong><span>Wenn du die schon hast</span></button>
+  <button class="choice" type="button" data-guide="prism" aria-pressed="false"><strong>Prism Launcher</strong><span>Für alle, die gern selbst einstellen</span></button>
+  <button class="choice" type="button" data-guide="none" aria-pressed="false"><strong>Nichts davon</strong><span>Nur der normale Launcher oder gar nichts</span></button>
+</div>
+<p class="note">Du brauchst Minecraft Java Edition und einen PC mit mindestens 16 GB Arbeitsspeicher. Welche Version das Pack gerade hat, holt sich die Seite vom Server: <strong id="packver">aktuell</strong>. Die Links unten führen immer zu genau dieser Version.</p>
+</section>
+
+<section class="panel wide guide" id="guide-none" hidden>
+<h2>Erst die Modrinth App</h2>
+<p>Der normale Minecraft-Launcher kann keine Modpacks. Die Modrinth App ist kostenlos, braucht kein Konto und erledigt Java und NeoForge selbst.</p>
+<ol class="steps">
+  <li><h3>Herunterladen</h3><p>Auf <a href="https://modrinth.com/app">modrinth.com/app</a> die App für dein System laden und installieren.</p></li>
+  <li><h3>Mit Microsoft anmelden</h3><p>Beim ersten Start mit dem Microsoft-Konto anmelden, mit dem du Minecraft gekauft hast.</p></li>
+  <li><h3>Weiter</h3><p><button class="chip" type="button" data-guide="modrinth">Weiter mit der Modrinth App</button></p></li>
+</ol>
+</section>
+
+<section class="panel wide guide" id="guide-modrinth" hidden>
+<h2>Modrinth App</h2>
+<ol class="steps">
+  <li><h3>Pack laden</h3><p><a class="dl" data-kind="mrpack" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.mrpack)</a> herunterladen.</p></li>
+  <li><h3>Importieren</h3><p>In der App links auf <strong>+</strong>, dann oben <strong>Import from file</strong> und die heruntergeladene Datei wählen. Die App lädt jetzt rund 600 MB Mods, das dauert ein paar Minuten.</p></li>
+  <li><h3>Speicher einstellen</h3><p>Die Instanz öffnen, oben rechts auf das Zahnrad, <strong>Java and memory</strong>, und den Speicher auf <strong>8 GB</strong> stellen. Mit den voreingestellten 2 GB startet das Pack nicht richtig.</p></li>
+  <li><h3>Spielen</h3><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
+</ol>
+<p class="hint">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Datei genauso importieren. Die Welt liegt auf dem Server, da geht nichts verloren.</p>
+</section>
+
+<section class="panel wide guide" id="guide-curseforge" hidden>
+<h2>CurseForge App</h2>
+<ol class="steps">
+  <li><h3>Pack laden</h3><p><a class="dl" data-kind="zip" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.zip)</a> herunterladen.</p></li>
+  <li><h3>Importieren</h3><p>In der App bei Minecraft auf <strong>Create Custom Profile</strong>, dann unten <strong>Import</strong> und die Zip-Datei wählen.</p></li>
+  <li><h3>Speicher einstellen</h3><p>Zahnrad unten links, <strong>Minecraft</strong>, <strong>Java Settings</strong>, <strong>Allocated Memory</strong> auf <strong>8 GB</strong> (8192 MB).</p></li>
+  <li><h3>Spielen</h3><p>Profil starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
+</ol>
+</section>
+
+<section class="panel wide guide" id="guide-prism" hidden>
+<h2>Prism Launcher</h2>
+<ol class="steps">
+  <li><h3>Importieren</h3><p><strong>Add Instance</strong>, links <strong>Import</strong>, und diese Adresse einfügen: <span class="addr" id="mrurl">https://github.com/kronwerke/pack/releases</span></p></li>
+  <li><h3>Speicher einstellen</h3><p>Instanz bearbeiten, <strong>Settings</strong>, <strong>Java</strong>, Maximum auf <strong>8192 MB</strong>.</p></li>
+  <li><h3>Spielen</h3><p>Starten, <strong>Multiplayer</strong>, <strong>Server hinzufügen</strong>, als Adresse <span class="addr">93.90.74.243</span> eintragen.</p></li>
+</ol>
+<p class="hint">Updates: Welche Version der Server gerade will, steht oben auf dieser Seite. Ist sie neuer als deine, die neue Adresse genauso importieren.</p>
+</section>
+
+<section class="panel wide">
+<h2>Klappt nicht?</h2>
+<p>Die meisten Probleme sind zu wenig Speicher. Hilft das nicht, frag im Discord und häng die Datei <code>logs/latest.log</code> aus deiner Instanz an. Mehr dazu in den <a href="faq.html">häufigen Fragen</a>.</p>
+</section>
+</main>
+
+<footer class="bottom">
+  <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
+  <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
+</footer>
+
+<script src="js/install.js"></script>
+<script src="js/mascot.js"></script>
+</body>
+</html>

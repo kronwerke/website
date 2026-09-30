@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status · Kronwerke</title>
+<meta name="description" content="Ob der Kronwerke-Server läuft, wer gerade spielt und wie weit die Gemeinschaftsziele sind.">
+<meta name="theme-color" content="#0e0c11">
+<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="page" data-page="status">
+<header class="top">
+  <a class="mark" href="index.html">Kronwerke</a>
+  <nav aria-label="Seiten">
+    <a href="stufen.html">Stufen</a>
+    <a href="mods.html">Mods</a>
+    <a href="installieren.html">Installieren</a>
+    <a href="faq.html">FAQ</a>
+    <a href="status.html" aria-current="page">Status</a>
+    <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+  </nav>
+</header>
+
+<main>
+<section class="panel wide">
+<h2>Status</h2>
+<dl class="statusline" id="server">
+  <div><dt>Server</dt><dd id="s-state">wird abgefragt</dd></div>
+  <div><dt>Spieler</dt><dd id="s-players">-</dd></div>
+  <div><dt>Pack</dt><dd id="s-pack">-</dd></div>
+</dl>
+<p class="names" id="s-names"></p>
+<p class="note">Die Seite fragt einmal pro Minute beim Server nach.</p>
+</section>
+
+<section class="panel wide">
+<h2>Der Obelisk</h2>
+<p class="lede">Die Gemeinschaftsziele aller Stufen. Das aktive Ziel füllt sich live, sobald jemand am Obelisken etwas abgibt.</p>
+<div id="goals"><p class="note">Die Ziele erscheinen, sobald der Server antwortet.</p></div>
+</section>
+</main>
+
+<footer class="bottom">
+  <p><a href="https://discord.gg/DZs3XyyHDj">Discord</a> · <a href="https://github.com/kronwerke">GitHub</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="discord-bot.html">Discord-Bot</a></p>
+  <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
+</footer>
+
+<script src="js/names.js"></script>
+<script src="js/statuspage.js"></script>
+<script src="js/mascot.js"></script>
+</body>
+</html>
