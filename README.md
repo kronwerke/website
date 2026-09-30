@@ -57,6 +57,7 @@ The page should look like it was made for this server and nothing else.
 | `mods.html`, `js/mods.js` | Every mod, searchable, by group, with links to Modrinth and CurseForge |
 | `installieren.html`, `js/install.js` | Install guide for the Modrinth App, CurseForge and Prism; the download links follow the pack version the server runs |
 | `faq.html` | The usual questions |
+| `overlay.html`, `js/overlay.js` | The stream overlay for OBS: the active goal as a bar or a corner card, deposits as they come in, the stage that opens in the middle of the screen. Opened in a browser it explains how to set it up, over sample data |
 | `status.html`, `js/statuspage.js` | Server state, who is online, every goal with both pillars |
 | `css/site.css` | All styles |
 | `js/galaxy.js` | The sky |
