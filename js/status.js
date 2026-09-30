@@ -4,7 +4,8 @@
 (function () {
   "use strict";
 
-  const API = "https://api.kronwerke.com/api/status";
+  // the bot serves this page and the API from the same host
+  const API = "/api/status";
   const statusEl = document.getElementById("status");
   const goalEl = document.getElementById("goal");
   const nf = new Intl.NumberFormat("de-DE");
