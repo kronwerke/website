@@ -16,7 +16,9 @@
 
 ## Overview
 
-One static page in German, two legal pages, no framework and no build step. The text is the plan as it stands: five stages, the obelisk, how the whitelist works, what is in the pack. While the season runs, the page asks the [bot](https://github.com/kronwerke/bot) for the server state and the current community goal once a minute.
+Static pages in German, no framework. The start page is the plan as it stands: five stages, the obelisk, how the whitelist works, what is in the pack. Behind it are the stages in detail, every mod in the pack, an install guide per launcher, the usual questions and a status page. While the season runs, the pages ask the [bot](https://github.com/kronwerke/bot) for the server state and the community goals once a minute.
+
+The only build step is the mod list: CI checks out [kronwerke/pack](https://github.com/kronwerke/pack) and `tools/modlist.py` turns its mod files into `data/mods.json` and small icons, so the list always matches the pack of that release.
 
 ## The sky
 
@@ -42,17 +44,26 @@ The page should look like it was made for this server and nothing else.
 
 | Part | What it does |
 | --- | --- |
-| `index.html` | The page |
+| `index.html` | The start page |
+| `stufen.html` | The five stages: what each opens, what stays locked, the goal and why its numbers are what they are |
+| `mods.html`, `js/mods.js` | Every mod, searchable, by group, with links to Modrinth and CurseForge |
+| `installieren.html`, `js/install.js` | Install guide for the Modrinth App, CurseForge and Prism; the download links follow the pack version the server runs |
+| `faq.html` | The usual questions |
+| `status.html`, `js/statuspage.js` | Server state, who is online, every goal with both pillars |
 | `css/site.css` | All styles |
 | `js/galaxy.js` | The sky |
-| `js/status.js` | Server state and the current goal from `/api/status`, answered by the bot that also serves the page |
-| `impressum.html`, `datenschutz.html` | Legal pages; the bracketed parts are to be filled in before the site goes live |
+| `js/status.js` | Server state and the current goal on the start page, from `/api/status`, answered by the bot that also serves the page |
+| `js/names.js` | German names for goals, pillars and items, and the planned amounts of stages not yet open |
+| `js/mascot.js` | A mob from `img/mascots/` peeks in from the lower edge with a tip for the page. Closing it keeps it away for the visit |
+| `impressum.html`, `datenschutz.html`, `discord-bot.html`, `en/` | Legal pages, in German and English |
+| `tools/modlist.py` | Builds `data/mods.json` and `img/mods/` from a checkout of the pack, with the Modrinth API |
 | `tools/fonts.sh` | Fetches the fonts from npm into `fonts/`, pinned and checksummed |
 
 ## Quick look
 
 ```
 sh tools/fonts.sh
+python3 tools/modlist.py ../pack .
 python3 -m http.server 8000
 ```
 

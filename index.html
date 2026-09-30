@@ -14,15 +14,17 @@
 <link rel="stylesheet" href="css/site.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body>
+<body data-page="start">
 <canvas id="sky" aria-hidden="true"></canvas>
 
 <header class="top">
   <a class="mark" href="#">Kronwerke</a>
   <nav aria-label="Seiten">
-    <a href="#idee">Die Idee</a>
-    <a href="#stufen">Stufen</a>
-    <a href="#rein">Reinkommen</a>
+    <a href="stufen.html">Stufen</a>
+    <a href="mods.html">Mods</a>
+    <a href="installieren.html">Installieren</a>
+    <a href="faq.html">FAQ</a>
+    <a href="status.html">Status</a>
     <a class="discord" href="https://discord.gg/DZs3XyyHDj">Discord</a>
   </nav>
 </header>
@@ -75,7 +77,7 @@
 
   <section class="panel stufen" id="stufen">
     <h2>Fünf Stufen</h2>
-    <p class="intro">Die Balken zeigen, wie lange jede Stufe geplant ist. Wie lange sie wirklich dauert, entscheidet der Server.</p>
+    <p class="intro">Die Balken zeigen, wie lange jede Stufe geplant ist. Wie lange sie wirklich dauert, entscheidet der Server. Was jede Stufe öffnet und verlangt, steht bei den <a href="stufen.html">Stufen im Detail</a>.</p>
     <ol class="timeline">
       <li style="--days:5"><span class="bar"></span><span class="n">1</span><strong>Steinwerk</strong><span class="when">ab Tag 1</span><span class="what">Holz, Stein, Wasserräder, die ersten Zauber.</span></li>
       <li style="--days:9"><span class="bar"></span><span class="n">2</span><strong>Messingwerk</strong><span class="when">ab Tag 6</span><span class="what">Messing, der Nether, Mana. Das Portal wird im Stream entzündet.</span></li>
@@ -99,7 +101,7 @@
       </li>
       <li>
         <h3>Pack installieren</h3>
-        <p>Die Anleitung steht im Kanal <code>modpack-installieren</code>. Das Pack gibt es für Modrinth und CurseForge, Updates kommen automatisch.</p>
+        <p>Das Pack gibt es für die Modrinth App, CurseForge und Prism. Die <a href="installieren.html">Anleitung</a> führt Schritt für Schritt durch und verlinkt immer die Version, die der Server gerade will.</p>
       </li>
     </ol>
   </section>
@@ -107,7 +109,7 @@
   <section class="panel pack" id="pack">
     <h2>Im Pack</h2>
     <p class="mods"><span>Create</span> <span>Ars Nouveau</span> <span>Botania</span> <span>Mekanism</span> <span>Occultism</span> <span>Immersive Engineering</span> <span>Hexerei</span> <span>Applied Energistics 2</span> <span>Iron's Spells</span> <span>Malum</span> <span>Eidolon</span> <span>Theurgy</span> <span>Mahou Tsukai</span> <span>Draconic Evolution</span> <span>Farmer's Delight</span> <span>Silent Gear</span> <span>Apotheosis</span> <span>Neo Origins</span> <span>Waystones</span></p>
-    <p>224 Mods, Technik und Magie zu gleichen Teilen. Dazu ein Questbuch nach dem Vorbild von All the Mods, allein in Stufe 1 mit 92 Quests, und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. Der Code ist offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
+    <p>Über 220 <a href="mods.html">Mods</a>, Technik und Magie zu gleichen Teilen. Dazu ein Questbuch nach dem Vorbild von All the Mods, allein in Stufe 1 mit 92 Quests, und ein eigener Server-Mod für Obelisk, Stufen und Whitelist. Der Code ist offen auf <a href="https://github.com/kronwerke">GitHub</a>.</p>
   </section>
 </main>
 
@@ -118,6 +120,8 @@
 </footer>
 
 <script src="js/galaxy.js"></script>
+<script src="js/names.js"></script>
 <script src="js/status.js"></script>
+<script src="js/mascot.js"></script>
 </body>
 </html>
