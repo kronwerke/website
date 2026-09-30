@@ -45,7 +45,7 @@ The page should look like it was made for this server and nothing else.
 | `index.html` | The page |
 | `css/site.css` | All styles |
 | `js/galaxy.js` | The sky |
-| `js/status.js` | Server state and the current goal from `api.kronwerke.com/api/status` |
+| `js/status.js` | Server state and the current goal from `/api/status`, answered by the bot that also serves the page |
 | `impressum.html`, `datenschutz.html` | Legal pages; the bracketed parts are to be filled in before the site goes live |
 | `tools/fonts.sh` | Fetches the fonts from npm into `fonts/`, pinned and checksummed |
 
@@ -56,7 +56,7 @@ sh tools/fonts.sh
 python3 -m http.server 8000
 ```
 
-Then open http://127.0.0.1:8000. CI builds the same folder and keeps it as the `site` artifact.
+Then open http://127.0.0.1:8000. CI builds the same folder and keeps it as the `site` artifact. A tag `v*` publishes it as `site.tar.gz` in a release; the [bot](https://github.com/kronwerke/bot) picks up every new release and serves it.
 
 ## Licence
 
