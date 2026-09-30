@@ -49,7 +49,9 @@
         row.append(make("span", "", N ? N.item(it) : it.name || it.item), make("span", "", nf.format(it.have) + " / " + nf.format(it.target)));
         const meter = make("div", "meter");
         const fill = make("span");
-        fill.style.width = Math.min(100, it.target ? (100 * it.have) / it.target : 0).toFixed(1) + "%";
+        const w = Math.min(100, it.target ? (100 * it.have) / it.target : 0).toFixed(1) + "%";
+        fill.style.width = "0%";
+        requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = w; }));
         meter.append(fill);
         pillar.append(row, meter);
       }
