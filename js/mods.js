@@ -107,7 +107,21 @@
     for (const m of shown) frag.append(item(m));
     list.append(frag);
     count.textContent = shown.length === mods.length ? mods.length + " Mods" : shown.length + " von " + mods.length + " Mods";
-    for (const b of chips.children) b.setAttribute("aria-pressed", String(b.dataset.group === group));
+    // every group chip says how many mods it holds, with the search and the stage applied
+    const per = {};
+    for (const m of mods) {
+      if (stage) { const info = stageInfo(m); if (!info || !info.by[stage]) continue; }
+      const hay = (m.name + " " + (m.text || "")).toLowerCase();
+      if (!words.every((w) => hay.includes(w))) continue;
+      per[m.group] = (per[m.group] || 0) + 1;
+      per.all = (per.all || 0) + 1;
+    }
+    for (const b of chips.children) {
+      b.setAttribute("aria-pressed", String(b.dataset.group === group));
+      let n = b.querySelector(".n");
+      if (!n) { n = make("span", "n"); b.append(n); }
+      n.textContent = per[b.dataset.group] || 0;
+    }
     for (const b of stageChips.children) b.setAttribute("aria-pressed", String(Number(b.dataset.stage) === stage));
     const url = new URL(location.href);
     if (q.value.trim()) url.searchParams.set("q", q.value.trim()); else url.searchParams.delete("q");

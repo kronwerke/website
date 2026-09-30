@@ -117,6 +117,10 @@ strong { font-weight: 700; }
 .num { font-variant-numeric: tabular-nums; }
 ::selection { background: var(--s2); color: var(--night); }
 
+/* keyboard users can jump past the header */
+.skip { position: absolute; left: var(--gutter); top: -3rem; padding: 0.5rem 1rem; border-radius: 999px; background: var(--star); color: var(--night); font-weight: 700; text-decoration: none; z-index: 10; transition: top 0.2s ease; }
+.skip:focus { top: 1rem; }
+
 /* ---- header -------------------------------------------------------------------- */
 .top {
   display: flex;
@@ -537,7 +541,7 @@ h1 .l:hover { transform: translateY(-0.06em) rotate(-3deg); color: #fff; }
 .stage-head .when { color: var(--mute); font-size: 0.95rem; display: block; margin-top: 0.3rem; }
 .stage-head img { height: 120px; width: auto; align-self: end; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.5)); transform-origin: 50% 100%; }
 .stage-head img.mob-allay { height: 80px; margin-bottom: 20px; }
-@media (max-width: 600px) { .stage-head { grid-template-columns: auto minmax(0, 1fr); } .stage-head img { display: none; } }
+@media (max-width: 600px) { .stage-head img { height: 72px; } .stage-head img.mob-allay { height: 50px; margin-bottom: 10px; } }
 .stage .theme { font-size: 1.15rem; max-width: 34rem; }
 .twocol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; margin: 1.5rem 0; }
 @media (max-width: 700px) { .twocol { grid-template-columns: 1fr; } }
@@ -622,7 +626,8 @@ ol.opens li::before { content: counter(r); width: 1.4rem; height: 1.4rem; top: 0
   transition: border-color 0.2s ease, transform 0.3s var(--ease), box-shadow 0.3s ease;
 }
 .mod:hover { border-color: var(--line-2); transform: translateY(-3px); box-shadow: 0 24px 40px -30px rgba(0, 0, 0, 0.9); }
-.mod img, .mod .noicon { width: 48px; height: 48px; border-radius: 10px; grid-row: 1 / span 3; transition: transform 0.4s var(--spring); }
+.mod > :not(img):not(.noicon) { grid-column: 2; }
+.mod img, .mod .noicon { width: 48px; height: 48px; border-radius: 10px; grid-row: 1 / span 4; grid-column: 1; transition: transform 0.4s var(--spring); }
 .mod:hover img { transform: rotate(-6deg) scale(1.08); }
 .mod .noicon { background: var(--night-3); }
 .mod h3 { font-size: 1.05rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.7rem; }
@@ -737,6 +742,7 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 .goalcard:hover { border-color: var(--line-2); border-left-color: var(--c); }
 .goalcard.s2 { --c: var(--s2); } .goalcard.s3 { --c: var(--s3); } .goalcard.s4 { --c: var(--s4); } .goalcard.s5 { --c: var(--s5); }
 .goalcard.locked { opacity: 0.75; }
+.goalcard.active, .goalcard.held { box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 50%, transparent), 0 30px 60px -40px rgba(0, 0, 0, 0.9); }
 .goalcard h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; font-size: 1.3rem; }
 .goalcard h3 .pill { font-size: 0.85rem; color: var(--mute); }
 .goalcard .theme { color: var(--mute); margin: 0.2rem 0 0.8rem; }
