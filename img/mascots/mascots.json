@@ -1,45 +1,346 @@
 [
-{"name": "allay", "file": "allay.webp", "facing": "left", "hostile": false, "w": 157, "h": 148},
-{"name": "armadillo", "file": "armadillo.webp", "facing": "left", "hostile": false, "w": 211, "h": 203},
-{"name": "axolotl", "file": "axolotl.webp", "facing": "left", "hostile": false, "w": 227, "h": 160},
-{"name": "bat", "file": "bat.webp", "facing": "left", "hostile": false, "w": 199, "h": 169},
-{"name": "blaze", "file": "blaze.webp", "facing": "front", "hostile": true, "w": 136, "h": 231},
-{"name": "camel", "file": "camel.webp", "facing": "left", "hostile": false, "w": 205, "h": 227},
-{"name": "cat", "file": "cat.webp", "facing": "left", "hostile": false, "w": 188, "h": 113},
-{"name": "cave_spider", "file": "cave_spider.webp", "facing": "left", "hostile": true, "w": 214, "h": 161},
-{"name": "chicken", "file": "chicken.webp", "facing": "left", "hostile": false, "w": 196, "h": 236},
-{"name": "cod", "file": "cod.webp", "facing": "left", "hostile": false, "w": 192, "h": 149},
-{"name": "cow", "file": "cow.webp", "facing": "left", "hostile": false, "w": 173, "h": 213},
-{"name": "creeper", "file": "creeper.webp", "facing": "front", "hostile": true, "w": 113, "h": 228},
-{"name": "donkey", "file": "donkey.webp", "facing": "left", "hostile": false, "w": 205, "h": 214},
-{"name": "drowned", "file": "drowned.webp", "facing": "left", "hostile": true, "w": 158, "h": 256},
-{"name": "enderman", "file": "enderman.webp", "facing": "front", "hostile": true, "w": 82, "h": 250},
-{"name": "frog", "file": "frog.webp", "facing": "left", "hostile": false, "w": 200, "h": 156},
-{"name": "ghast", "file": "ghast.webp", "facing": "front", "hostile": true, "w": 164, "h": 256},
-{"name": "glow_squid", "file": "glow_squid.webp", "facing": "front", "hostile": false, "w": 114, "h": 206},
-{"name": "horse", "file": "horse.webp", "facing": "left", "hostile": false, "w": 197, "h": 200},
-{"name": "mooshroom", "file": "mooshroom.webp", "facing": "left", "hostile": false, "w": 156, "h": 205},
-{"name": "mule", "file": "mule.webp", "facing": "left", "hostile": false, "w": 184, "h": 191},
-{"name": "ocelot", "file": "ocelot.webp", "facing": "left", "hostile": false, "w": 194, "h": 116},
-{"name": "parrot", "file": "parrot.webp", "facing": "left", "hostile": false, "w": 124, "h": 195},
-{"name": "pig", "file": "pig.webp", "facing": "left", "hostile": false, "w": 169, "h": 157},
-{"name": "pufferfish", "file": "pufferfish.webp", "facing": "front", "hostile": false, "w": 175, "h": 188},
-{"name": "rabbit", "file": "rabbit.webp", "facing": "left", "hostile": false, "w": 151, "h": 177},
-{"name": "salmon", "file": "salmon.webp", "facing": "left", "hostile": false, "w": 155, "h": 113},
-{"name": "sheep", "file": "sheep.webp", "facing": "left", "hostile": false, "w": 141, "h": 165},
-{"name": "skeleton", "file": "skeleton.webp", "facing": "front", "hostile": true, "w": 135, "h": 255},
-{"name": "skeleton_horse", "file": "skeleton_horse.webp", "facing": "left", "hostile": false, "w": 173, "h": 184},
-{"name": "sniffer", "file": "sniffer.webp", "facing": "left", "hostile": false, "w": 201, "h": 185},
-{"name": "snow_golem", "file": "snow_golem.webp", "facing": "front", "hostile": false, "w": 117, "h": 249},
-{"name": "spider", "file": "spider.webp", "facing": "left", "hostile": true, "w": 223, "h": 167},
-{"name": "squid", "file": "squid.webp", "facing": "front", "hostile": false, "w": 101, "h": 210},
-{"name": "strider", "file": "strider.webp", "facing": "front", "hostile": false, "w": 200, "h": 242},
-{"name": "tadpole", "file": "tadpole.webp", "facing": "left", "hostile": false, "w": 156, "h": 78},
-{"name": "tropical_fish", "file": "tropical_fish.webp", "facing": "left", "hostile": false, "w": 186, "h": 256},
-{"name": "turtle", "file": "turtle.webp", "facing": "left", "hostile": false, "w": 256, "h": 161},
-{"name": "villager", "file": "villager.webp", "facing": "front", "hostile": false, "w": 130, "h": 256},
-{"name": "wandering_trader", "file": "wandering_trader.webp", "facing": "front", "hostile": false, "w": 129, "h": 256},
-{"name": "wither", "file": "wither.webp", "facing": "left", "hostile": true, "w": 187, "h": 218},
-{"name": "wither_skeleton", "file": "wither_skeleton.webp", "facing": "front", "hostile": true, "w": 143, "h": 256},
-{"name": "zombie", "file": "zombie.webp", "facing": "front", "hostile": true, "w": 152, "h": 232}
+ {
+  "name": "allay",
+  "file": "allay.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 157,
+  "h": 148
+ },
+ {
+  "name": "armadillo",
+  "file": "armadillo.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 211,
+  "h": 203
+ },
+ {
+  "name": "axolotl",
+  "file": "axolotl.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 227,
+  "h": 160
+ },
+ {
+  "name": "bat",
+  "file": "bat.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 199,
+  "h": 169
+ },
+ {
+  "name": "blaze",
+  "file": "blaze.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 136,
+  "h": 231
+ },
+ {
+  "name": "camel",
+  "file": "camel.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 205,
+  "h": 227
+ },
+ {
+  "name": "cat",
+  "file": "cat.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 188,
+  "h": 113
+ },
+ {
+  "name": "cave_spider",
+  "file": "cave_spider.webp",
+  "facing": "left",
+  "hostile": true,
+  "w": 214,
+  "h": 161
+ },
+ {
+  "name": "chicken",
+  "file": "chicken.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 196,
+  "h": 236
+ },
+ {
+  "name": "cod",
+  "file": "cod.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 192,
+  "h": 149
+ },
+ {
+  "name": "cow",
+  "file": "cow.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 173,
+  "h": 213
+ },
+ {
+  "name": "creeper",
+  "file": "creeper.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 113,
+  "h": 228
+ },
+ {
+  "name": "donkey",
+  "file": "donkey.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 205,
+  "h": 214
+ },
+ {
+  "name": "drowned",
+  "file": "drowned.webp",
+  "facing": "left",
+  "hostile": true,
+  "w": 158,
+  "h": 256
+ },
+ {
+  "name": "enderman",
+  "file": "enderman.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 82,
+  "h": 250
+ },
+ {
+  "name": "frog",
+  "file": "frog.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 200,
+  "h": 156
+ },
+ {
+  "name": "ghast",
+  "file": "ghast.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 164,
+  "h": 256
+ },
+ {
+  "name": "glow_squid",
+  "file": "glow_squid.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 114,
+  "h": 206
+ },
+ {
+  "name": "horse",
+  "file": "horse.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 197,
+  "h": 200
+ },
+ {
+  "name": "mooshroom",
+  "file": "mooshroom.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 156,
+  "h": 205
+ },
+ {
+  "name": "mule",
+  "file": "mule.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 184,
+  "h": 191
+ },
+ {
+  "name": "ocelot",
+  "file": "ocelot.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 194,
+  "h": 116
+ },
+ {
+  "name": "parrot",
+  "file": "parrot.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 124,
+  "h": 195
+ },
+ {
+  "name": "pig",
+  "file": "pig.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 169,
+  "h": 157
+ },
+ {
+  "name": "pufferfish",
+  "file": "pufferfish.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 175,
+  "h": 188
+ },
+ {
+  "name": "rabbit",
+  "file": "rabbit.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 151,
+  "h": 177
+ },
+ {
+  "name": "salmon",
+  "file": "salmon.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 155,
+  "h": 113
+ },
+ {
+  "name": "sheep",
+  "file": "sheep.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 141,
+  "h": 165
+ },
+ {
+  "name": "skeleton",
+  "file": "skeleton.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 135,
+  "h": 255
+ },
+ {
+  "name": "skeleton_horse",
+  "file": "skeleton_horse.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 173,
+  "h": 184
+ },
+ {
+  "name": "sniffer",
+  "file": "sniffer.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 201,
+  "h": 185
+ },
+ {
+  "name": "snow_golem",
+  "file": "snow_golem.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 117,
+  "h": 249
+ },
+ {
+  "name": "spider",
+  "file": "spider.webp",
+  "facing": "left",
+  "hostile": true,
+  "w": 223,
+  "h": 167
+ },
+ {
+  "name": "squid",
+  "file": "squid.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 101,
+  "h": 210
+ },
+ {
+  "name": "strider",
+  "file": "strider.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 200,
+  "h": 242
+ },
+ {
+  "name": "tadpole",
+  "file": "tadpole.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 156,
+  "h": 78
+ },
+ {
+  "name": "tropical_fish",
+  "file": "tropical_fish.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 186,
+  "h": 256
+ },
+ {
+  "name": "turtle",
+  "file": "turtle.webp",
+  "facing": "left",
+  "hostile": false,
+  "w": 256,
+  "h": 161
+ },
+ {
+  "name": "villager",
+  "file": "villager.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 130,
+  "h": 256
+ },
+ {
+  "name": "wandering_trader",
+  "file": "wandering_trader.webp",
+  "facing": "front",
+  "hostile": false,
+  "w": 129,
+  "h": 256
+ },
+ {
+  "name": "wither",
+  "file": "wither.webp",
+  "facing": "left",
+  "hostile": true,
+  "w": 187,
+  "h": 218
+ },
+ {
+  "name": "wither_skeleton",
+  "file": "wither_skeleton.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 143,
+  "h": 256
+ },
+ {
+  "name": "zombie",
+  "file": "zombie.webp",
+  "facing": "front",
+  "hostile": true,
+  "w": 152,
+  "h": 232
+ }
 ]
