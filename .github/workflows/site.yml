@@ -35,10 +35,10 @@ jobs:
           test -s data/mods.json
       - name: check
         run: |
-          for f in index.html stufen.html mods.html installieren.html faq.html status.html impressum.html datenschutz.html discord-bot.html en/imprint.html en/privacy.html en/discord-bot.html; do test -s "$f"; done
+          for f in index.html stufen.html herkunft.html mods.html installieren.html streamer.html partner.html faq.html status.html overlay.html impressum.html datenschutz.html discord-bot.html en/imprint.html en/privacy.html en/discord-bot.html; do test -s "$f"; done
           for f in js/*.js; do node --check "$f"; done
           for f in *.html en/*.html; do
-            grep -o 'href="[^"#:]*"\|src="[^"#:]*"' "$f" | sed 's/.*="\(.*\)"/\1/' | while read -r p; do test -e "$(dirname "$f")/$p" || { echo "missing in $f: $p"; exit 1; }; done
+            grep -o 'href="[^"#:]*"\|src="[^"#:]*"' "$f" | sed 's/.*="\(.*\)"/\1/; s/?.*//' | while read -r p; do test -e "$(dirname "$f")/$p" || { echo "missing in $f: $p"; exit 1; }; done
           done
       - name: package
         run: |
