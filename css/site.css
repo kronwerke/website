@@ -22,13 +22,13 @@
 }
 
 :root {
-  --night: #0f1024;
-  --night-2: #16183a;
-  --night-3: #1d2050;
-  --panel: rgba(18, 20, 46, 0.78);
+  --night: #0d0b10;
+  --night-2: #17141b;
+  --night-3: #221d27;
+  --panel: rgba(23, 20, 27, 0.78);
   --star: #f2ede3;
-  --mute: #aaa8c4;
-  --dim: #7e7c99;
+  --mute: #aaa39b;
+  --dim: #7b746f;
   --line: rgba(242, 237, 227, 0.14);
   --line-2: rgba(242, 237, 227, 0.26);
   --s1: #a8b596;
@@ -51,7 +51,7 @@
 
 html {
   background: var(--night);
-  background-image: radial-gradient(ellipse 60% 45% at 75% 30%, #23234a 0%, transparent 70%);
+  background-image: radial-gradient(ellipse 60% 45% at 75% 30%, #2a2128 0%, transparent 70%);
   background-attachment: fixed;
   scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
@@ -336,10 +336,10 @@ h1 .l:hover { transform: translateY(-0.06em) rotate(-3deg); color: #fff; }
 .band {
   margin: 0 auto;
   padding: clamp(3.5rem, 9vw, 7rem) var(--gutter);
-  background: rgba(15, 16, 36, 0.8);
+  background: rgba(13, 11, 16, 0.8);
 }
 .band + .band { border-top: 1px solid var(--line); }
-.hero + .band { background: linear-gradient(to bottom, rgba(15, 16, 36, 0), rgba(15, 16, 36, 0.8) 14rem); }
+.hero + .band { background: linear-gradient(to bottom, rgba(13, 11, 16, 0), rgba(13, 11, 16, 0.8) 14rem); }
 .band h2 { max-width: 22ch; margin-bottom: 1.2rem; }
 .band .copy-block p, .band .sub { max-width: var(--measure); }
 .band .copy-block p, .band .sub, .band .head p { color: color-mix(in srgb, var(--star) 86%, var(--mute)); }
@@ -821,7 +821,7 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 .perk .k { display: block; font-size: 2rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.5rem; color: var(--c, var(--star)); }
 .demo { position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--night) url("../img/sky/wide.webp") 60% 40% / cover; aspect-ratio: 16 / 9; margin: 1.5rem 0; }
 .demo iframe { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; border: 0; transform-origin: 0 0; transform: scale(var(--k, 0.5)); }
-.demo .tag { position: absolute; top: 0.8rem; left: 0.8rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(15, 16, 36, 0.8); border: 1px solid var(--line); font-size: 0.82rem; color: var(--mute); }
+.demo .tag { position: absolute; top: 0.8rem; left: 0.8rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(13, 11, 16, 0.8); border: 1px solid var(--line); font-size: 0.82rem; color: var(--mute); }
 .events { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 0; }
 .events li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.2rem 1rem; padding: 0.9rem 0; border-top: 1px solid var(--line); transition: background 0.15s ease; }
 .events li:last-child { border-bottom: 1px solid var(--line); }
@@ -849,7 +849,7 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 .legal p, .legal li { color: color-mix(in srgb, var(--star) 86%, var(--mute)); }
 
 /* ---- footer -------------------------------------------------------------------- */
-.bottom { padding: 3rem var(--gutter) 3.5rem; background: rgba(15, 16, 36, 0.96); border-top: 1px solid var(--line); color: var(--mute); font-size: 0.92rem; }
+.bottom { padding: 3rem var(--gutter) 3.5rem; background: rgba(13, 11, 16, 0.96); border-top: 1px solid var(--line); color: var(--mute); font-size: 0.92rem; }
 .bottom .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, max-content)); gap: 1rem 3.5rem; margin-bottom: 2rem; }
 .bottom h4 { color: var(--star); font-size: 0.85rem; margin-bottom: 0.5rem; }
 .bottom .cols a { display: block; color: var(--mute); text-decoration: none; padding: 0.15rem 0; transition: color 0.15s ease, padding-left 0.2s var(--ease); }

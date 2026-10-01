@@ -21,6 +21,10 @@
   if (setup) {
     document.body.classList.add("setup");
     document.getElementById("setup").hidden = false;
+    // the addresses on the page are the ones of this host, whatever it is called
+    for (const c of document.querySelectorAll("#setup code")) {
+      if (c.textContent.startsWith("https://kronwerke.com/")) c.textContent = location.origin + c.textContent.slice("https://kronwerke.com".length);
+    }
   }
 
   const N = window.KW && window.KW.names;
