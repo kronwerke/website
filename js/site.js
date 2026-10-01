@@ -126,6 +126,20 @@
     window.addEventListener("resize", () => { clearTimeout(t); t = setTimeout(fit, 200); });
   }
 
+  // ---- how many people are in the Discord right now, from Discord's widget
+  const dc = document.getElementById("dc-online");
+  if (dc) {
+    fetch("https://discord.com/api/guilds/1473242451098472482/widget.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const n = d && d.presence_count;
+        if (!n) return;
+        dc.textContent = n === 1 ? "Gerade ist eine Person im Discord online." : "Gerade sind " + n + " Leute im Discord online.";
+        dc.hidden = false;
+      })
+      .catch(() => {});
+  }
+
   // ---- the pill in the header: what the server does right now
   const live = document.getElementById("live");
   if (live) {
