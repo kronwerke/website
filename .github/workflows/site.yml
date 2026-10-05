@@ -42,7 +42,7 @@ jobs:
           done
       - name: package
         run: |
-          mkdir -p dist && cp -r *.html en favicon.svg css js fonts img data dist/
+          mkdir -p dist && cp -r *.html en favicon.svg robots.txt sitemap.xml css js fonts img data dist/
           tar -czf site.tar.gz -C dist .
           sha256sum site.tar.gz > SHA256SUMS
       - uses: actions/upload-artifact@v4
