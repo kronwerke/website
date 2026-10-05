@@ -159,6 +159,8 @@ strong { font-weight: 700; }
 .live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); box-shadow: 0 0 0 0 transparent; transition: background 0.3s ease; }
 .live.on .dot { background: var(--ok); animation: pulse 2.4s ease-out infinite; }
 .live.off .dot { background: var(--s5); }
+.live.wip .dot { background: var(--s4); animation: pulse-wip 2.4s ease-out infinite; }
+@keyframes pulse-wip { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--s4) 60%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(143, 209, 139, 0.55); } 100% { box-shadow: 0 0 0 9px rgba(143, 209, 139, 0); } }
 @media (max-width: 900px) {
   .top { flex-wrap: wrap; row-gap: 0.7rem; }
@@ -581,6 +583,19 @@ ol.opens li::before { content: counter(r); width: 1.4rem; height: 1.4rem; top: 0
 .pill.on::before { background: var(--ok); }
 .pill.hold::before { background: var(--s2); }
 .pill.off::before { background: var(--s5); }
+.pill.wip::before { background: var(--s4); }
+.dot.wip { background: var(--s4); }
+
+/* the last deposits at the obelisk */
+.recent { list-style: none; margin: 0.4rem 0 0; padding: 0; display: grid; gap: 0.15rem; font-size: 0.9rem; }
+.recent li { display: grid; grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr) auto; gap: 0.75rem; padding: 0.3rem 0; border-top: 1px solid var(--line); }
+.recent li:first-child { border-top: 0; }
+.recent .who { color: var(--star); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent .what { color: var(--mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent .when { color: var(--dim); font-size: 0.82rem; white-space: nowrap; }
+.recent-head { color: var(--mute); font-size: 0.9rem; margin: 1rem 0 0; }
+.recent-box { margin-top: 1rem; }
+@media (max-width: 560px) { .recent li { grid-template-columns: minmax(0, 1fr) auto; } .recent .what { grid-column: 1 / -1; grid-row: 2; } }
 @media (max-width: 640px) {
   .stack thead { display: none; }
   .stack tr { display: grid; grid-template-columns: 1fr auto; gap: 0.1rem 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--line); }

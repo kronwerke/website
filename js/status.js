@@ -18,7 +18,12 @@
     return el;
   }
 
-  function showServer(server) {
+  function showServer(server, season) {
+    if (statusEl && season && !season.running) {
+      statusEl.textContent = "";
+      statusEl.append(make("span", "dot wip"), inEn() ? "Work in progress: the team is building the server." : "Work in Progress: das Team baut gerade am Server.");
+      return;
+    }
     // before the season the bot has no server to ask; keep the page's own line then
     if (!statusEl || !server || (!server.online && !server.state)) return;
     statusEl.textContent = "";
@@ -30,6 +35,35 @@
     } else {
       statusEl.append("Server gerade offline.");
     }
+  }
+
+  function inEn() {
+    return document.documentElement.lang === "en";
+  }
+
+  // "vor 3 Minuten" from a time in milliseconds
+  function ago(at) {
+    const s = Math.max(0, Math.round((Date.now() - at) / 1000));
+    if (s < 60) return "gerade eben";
+    const m = Math.round(s / 60);
+    if (m < 60) return m === 1 ? "vor einer Minute" : "vor " + m + " Minuten";
+    const h = Math.round(m / 60);
+    if (h < 24) return h === 1 ? "vor einer Stunde" : "vor " + h + " Stunden";
+    const d = Math.round(h / 24);
+    return d === 1 ? "gestern" : "vor " + d + " Tagen";
+  }
+
+  // the last deposits at the obelisk, newest first
+  function recentList(g, n) {
+    const list = make("ol", "recent");
+    for (const r of (g.recent || []).slice(0, n)) {
+      const li = make("li");
+      const N = window.KW && window.KW.names;
+      const item = N ? N.item({ item: r.item, name: r.itemName }) : r.itemName || r.item;
+      li.append(make("span", "who", r.name), make("span", "what", nf.format(r.amount) + " " + item), make("span", "when", ago(r.at)));
+      list.append(li);
+    }
+    return list;
   }
 
   function showGoal(goals) {
@@ -57,6 +91,13 @@
       }
       box.append(pillar);
     }
+    const old = goalEl.querySelector(".recent-box");
+    if (old) old.remove();
+    if (Array.isArray(g.recent) && g.recent.length) {
+      const wrap = make("div", "recent-box");
+      wrap.append(make("p", "label", "Gerade abgegeben"), recentList(g, 5));
+      box.after(wrap);
+    }
     const note = document.getElementById("goal-note");
     if (note) {
       note.textContent = g.state === "held"
@@ -70,7 +111,7 @@
       const r = await fetch(API, { cache: "no-store" });
       if (!r.ok) return;
       const data = await r.json();
-      showServer(data.server);
+      showServer(data.server, data.season);
       showGoal(data.goals);
     } catch (e) {
       // not live yet, or offline: keep the text from the page

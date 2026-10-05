@@ -1,4 +1,5 @@
-// The status page: server state, who is online, and every community goal with its pillars.
+// The status page: server state, who is online, and every community goal with its pillars
+// and the last deposits at the obelisk.
 // Before the season, or when the server does not answer, the planned goals are shown.
 
 (function () {
@@ -16,11 +17,18 @@
     return el;
   }
 
-  function showServer(s) {
+  function showServer(s, season) {
     const state = $("s-state");
     state.textContent = "";
     const names = $("s-names");
     names.textContent = "";
+    if (season && !season.running) {
+      // the team builds and tests on the server before the season; no player count then
+      state.append(make("span", "pill wip", "Work in Progress"));
+      $("s-players").textContent = "im Aufbau";
+      $("s-pack").textContent = s && s.pack ? s.pack : "in Arbeit";
+      return;
+    }
     if (!s || (!s.online && !s.state)) {
       state.append(make("span", "pill", "öffnet Mitte Januar"));
       $("s-players").textContent = "0";
@@ -55,6 +63,17 @@
     }
     span.append(N.item({ item: id }));
     return span;
+  }
+
+  function ago(at) {
+    const s = Math.max(0, Math.round((Date.now() - at) / 1000));
+    if (s < 60) return "gerade eben";
+    const m = Math.round(s / 60);
+    if (m < 60) return m === 1 ? "vor einer Minute" : "vor " + m + " Minuten";
+    const h = Math.round(m / 60);
+    if (h < 24) return h === 1 ? "vor einer Stunde" : "vor " + h + " Stunden";
+    const d = Math.round(h / 24);
+    return d === 1 ? "gestern" : "vor " + d + " Tagen";
   }
 
   function goalCard(g) {
@@ -117,6 +136,16 @@
     if (planned && !live) {
       card.append(make("p", "note", "Geplante Mengen für 30 Spieler. Beim Öffnen der Stufe passt der Server sie an die echte Spielerzahl an."));
     }
+    if (Array.isArray(g.recent) && g.recent.length) {
+      card.append(make("p", "recent-head", "Gerade abgegeben"));
+      const list = make("ol", "recent");
+      for (const r of g.recent.slice(0, 8)) {
+        const li = make("li");
+        li.append(make("span", "who", r.name), make("span", "what", nf.format(r.amount) + " " + N.item({ item: r.item, name: r.itemName })), make("span", "when", ago(r.at)));
+        list.append(li);
+      }
+      card.append(list);
+    }
     if (Array.isArray(g.top) && g.top.length) {
       const top = g.top.slice(0, 5).map((t, i) => (i + 1) + ". " + t.name + " (" + nf.format(t.amount) + ")");
       card.append(make("p", "top5", "Am meisten beigetragen: " + top.join(", ")));
@@ -138,7 +167,7 @@
       const r = await fetch(API, { cache: "no-store" });
       if (!r.ok) throw new Error(r.status);
       const data = await r.json();
-      showServer(data.server);
+      showServer(data.server, data.season);
       showGoals(data.goals);
     } catch (e) {
       showServer(null);

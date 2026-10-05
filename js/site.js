@@ -149,6 +149,12 @@
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         const s = d && d.server;
+        if (d && d.season && !d.season.running) {
+          // before the season the team builds on the server; no player count then
+          live.classList.add("wip");
+          label.textContent = "Work in Progress";
+          return;
+        }
         if (!s || (!s.online && !s.state)) return;
         if (s.online) {
           live.classList.add("on");
