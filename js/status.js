@@ -66,11 +66,15 @@
     return list;
   }
 
-  function showGoal(goals) {
+  const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
+
+  function showGoal(goals, season) {
     if (!goalEl || !Array.isArray(goals)) return;
     const g = goals.find((x) => x.state === "active" || x.state === "held");
     if (!g) return;
-    text(goalEl.querySelector(".label"), g.state === "held" ? "Wartet auf das Event" : "Aktuelles Ziel");
+    // the season carries the obelisk's stage: completed goals, so the active one is the next
+    const stage = season && season.tier >= 0 && ROMAN[season.tier + 1] ? ", Stufe " + ROMAN[season.tier + 1] : "";
+    text(goalEl.querySelector(".label"), (g.state === "held" ? "Wartet auf das Event" : "Aktuelles Ziel") + stage);
     const N = window.KW && window.KW.names;
     text(document.getElementById("goal-title"), N ? N.goal(g) : g.title);
     const box = document.getElementById("goal-pillars");
@@ -103,6 +107,7 @@
       note.textContent = g.state === "held"
         ? "Der Obelisk hält bei 98 Prozent. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."
         : "Insgesamt " + g.percent + " Prozent. Bei 98 Prozent hält der Obelisk an, der Rest kommt beim gemeinsamen Event rein.";
+      if (season && season.slumbering) note.textContent += " Der Obelisk schläft gerade: seit einem Tag kam keine Gabe. Die erste weckt ihn.";
     }
   }
 
@@ -112,7 +117,7 @@
       if (!r.ok) return;
       const data = await r.json();
       showServer(data.server, data.season);
-      showGoal(data.goals);
+      showGoal(data.goals, data.season);
     } catch (e) {
       // not live yet, or offline: keep the text from the page
     }

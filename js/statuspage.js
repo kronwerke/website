@@ -162,12 +162,27 @@
     for (const g of goals) box.append(goalCard(g));
   }
 
+  const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
+
+  // the obelisk's own line: which stage stands and whether the stone sleeps
+  function showObelisk(season) {
+    const el = $("obelisk-state");
+    if (!el) return;
+    el.textContent = "";
+    if (!season || !season.running) return;
+    const tier = season.tier || 0;
+    const stage = tier === 0 ? "Noch steht keine Stufe." : "Stufe " + ROMAN[Math.min(tier, 6)] + " steht.";
+    el.append(make("span", "pill " + (season.slumbering ? "hold" : "on"), season.slumbering ? "schläft" : "wach"), " " + stage
+      + (season.slumbering ? " Seit einem Tag kam keine Gabe; die erste weckt den Stein." : ""));
+  }
+
   async function load() {
     try {
       const r = await fetch(API, { cache: "no-store" });
       if (!r.ok) throw new Error(r.status);
       const data = await r.json();
       showServer(data.server, data.season);
+      showObelisk(data.season);
       showGoals(data.goals);
     } catch (e) {
       showServer(null);
