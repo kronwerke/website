@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kronwerke Season 2</title>
-<meta name="description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start Mitte Januar 2027.">
+<meta name="description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start am 16. Januar 2027.">
 <meta name="theme-color" content="#0d0b10">
 <meta property="og:title" content="Kronwerke Season 2">
-<meta property="og:description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start Mitte Januar 2027.">
+<meta property="og:description" content="Ein Minecraft-Modpack-Server für Streamer und ihre Communities. Fünf Stufen, die der ganze Server gemeinsam freischaltet. Start am 16. Januar 2027.">
 <meta property="og:site_name" content="Kronwerke">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://kronwerke.com/">
@@ -33,23 +33,31 @@
     <a href="streamer.html">Streamer</a>
     <a href="faq.html">Fragen</a>
   </nav>
-  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start Mitte Januar</span></a>
+  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start 16. Januar</span></a>
   <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
 <main id="main">
   <section class="hero">
     <h1 id="name">Kronwerke</h1>
-    <p class="lead">Ein Modpack-Server für Streamer und ihre Communities, auf dem niemand allein vorankommt. Season&nbsp;2 startet Mitte Januar 2027.</p>
+    <p class="lead">Ein Modpack-Server für Streamer und ihre Communities, auf dem niemand allein vorankommt. Season&nbsp;2 startet am Samstag, 16.&nbsp;Januar 2027, um 18&nbsp;Uhr.</p>
     <p class="actions">
       <a class="btn" href="https://discord.gg/DZs3XyyHDj">Discord beitreten</a>
       <a class="link" href="#dabei">So bist du beim Start dabei</a>
     </p>
     <ol class="season" aria-label="Wo die Season steht">
       <li class="now"><img class="here mob-villager" src="img/mascots/villager.webp" alt="" width="130" height="256" data-tip="Hier steht die Season gerade."><strong>Jetzt</strong><span>Streamer bewerben sich, Communities sammeln sich im Discord.</span></li>
-      <li><strong>Dezember</strong><span>Beta mit einer kleinen Gruppe. Das Pack wird fertig.</span></li>
-      <li><strong>Mitte Januar</strong><span>Der Server öffnet für alle. <span class="cd" id="countdown"></span></span></li>
+      <li><strong>Dezember</strong><span>Ein Event vorab mit den Streamern. Was es wird, verraten wir bald.</span></li>
+      <li><strong>16. Januar, 18 Uhr</strong><span>Der Server öffnet für alle. <span class="cd" id="countdown"></span></span></li>
     </ol>
+  </section>
+
+  <section class="band onair" id="live-now" hidden aria-labelledby="live-title">
+    <div class="head">
+      <h2 id="live-title"><span class="rec" aria-hidden="true"></span>Gerade live</h2>
+      <p>Kronwerke-Streamer, die jetzt auf Twitch sind.</p>
+    </div>
+    <div class="streams" id="streams"></div>
   </section>
 
   <section class="band idea" id="idee">
@@ -138,7 +146,7 @@
 
   <section class="band join" id="dabei">
     <h2>Bis zum Start</h2>
-    <p class="sub">Spielen kannst du ab Mitte Januar. Deinen Platz holst du dir schon jetzt.</p>
+    <p class="sub">Spielen kannst du ab dem 16. Januar. Deinen Platz holst du dir schon jetzt.</p>
     <ol class="steps">
       <li>
         <h3>Komm in den Discord</h3>
@@ -215,5 +223,6 @@
 <script src="js/names.js" defer></script>
 <script src="js/status.js" defer></script>
 <script src="js/site.js" defer></script>
+<script src="js/live.js" defer></script>
 </body>
 </html>

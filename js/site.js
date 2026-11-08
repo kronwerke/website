@@ -61,22 +61,28 @@
   const season = document.querySelector(".season");
   if (season) {
     const now = Date.now();
-    const phase = now >= Date.parse("2027-01-11T00:00:00+01:00") ? 2 : now >= Date.parse("2026-12-01T00:00:00+01:00") ? 1 : 0;
+    const phase = now >= Date.parse("2027-01-16T18:00:00+01:00") ? 2 : now >= Date.parse("2026-12-01T00:00:00+01:00") ? 1 : 0;
     const items = season.querySelectorAll("li");
     items.forEach((li, i) => li.classList.toggle("now", i === phase));
     const here = season.querySelector(".here");
     if (here && items[phase] && here.parentElement !== items[phase]) items[phase].prepend(here);
   }
 
-  // ---- how far away the start is, in rough terms because the day is not fixed yet
+  // ---- how far away the start is
   const cd = document.getElementById("countdown");
   if (cd) {
-    const start = new Date("2027-01-15T18:00:00+01:00");
-    const days = Math.round((start - Date.now()) / 86400000);
-    if (days > 60) cd.textContent = "Noch etwa " + Math.round(days / 7) + " Wochen.";
-    else if (days > 1) cd.textContent = "Noch etwa " + days + " Tage.";
-    else if (days >= -1) cd.textContent = "Es geht los.";
-    else cd.textContent = "";
+    const start = Date.parse("2027-01-16T18:00:00+01:00");
+    const tick = () => {
+      const left = start - Date.now();
+      const days = Math.floor(left / 86400000);
+      const hours = Math.floor((left % 86400000) / 3600000);
+      if (left <= 0) cd.textContent = left > -86400000 ? "Es geht los." : "";
+      else if (days >= 2) cd.textContent = "Noch " + days + " Tage.";
+      else if (days === 1) cd.textContent = "Morgen um 18 Uhr.";
+      else cd.textContent = "Noch " + hours + " Stunden.";
+    };
+    tick();
+    setInterval(tick, 60000);
   }
 
   // ---- sections come in when they arrive on screen

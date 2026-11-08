@@ -30,7 +30,7 @@
       return;
     }
     if (!s || (!s.online && !s.state)) {
-      state.append(make("span", "pill", "öffnet Mitte Januar"));
+      state.append(make("span", "pill", "öffnet am 16. Januar"));
       $("s-players").textContent = "0";
       $("s-pack").textContent = s && s.pack ? s.pack : "in Arbeit";
       return;

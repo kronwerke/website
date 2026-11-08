@@ -45,7 +45,7 @@
       const next = boxes.findIndex((b) => !b.checked);
       items.forEach((li, i) => li.classList.toggle("is", i === next));
       mob.classList.toggle("done", next === -1);
-      bubble.textContent = next === -1 ? "Alles erledigt. Bis Mitte Januar auf dem Server." : (tips[next] || "");
+      bubble.textContent = next === -1 ? "Alles erledigt. Bis zum 16. Januar auf dem Server." : (tips[next] || "");
       saved[id] = boxes.map((b) => b.checked);
       save();
     }
