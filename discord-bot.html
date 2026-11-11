@@ -10,8 +10,8 @@
 <meta property="og:description" content="Nutzungsbedingungen und Datenschutz des Kronwerke-Discord-Bots.">
 <meta property="og:site_name" content="Kronwerke">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://kronwerke.com/discord-bot.html">
-<meta property="og:url" content="https://kronwerke.com/discord-bot.html">
+<link rel="canonical" href="https://kronwerke.com/discord-bot">
+<meta property="og:url" content="https://kronwerke.com/discord-bot">
 <meta property="og:image" content="https://kronwerke.com/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -23,16 +23,16 @@
 <body class="page" data-page="discord-bot">
 <a class="skip" href="#main">Zum Inhalt</a>
 <header class="top">
-  <a class="mark" href="index.html" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
+  <a class="mark" href="./" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
   <nav aria-label="Seiten">
-    <a href="stufen.html">Stufen</a>
-    <a href="herkunft.html">Herkunft</a>
-    <a href="mods.html">Mods</a>
-    <a href="installieren.html">Installieren</a>
-    <a href="streamer.html">Streamer</a>
-    <a href="faq.html">Fragen</a>
+    <a href="stufen">Stufen</a>
+    <a href="herkunft">Herkunft</a>
+    <a href="mods">Mods</a>
+    <a href="installieren">Installieren</a>
+    <a href="streamer">Streamer</a>
+    <a href="faq">Fragen</a>
   </nav>
-  <a class="live" id="live" href="status.html"><span class="dot"></span><span>Start 16. Januar</span></a>
+  <a class="live" id="live" href="status"><span class="dot"></span><span>Start 16. Januar</span></a>
   <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
 </header>
 
@@ -40,7 +40,7 @@
 <div class="intro"><h1>Discord-Bot</h1><p class="lede">Der Kronwerke-Bot verifiziert Mitglieder, verwaltet die Plätze auf der Whitelist und nimmt Bewerbungen von Streamern an. Hier steht, was er darf und was er speichert.</p></div><div class="legal">
 <section class="sec">
 
-<p>Der Bot "Kronwerke" läuft nur auf dem Kronwerke-Discord. Er prüft neue Mitglieder mit einem Captcha, nimmt Bewerbungen von Streamern an, verwaltet die Plätze auf der Whitelist des Minecraft-Servers und zeigt, ob der Server läuft. Entwickelt und betrieben wird er von <a href="https://elchi.dev">Elchi Studios</a>, siehe <a href="impressum.html">Impressum</a>.</p>
+<p>Der Bot "Kronwerke" läuft nur auf dem Kronwerke-Discord. Er prüft neue Mitglieder mit einem Captcha, nimmt Bewerbungen von Streamern an, verwaltet die Plätze auf der Whitelist des Minecraft-Servers und zeigt, ob der Server läuft. Entwickelt und betrieben wird er von <a href="https://elchi.dev">Elchi Studios</a>, siehe <a href="impressum">Impressum</a>.</p>
 <p class="stand">Stand: 30. September 2026</p>
 </section>
 
@@ -63,13 +63,14 @@
 <section class="sec" id="datenschutz">
 <h2>Datenschutz des Bots</h2>
 <h2 style="font-size:1.4rem;margin-top:2rem">Verantwortlich</h2>
-<p>Elchi Studios, Samuel Krauss, siehe <a href="impressum.html">Impressum</a>. Fragen und Anträge an legal@elchi.dev.</p>
+<p>Elchi Studios, Samuel Krauss, siehe <a href="impressum">Impressum</a>. Fragen und Anträge an legal@elchi.dev.</p>
 <h2 style="font-size:1.4rem;margin-top:2rem">Was Discord dem Bot schickt</h2>
 <p>Für alle Mitglieder des Kronwerke-Discords übermittelt Discord dem Bot die Nutzer-ID, den Nutzernamen, den Anzeigenamen und die Rollen, außerdem die Nachrichten in den Kanälen, die der Bot sehen kann. Nachrichten wertet er nur im Kanal des Teams als Befehle aus, und im Kanal "trash" löscht er sie nach einer Minute. Inhalte von Nachrichten speichert er nicht.</p>
 <h2 style="font-size:1.4rem;margin-top:2rem">Was der Bot speichert</h2>
 <p><strong>Verifizierung:</strong> den Code deines Captchas für höchstens zehn Minuten, falsche Versuche und eine Sperre von zehn Minuten nach drei Fehlern, und wann du verifiziert wurdest.</p>
 <p><strong>Bewerbung:</strong> Deine Antworten im Formular (dein Kanal, Zuschauerzahl, wie oft du streamst, deine Erfahrung, warum Kronwerke) postet der Bot in einen privaten Kanal auf dem Kronwerke-Discord, den nur du und das Team sehen. Der Kanal wird 48 Stunden nach der Entscheidung gelöscht. Danach bleibt nur die Entscheidung, wer sie getroffen hat und wann, als Zeile im Log-Kanal des Teams.</p>
 <p><strong>Whitelist:</strong> dein Minecraft-Name, wer dir den Platz gegeben hat und wann, und bei einem eigenen Platz, ob du Streamer oder Spieler aus Season 1 bist. Der Name geht an unseren Minecraft-Server, der ihn auf die Whitelist setzt.</p>
+<p><strong>Whitelist-App:</strong> Meldest du dich in der Whitelist-App an (in Discord mit <code>/whitelist verwalten</code> oder unter kronwerke.com/whitelist), bestätigt Discord dem Bot nur deine Nutzer-ID und deinen Namen (Berechtigung „identify“). Der Bot merkt sich die Anmeldung höchstens zwölf Stunden im Arbeitsspeicher. Die Skin-Köpfe holt er bei Mojang nur über den Minecraft-Namen und hält sie bis zu sechs Stunden vor. Fragst du nach mehr Plätzen, landet deine Nachricht im Kanal des Teams.</p>
 <p><strong>Protokolle:</strong> Was der Bot tut, etwa "ist verifiziert" oder "ist auf der Whitelist", steht mit deinem Nutzernamen im Log- und im Whitelist-Kanal des Teams und im Systemprotokoll des Servers, auf dem der Bot läuft.</p>
 <h2 style="font-size:1.4rem;margin-top:2rem">Wozu und auf welcher Grundlage</h2>
 <p>Um den Discord vor Spam-Konten zu schützen, Bewerbungen zu bearbeiten und die Whitelist zu führen, sonst für nichts. Nach der DSGVO ist die Grundlage Art. 6 Abs. 1 lit. b (die Teilnahme an Kronwerke, um die du bittest) und lit. f (Schutz vor Missbrauch). Nach dem Schweizer DSG werden die Daten nur für diese Zwecke bearbeitet.</p>
@@ -85,9 +86,9 @@
 
 <footer class="bottom">
   <div class="cols">
-    <div><h4>Spielen</h4><a href="stufen.html">Stufen</a><a href="herkunft.html">Herkunft und Rolle</a><a href="mods.html">Mods</a><a href="installieren.html">Installieren</a><a href="faq.html">Fragen</a><a href="status.html">Status</a></div>
-    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer.html">Für Streamer</a><a href="partner.html">Partner</a><a href="overlay.html">Stream-Overlay</a></div>
-    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord-Bot</a><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="en/discord-bot.html" lang="en">English</a></div>
+    <div><h4>Spielen</h4><a href="stufen">Stufen</a><a href="herkunft">Herkunft und Rolle</a><a href="mods">Mods</a><a href="installieren">Installieren</a><a href="faq">Fragen</a><a href="status">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer">Für Streamer</a><a href="partner">Partner</a><a href="overlay">Stream-Overlay</a><a href="whitelist/">Whitelist verwalten</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot">Discord-Bot</a><a href="impressum">Impressum</a><a href="datenschutz">Datenschutz</a><a href="en/discord-bot" lang="en">English</a></div>
   </div>
   <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
 </footer>
