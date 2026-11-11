@@ -100,8 +100,28 @@
       mr.firstChild.textContent = base + ".mrpack";
     }
   }
+  // The release of that version has to exist with its files. If it does not (a version the
+  // server got before its release was built), the newest release that has them is offered:
+  // a link that works beats one to the right number that leads nowhere.
+  const API = "https://api.github.com/repos/kronwerke/pack/releases";
+  const complete = (rel) => rel && Array.isArray(rel.assets) && rel.assets.some((a) => /\.mrpack$/.test(a.name)) && rel.assets.some((a) => /\.zip$/.test(a.name));
+  const number = (rel) => String(rel.tag_name || "").replace(/^v/, "");
+  function released(v) {
+    return fetch(API + "/tags/v" + v)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((rel) => (complete(rel) ? v : null))
+      .catch(() => null);
+  }
+  function newest() {
+    return fetch(API + "?per_page=10")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((list) => { const rel = list.find((x) => !x.draft && !x.prerelease && complete(x)); return rel ? number(rel) : null; })
+      .catch(() => null);
+  }
   fetch("/api/status", { cache: "no-store" })
     .then((r) => r.json())
-    .then((d) => setVersion(d.server && d.server.pack))
-    .catch(() => {});
+    .then((d) => (d.server && /^\d+\.\d+\.\d+$/.test(d.server.pack || "") ? released(d.server.pack) : null))
+    .catch(() => null)
+    .then((v) => v || newest())
+    .then((v) => { if (v) setVersion(v); });
 })();
