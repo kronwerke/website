@@ -71,7 +71,19 @@
   // ---- how far away the start is
   const cd = document.getElementById("countdown");
   if (cd) {
-    const start = Date.parse("2027-01-16T18:00:00+01:00");
+    // the planned start; the server's own (Kronwerke Core's seasonStart, through the bot) wins
+    let start = Date.parse("2027-01-16T18:00:00+01:00");
+    fetch((location.pathname.includes("/en/") ? "../" : "") + "api/status", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const v = d && d.season && d.season.start;
+        if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v || "")) return;
+        // German time: CET in winter, CEST from the end of March to the end of October
+        const m = Number(v.slice(5, 7));
+        const t = Date.parse(v + ":00" + (m >= 4 && m <= 10 ? "+02:00" : "+01:00"));
+        if (!isNaN(t)) { start = t; tick(); }
+      })
+      .catch(() => {});
     const tick = () => {
       const left = start - Date.now();
       const days = Math.floor(left / 86400000);

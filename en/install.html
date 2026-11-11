@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" class="sky-still">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Install, Kronwerke</title>
+<meta name="description" content="Install the Kronwerke pack: step by step for the Modrinth App, CurseForge and Prism, with memory tips.">
+<meta name="theme-color" content="#0d0b10">
+<meta property="og:title" content="Install, Kronwerke">
+<meta property="og:description" content="Install the Kronwerke pack: step by step for the Modrinth App, CurseForge and Prism, with memory tips.">
+<meta property="og:site_name" content="Kronwerke">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kronwerke.com/en/install.html">
+<meta property="og:url" content="https://kronwerke.com/en/install.html">
+<meta property="og:image" content="https://kronwerke.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="de" href="https://kronwerke.com/installieren.html">
+<link rel="preload" href="../fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/site.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body class="page" data-page="installieren">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="mark" href="../index.html" aria-label="Kronwerke, home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
+  <nav aria-label="Pages">
+    <a href="../stufen.html" lang="de">Stages</a>
+    <a href="../mods.html">Mods</a>
+    <a href="install.html" aria-current="page">Install</a>
+    <a href="faq.html">Questions</a>
+  </nav>
+  <a class="live" id="live" href="../status.html"><span class="dot"></span><span>Opens 16 January</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+</header>
+
+<main id="main">
+<div class="intro"><h1>Install</h1><p class="lede">Ready to play in five minutes. What do you play Minecraft with?</p><p class="note">You need Minecraft Java Edition and a PC with at least 16 GB of memory. The page asks the server which version of the pack it runs: <strong id="packver">current</strong>. The links below always lead to exactly that version.</p><p class="note">In game, menus, hints and items are in English. The quest book is German for now; an English one follows.</p></div>
+<div class="choices" id="launchers" role="group" aria-label="Launcher">
+  <button class="choice" type="button" data-guide="modrinth" aria-pressed="false"><strong>Modrinth App</strong><span>Recommended, the easiest</span><img src="../img/mascots/allay.webp" alt="" width="157" height="148"></button>
+  <button class="choice" type="button" data-guide="curseforge" aria-pressed="false"><strong>CurseForge App</strong><span>If you already have it</span><img src="../img/mascots/cat.webp" alt="" width="200" height="180"></button>
+  <button class="choice" type="button" data-guide="prism" aria-pressed="false"><strong>Prism Launcher</strong><span>For everyone who likes to set things up themselves</span><img src="../img/mascots/axolotl.webp" alt="" width="227" height="160"></button>
+  <button class="choice" type="button" data-guide="none" aria-pressed="false"><strong>None of these</strong><span>Only the normal launcher, or nothing yet</span><img src="../img/mascots/villager.webp" alt="" width="130" height="256"></button>
+</div>
+<section class="guide" id="guide-none" hidden>
+<div>
+<h2>First the Modrinth App</h2>
+<p>The normal Minecraft launcher cannot run modpacks. The Modrinth App is free, needs no account of its own and takes care of Java and NeoForge.</p>
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 of 3 steps</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Download</span><span class="d"><p>Get the app for your system on <a href="https://modrinth.com/app">modrinth.com/app</a> and install it.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Sign in with Microsoft</span><span class="d"><p>On the first start, sign in with the Microsoft account you bought Minecraft with.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">On with the Modrinth App</span><span class="d"><p>From here the Modrinth App guide applies. <button class="chip" type="button" data-guide="modrinth">To the Modrinth guide</button></p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: the version the server wants is at the top of this page. When it is newer than yours, import the new file the same way. The world lives on the server, nothing gets lost.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="../img/mascots/villager.webp" alt="" data-tips="[&quot;It does not work without a modpack app, but the Modrinth App is installed in two minutes.&quot;, &quot;The Microsoft account is the one you bought Minecraft with.&quot;, &quot;And on to the Modrinth App.&quot;]"><div class="bubble">It does not work without a modpack app, but the Modrinth App is installed in two minutes.</div></aside>
+</section><section class="guide" id="guide-modrinth" hidden>
+<div>
+<h2>Modrinth App</h2>
+
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 of 4 steps</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Get the pack</span><span class="d"><p>Download <a class="dl" data-kind="mrpack" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.mrpack)</a>.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Import</span><span class="d"><p>In the app click <strong>+</strong> on the left, then <strong>Import from file</strong> at the top, and pick the downloaded file. The app now downloads about 600 MB of mods, that takes a few minutes.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Set the memory</span><span class="d"><p>Open the instance, the cog at the top right, <strong>Java and memory</strong>, and set the memory to <strong>8 GB</strong>. With the preset 2 GB the pack does not start properly.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Play</span><span class="d"><p>Start, <strong>Multiplayer</strong>, <strong>Add Server</strong>, with the address <span class="addr"><button class="copy" type="button" data-copy="kronwerke.net">kronwerke.net<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span>. From 16 January at 6 pm German time the server lets you in when your name is on the whitelist.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: the version the server wants is at the top of this page. When it is newer than yours, import the new file the same way. The world lives on the server, nothing gets lost.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="../img/mascots/allay.webp" alt="" data-tips="[&quot;The file is small, the app fetches the mods itself.&quot;, &quot;Import from file, then get a coffee.&quot;, &quot;8 GB. That is the step almost everyone forgets.&quot;, &quot;Enter the address, and from 16 January we meet inside.&quot;]"><div class="bubble">The file is small, the app fetches the mods itself.</div></aside>
+</section><section class="guide" id="guide-curseforge" hidden>
+<div>
+<h2>CurseForge App</h2>
+
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 of 4 steps</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Get the pack</span><span class="d"><p>Download <a class="dl" data-kind="zip" href="https://github.com/kronwerke/pack/releases">Kronwerke Season 2 (.zip)</a>.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Import</span><span class="d"><p>In the app, under Minecraft, click <strong>Create Custom Profile</strong>, then <strong>Import</strong> at the bottom, and pick the zip file.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Set the memory</span><span class="d"><p>The cog at the bottom left, <strong>Minecraft</strong>, <strong>Java Settings</strong>, <strong>Allocated Memory</strong> to <strong>8 GB</strong> (8192 MB).</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Play</span><span class="d"><p>Start the profile, <strong>Multiplayer</strong>, <strong>Add Server</strong>, with the address <span class="addr"><button class="copy" type="button" data-copy="kronwerke.net">kronwerke.net<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span>.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: the version the server wants is at the top of this page. When it is newer than yours, import the new file the same way. The world lives on the server, nothing gets lost.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="../img/mascots/cat.webp" alt="" data-tips="[&quot;The zip file is for CurseForge, do not unpack it.&quot;, &quot;Create Custom Profile, then Import. Not Browse.&quot;, &quot;8192 MB, or the pack gets stuck while loading.&quot;, &quot;Done. On 16 January the door opens.&quot;]"><div class="bubble">The zip file is for CurseForge, do not unpack it.</div></aside>
+</section><section class="guide" id="guide-prism" hidden>
+<div>
+<h2>Prism Launcher</h2>
+
+<div class="progress"><span class="bar"><span></span></span><span class="txt">0 of 3 steps</span></div>
+<ol class="check">
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Import</span><span class="d"><p><strong>Add Instance</strong>, <strong>Import</strong> on the left, and paste this address: <span class="addr"><button class="copy" type="button" id="mrurl" data-copy="https://github.com/kronwerke/pack/releases">https://github.com/kronwerke/pack/releases<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span></p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Set the memory</span><span class="d"><p>Edit the instance, <strong>Settings</strong>, <strong>Java</strong>, maximum to <strong>8192 MB</strong>.</p></span></label></li>
+<li><label><input type="checkbox"><span class="box" aria-hidden="true"></span><span class="t">Play</span><span class="d"><p>Start, <strong>Multiplayer</strong>, <strong>Add Server</strong>, with the address <span class="addr"><button class="copy" type="button" data-copy="kronwerke.net">kronwerke.net<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></span>.</p></span></label></li>
+</ol>
+<p class="hint" style="margin-top:1.2rem">Updates: the version the server wants is at the top of this page. When it is newer than yours, import the new file the same way. The world lives on the server, nothing gets lost.</p>
+</div>
+<aside class="guide-mob" aria-live="polite"><img src="../img/mascots/axolotl.webp" alt="" data-tips="[&quot;Prism takes the pack straight from the address.&quot;, &quot;The pack needs Java 21, Prism usually finds it itself.&quot;, &quot;That was it. Prism people are done quickly.&quot;]"><div class="bubble">Prism takes the pack straight from the address.</div></aside>
+</section>
+<section class="sec" id="speicher" style="margin-top:3rem">
+<h2>How much memory?</h2>
+<p>The pack needs a lot of memory, but not all of it: Windows and your browser want to live too.</p>
+<div class="ram">
+  <label for="ram">Your PC has <span id="ram-val">16 GB</span></label>
+  <input type="range" id="ram" min="8" max="64" step="8" value="16">
+  <output for="ram" id="ram-out"></output>
+</div>
+</section>
+<section class="sec" id="hilfe">
+<h2>Not working?</h2>
+<p>Most problems are too little memory. If that does not help, ask on the <a href="https://discord.gg/DZs3XyyHDj">Discord</a> and attach the file <code>logs/latest.log</code> from your instance. More in the <a href="faq.html#technik">questions</a>.</p>
+</section>
+</main>
+
+<footer class="bottom">
+  <div class="cols">
+    <div><h4>Play</h4><a href="../stufen.html" lang="de">Stages</a><a href="../herkunft.html" lang="de">Origins</a><a href="../mods.html">Mods</a><a href="install.html">Install</a><a href="faq.html">Questions</a><a href="../status.html">Status</a></div>
+    <div><h4>Take part</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="../streamer.html" lang="de">For streamers</a><a href="../partner.html" lang="de">Partners</a><a href="../overlay.html">Stream overlay</a></div>
+    <div><h4>Project</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot.html">Discord bot</a><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy</a><a href="../installieren.html" lang="de">Deutsch</a></div>
+  </div>
+  <p class="made">A project by <a href="https://elchi.dev">Elchi Studios</a>. Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p>
+</footer>
+
+<script src="../js/install.js" defer></script>
+<script src="../js/site.js" defer></script>
+</body>
+</html>

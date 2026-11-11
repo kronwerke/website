@@ -16,7 +16,7 @@
 
 ## Overview
 
-Static pages in German, no framework. The start page is the plan as it stands: five stages, the obelisk, how the whitelist works, what is in the pack. Behind it are the stages in detail, every mod in the pack, an install guide per launcher, the usual questions and a status page. While the season runs, the pages ask the [bot](https://github.com/kronwerke/bot) for the server state and the community goals once a minute.
+Static pages in German, with the install guide, the questions, the privacy notice, the imprint and the bot page in English under `en/`; no framework. The start page is the plan as it stands: five stages, the obelisk, how the whitelist works, what is in the pack. Behind it are the stages in detail, every mod in the pack, an install guide per launcher, the usual questions and a status page. While the season runs, the pages ask the [bot](https://github.com/kronwerke/bot) for the server state and the community goals once a minute.
 
 The only build step is the mod list: CI checks out [kronwerke/pack](https://github.com/kronwerke/pack) and `tools/modlist.py` turns its mod files into `data/mods.json` and small icons, so the list always matches the pack of that release.
 

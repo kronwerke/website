@@ -105,8 +105,8 @@
     const note = document.getElementById("goal-note");
     if (note) {
       note.textContent = g.state === "held"
-        ? "Der Obelisk hält bei 98 Prozent. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."
-        : "Insgesamt " + g.percent + " Prozent. Bei 98 Prozent hält der Obelisk an, der Rest kommt beim gemeinsamen Event rein.";
+        ? "Der Obelisk ist fast voll und hält an. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."
+        : "Insgesamt " + g.percent + " Prozent. Kurz vor voll hält der Obelisk an, der Rest kommt beim gemeinsamen Event rein.";
       if (season && season.slumbering) note.textContent += " Der Obelisk schläft gerade: seit einem Tag kam keine Gabe. Die erste weckt ihn.";
     }
   }

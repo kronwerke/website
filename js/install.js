@@ -6,6 +6,8 @@
   "use strict";
 
   const REL = "https://github.com/kronwerke/pack/releases";
+  // the English page (en/install.html) uses the same script
+  const EN = document.documentElement.lang === "en";
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const KEY = "kw-install";
   let saved = {};
@@ -40,12 +42,12 @@
     function update() {
       const done = boxes.filter((b) => b.checked).length;
       fill.style.width = (100 * done / boxes.length).toFixed(0) + "%";
-      txt.textContent = done + " von " + boxes.length + " Schritten";
+      txt.textContent = EN ? done + " of " + boxes.length + " steps" : done + " von " + boxes.length + " Schritten";
       // the next open step is the current one; the mob talks about it
       const next = boxes.findIndex((b) => !b.checked);
       items.forEach((li, i) => li.classList.toggle("is", i === next));
       mob.classList.toggle("done", next === -1);
-      bubble.textContent = next === -1 ? "Alles erledigt. Bis zum 16. Januar auf dem Server." : (tips[next] || "");
+      bubble.textContent = next === -1 ? (EN ? "All done. See you on the server on 16 January." : "Alles erledigt. Bis zum 16. Januar auf dem Server.") : (tips[next] || "");
       saved[id] = boxes.map((b) => b.checked);
       save();
     }
@@ -65,6 +67,14 @@
       const gb = Number(ram.value);
       val.textContent = gb + " GB";
       let give, why;
+      if (EN) {
+        if (gb <= 8) { give = "6 GB"; why = "That is tight. The pack runs, but close everything else, the browser too. With 6 GB loading can take a long time."; }
+        else if (gb <= 16) { give = "8 GB"; why = "The usual case. Enough for the pack and a browser with the stream on the side."; }
+        else if (gb <= 24) { give = "10 GB"; why = "A bit of headroom, more does not help. Too much memory even makes Java slower, because cleaning up takes longer."; }
+        else { give = "10 to 12 GB"; why = "More than 12 GB does not help, however much your PC has. Leave the rest to OBS and the browser."; }
+        out.innerHTML = "Give the game <b>" + give + "</b>. " + why;
+        return;
+      }
       if (gb <= 8) { give = "6 GB"; why = "Das ist knapp. Das Pack läuft, aber schließ alles andere, auch den Browser. Mit 6 GB kann es beim Laden lange dauern."; }
       else if (gb <= 16) { give = "8 GB"; why = "Der Normalfall. Reicht für das Pack und einen Browser mit dem Stream nebenbei."; }
       else if (gb <= 24) { give = "10 GB"; why = "Etwas Luft nach oben, mehr bringt nichts. Zu viel Speicher macht Java sogar langsamer, weil das Aufräumen länger dauert."; }

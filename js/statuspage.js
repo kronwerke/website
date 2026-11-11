@@ -131,7 +131,7 @@
     }
     card.append(pillars);
     if (g.state === "held") {
-      card.append(make("p", "hint", "Der Obelisk hält bei 98 Prozent. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."));
+      card.append(make("p", "hint", "Der Obelisk ist fast voll und hält an. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."));
     }
     if (planned && !live) {
       card.append(make("p", "note", "Geplante Mengen für 30 Spieler. Beim Öffnen der Stufe passt der Server sie an die echte Spielerzahl an."));
