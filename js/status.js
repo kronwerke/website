@@ -107,7 +107,6 @@
       note.textContent = g.state === "held"
         ? "Der Obelisk ist fast voll und hält an. Der Rest kommt beim gemeinsamen Event rein, den Termin gibt es auf dem Discord."
         : "Insgesamt " + g.percent + " Prozent. Kurz vor voll hält der Obelisk an, der Rest kommt beim gemeinsamen Event rein.";
-      if (season && season.slumbering) note.textContent += " Der Obelisk schläft gerade: seit einem Tag kam keine Gabe. Die erste weckt ihn.";
     }
   }
 

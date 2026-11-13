@@ -164,7 +164,7 @@
 
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI"];
 
-  // the obelisk's own line: which stage stands and whether the stone sleeps
+  // the obelisk's own line: which stage stands
   function showObelisk(season) {
     const el = $("obelisk-state");
     if (!el) return;
@@ -172,8 +172,7 @@
     if (!season || !season.running) return;
     const tier = season.tier || 0;
     const stage = tier === 0 ? "Noch steht keine Stufe." : "Stufe " + ROMAN[Math.min(tier, 6)] + " steht.";
-    el.append(make("span", "pill " + (season.slumbering ? "hold" : "on"), season.slumbering ? "schläft" : "wach"), " " + stage
-      + (season.slumbering ? " Seit einem Tag kam keine Gabe; die erste weckt den Stein." : ""));
+    el.append(stage);
   }
 
   async function load() {
