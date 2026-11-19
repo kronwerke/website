@@ -182,7 +182,7 @@
       const data = await r.json();
       showServer(data.server, data.season);
       showObelisk(data.season);
-      showGoals(data.goals);
+      showGoals(window.KW.offSeason(data) ? null : data.goals);
     } catch (e) {
       showServer(null);
       showGoals(null);

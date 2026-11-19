@@ -116,7 +116,7 @@
       if (!r.ok) return;
       const data = await r.json();
       showServer(data.server, data.season);
-      showGoal(data.goals, data.season);
+      if (!window.KW.offSeason(data)) showGoal(data.goals, data.season);
     } catch (e) {
       // not live yet, or offline: keep the text from the page
     }

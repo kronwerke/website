@@ -1167,3 +1167,4 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
   .tv-player { --s: 5px; left: 86%; bottom: 27%; }
   .tavuru.out .tv-player { left: 72%; bottom: -1.2rem; }
 }
+.tv-servers.wip .tv-net .on::before { background: var(--s2); box-shadow: 0 0 0 3px rgba(229, 180, 81, 0.2); }

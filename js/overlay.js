@@ -281,10 +281,17 @@
 
   async function load() {
     try {
+      // before the season: the goals with nothing deposited yet, nobody on the board
+      function blank(goals) {
+        return (goals || []).map((g) => Object.assign({}, g, {
+          percent: 0, recent: [], top: [],
+          pillars: (g.pillars || []).map((p) => Object.assign({}, p, { items: (p.items || []).map((it) => Object.assign({}, it, { have: 0 })) })),
+        }));
+      }
       const r = await fetch(API, { cache: "no-store" });
       if (!r.ok) return;
       const data = await r.json();
-      apply(data.goals);
+      apply(window.KW.offSeason(data) ? blank(data.goals) : data.goals);
     } catch (e) {
       // offline for a moment: keep what is on screen
     }

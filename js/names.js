@@ -4,6 +4,9 @@
 
 window.KW = window.KW || {};
 // numbers with a thin space as thousands separator, like the rest of the site
+// before the season the team tests on the live server: its deposits and players are not
+// the season's, so pages show the plan instead
+window.KW.offSeason = function (d) { return !(d && d.season && d.season.running); };
 window.KW.fmt = function (n) { return Math.round(Number(n) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f"); };
 
 window.KW.names = {

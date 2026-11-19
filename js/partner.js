@@ -143,11 +143,25 @@
   "use strict";
   const lists = document.querySelectorAll(".tv-servers");
   if (!lists.length || !window.fetch) return;
+  const MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+  function startDay(season) {
+    const m = season && /^\d{4}-(\d{2})-(\d{2})/.exec(season.start || "");
+    return m ? ", Start " + Number(m[2]) + ". " + MONTHS[Number(m[1]) - 1] : "";
+  }
   fetch("/api/status", { headers: { Accept: "application/json" } })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       const s = d && d.server;
       if (!s) return;
+      // before the season the team builds and tests: no player count, no ping
+      if (!(d.season && d.season.running)) {
+        for (const l of lists) {
+          l.classList.add("wip");
+          const state = l.querySelector('[data-live="state"]');
+          if (state) state.textContent = "Im Aufbau" + startDay(d.season);
+        }
+        return;
+      }
       for (const l of lists) {
         l.classList.toggle("up", !!s.online);
         const state = l.querySelector('[data-live="state"]');
