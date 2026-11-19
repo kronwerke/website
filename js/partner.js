@@ -137,3 +137,24 @@
     card.addEventListener("blur", function () { wake(false); });
   }
 })();
+
+// the server list in the card asks the bot whether the main world is up and how many play there
+(function () {
+  "use strict";
+  const lists = document.querySelectorAll(".tv-servers");
+  if (!lists.length || !window.fetch) return;
+  fetch("/api/status", { headers: { Accept: "application/json" } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      const s = d && d.server;
+      if (!s) return;
+      for (const l of lists) {
+        l.classList.toggle("up", !!s.online);
+        const state = l.querySelector('[data-live="state"]');
+        if (state) state.textContent = s.online ? "Online" : "Gerade offline";
+        const who = l.querySelector('[data-live="players"]');
+        if (who && s.online && typeof s.players === "number") who.textContent = s.players + "/" + (s.max || "?");
+      }
+    })
+    .catch(function () {});
+})();

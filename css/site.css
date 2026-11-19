@@ -1064,8 +1064,8 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 .tv-hop.go .arm-l { transform: rotateX(150deg) rotateZ(-10deg); transition-duration: 0.2s; }
 .tv-hop.go .leg-r { transform: rotateX(35deg); transition-duration: 0.2s; }
 .tv-hop.go .leg-l { transform: rotateX(-25deg); transition-duration: 0.2s; }
-.tv-hop.go .cape { transform: rotateX(-55deg); transition-duration: 0.2s; }
-.tavuru.out .tv-hop:not(.go) .cape { transform: rotateX(-10deg); }
+.tv-hop.go .cape { transform: rotateX(60deg); transition-duration: 0.2s; }
+.tavuru.out .tv-hop:not(.go) .cape { transform: rotateX(8deg); }
 
 @media (prefers-reduced-motion: no-preference) {
   .tavuru.out .tv-mark::after { opacity: 1; animation: tv-shine 2.6s var(--ease) 0.4s infinite; }
@@ -1091,10 +1091,79 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 @keyframes tv-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--s) * -0.25)); } }
 @keyframes tv-shine { 0% { background-position: 150% 0; } 60%, 100% { background-position: -60% 0; } }
 
+/* the worlds, as the game's server list shows them: icon, name, a line, ping and players */
+.tv-servers {
+  position: absolute;
+  z-index: 2;
+  top: clamp(1rem, 2.4vw, 1.6rem);
+  right: clamp(1rem, 2.4vw, 1.6rem);
+  width: min(23rem, 36%);
+  font-size: 0.86rem;
+}
+.tv-net {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(8, 7, 18, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(242, 237, 227, 0.12);
+  backdrop-filter: blur(6px);
+  font-weight: 650;
+  transition: border-radius 0.3s ease;
+}
+.tv-net .addr { color: var(--mute); font-weight: 500; font-variant-numeric: tabular-nums; }
+.tv-net .on { display: inline-flex; align-items: center; gap: 0.45rem; }
+.tv-net .on::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
+.tv-servers.up .tv-net .on::before { background: var(--ok); box-shadow: 0 0 0 3px rgba(143, 209, 139, 0.2); }
+.tv-list { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
+.tv-list > div { overflow: hidden; display: grid; gap: 3px; padding-top: 0; transition: padding-top 0.5s var(--ease); }
+.tavuru.out .tv-list { grid-template-rows: 1fr; }
+.tavuru.out .tv-list > div { padding-top: 4px; }
+.tv-srv {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr auto;
+  min-height: 3.3rem;
+  grid-template-rows: auto auto;
+  column-gap: 0.65rem;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  background: rgba(8, 7, 18, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(242, 237, 227, 0.08);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.35s ease, transform 0.5s var(--spring), box-shadow 0.2s ease;
+}
+.tavuru.out .tv-srv { opacity: 1; transform: none; }
+.tavuru.out .tv-srv:nth-child(2) { transition-delay: 0.07s; }
+.tavuru.out .tv-srv:nth-child(3) { transition-delay: 0.14s; }
+.tavuru.out .tv-srv:nth-child(4) { transition-delay: 0.21s; }
+.tv-srv:hover { box-shadow: inset 0 0 0 2px rgba(242, 237, 227, 0.75); }
+.tv-srv img { grid-row: 1 / 3; width: 2.4rem; height: 2.4rem; border-radius: 4px; image-rendering: pixelated; }
+.tv-srv b { font-weight: 700; color: var(--star); }
+.tv-srv small { grid-column: 2 / 4; color: var(--mute); font-size: 0.8rem; line-height: 1.3; }
+.tv-srv .ping { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+.tv-srv .ping i { width: 3px; background: #3a3456; border-radius: 1px; }
+.tv-srv .ping i:nth-child(1) { height: 20%; } .tv-srv .ping i:nth-child(2) { height: 40%; } .tv-srv .ping i:nth-child(3) { height: 60%; } .tv-srv .ping i:nth-child(4) { height: 80%; } .tv-srv .ping i:nth-child(5) { height: 100%; }
+.tavuru.out .tv-servers.up .tv-srv .ping i { background: #4ade80; transition: background 0.2s ease; }
+.tavuru.out .tv-servers.up .tv-srv .ping i:nth-child(2) { transition-delay: 0.35s; }
+.tavuru.out .tv-servers.up .tv-srv .ping i:nth-child(3) { transition-delay: 0.45s; }
+.tavuru.out .tv-servers.up .tv-srv .ping i:nth-child(4) { transition-delay: 0.55s; }
+.tavuru.out .tv-servers.up .tv-srv .ping i:nth-child(5) { transition-delay: 0.65s; }
+.tv-srv .who { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--mute); font-variant-numeric: tabular-nums; }
+
 @media (max-width: 760px) {
-  .tavuru { aspect-ratio: auto; height: 36rem; --sw: 64rem; --sx: calc(45% - 24.3rem); }
+  .tv-servers { top: auto; bottom: 29%; left: 1rem; right: 1rem; width: auto; }
+  .tv-srv { min-height: 0; padding: 0.35rem 0.55rem; }
+  .tv-srv small { display: none; }
+  .tv-srv img { grid-row: 1; width: 1.6rem; height: 1.6rem; }
+  .tv-srv { grid-template-columns: 1.6rem 1fr auto; }
+  .tavuru { aspect-ratio: auto; height: 46rem; --sw: 82rem; --sx: calc(45% - 31.2rem); }
   .tv-shade { background: linear-gradient(180deg, rgba(10, 8, 22, 0.9) 0%, rgba(10, 8, 22, 0.75) 45%, transparent 70%); }
   .tv-copy { align-content: start; }
-  .tv-player { --s: 5px; left: 82%; bottom: 27%; }
+  .tv-player { --s: 5px; left: 86%; bottom: 27%; }
   .tavuru.out .tv-player { left: 72%; bottom: -1.2rem; }
 }
