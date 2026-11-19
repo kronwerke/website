@@ -906,3 +906,163 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 .stream .title { color: color-mix(in srgb, var(--star) 86%, var(--mute)); font-size: 0.95rem; margin-top: 0.3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .stream .meta { color: var(--mute); font-size: 0.85rem; padding-bottom: 0.85rem; margin-top: 0.3rem; }
 .hero + .onair[hidden] + .band { background: linear-gradient(to bottom, rgba(13, 11, 16, 0), rgba(13, 11, 16, 0.8) 14rem); border-top: 0; }
+
+/* Partner card: Tavuru. Their colours (violet into blue) live only inside this card.
+   At rest a quiet panel with a server rack; on hover (or when it scrolls into view on
+   touch screens) a light runs around the edge, the rack's drawers slide out one after
+   the other, their lights wake up, packets run up the bus and a shine crosses the logo. */
+@property --tv-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.tavuru {
+  --tv-a: #8b5cf6;
+  --tv-b: #3b82f6;
+  --tv-c: #22d3ee;
+  --mx: 70%;
+  --my: 40%;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.6rem, 4vw, 3rem);
+  border-radius: 22px;
+  background:
+    radial-gradient(40rem 22rem at var(--mx) var(--my), rgba(139, 92, 246, 0.16), transparent 70%),
+    linear-gradient(160deg, #15132a 0%, #0f0d1c 55%, #0d0b10 100%);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s ease;
+}
+/* the edge: a thin line at rest, a running light when awake */
+.tavuru::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--tv-angle), rgba(242, 237, 227, 0.12) 0deg, rgba(242, 237, 227, 0.12) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.tavuru.awake::before, .tavuru:hover::before, .tavuru:focus-visible::before {
+  padding: 1.5px;
+  background: conic-gradient(from var(--tv-angle), transparent 0deg, var(--tv-a) 60deg, var(--tv-b) 120deg, var(--tv-c) 160deg, transparent 220deg, transparent 360deg), rgba(242, 237, 227, 0.14);
+}
+/* a grid of faint points, like a data centre floor seen from above */
+.tavuru::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(28rem 18rem at var(--mx) var(--my), #000, transparent 75%);
+  mask-image: radial-gradient(28rem 18rem at var(--mx) var(--my), #000, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.tavuru:hover::after, .tavuru.awake::after, .tavuru:focus-visible::after { opacity: 1; }
+.tavuru:hover, .tavuru:focus-visible { transform: translateY(-4px); box-shadow: 0 40px 80px -40px rgba(91, 70, 220, 0.55); }
+.tavuru:focus-visible { outline: none; }
+
+.tv-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.1);
+  color: #d6cbfb;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.tv-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(143, 209, 139, 0.6); }
+.tv-copy { display: grid; gap: 1.1rem; justify-items: start; }
+.tv-mark { position: relative; display: block; width: min(100%, 19rem); aspect-ratio: 700 / 150; }
+.tv-mark img { display: block; width: 100%; height: 100%; }
+/* the shine is cut to the letters, so it only ever lights the logo */
+.tv-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, var(--tv-c) 45%, #fff 50%, var(--tv-a) 55%, transparent 70%) no-repeat;
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  -webkit-mask: url("../img/partners/tavuru.webp") center / contain no-repeat;
+  mask: url("../img/partners/tavuru.webp") center / contain no-repeat;
+  opacity: 0;
+}
+.tv-copy p { margin: 0; max-width: 34ch; color: color-mix(in srgb, var(--star) 82%, var(--mute)); }
+.tv-facts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.tv-facts li { padding: 0.35rem 0.75rem; border: 1px solid var(--line); border-radius: 10px; background: rgba(242, 237, 227, 0.04); color: var(--mute); font-size: 0.88rem; transition: border-color 0.3s ease, color 0.3s ease, transform 0.4s var(--spring); }
+.tavuru:hover .tv-facts li, .tavuru.awake .tv-facts li { border-color: rgba(139, 92, 246, 0.35); color: var(--star); }
+.tv-go { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 700; color: var(--star); }
+.tv-go svg { width: 1.1em; height: 1.1em; transition: transform 0.4s var(--spring); }
+.tavuru:hover .tv-go svg, .tavuru.awake .tv-go svg { transform: translateX(5px); }
+
+/* the rack: four drawers, one per world */
+.tv-rack {
+  position: relative;
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 1rem 1rem 2.2rem;
+  border: 1px solid rgba(242, 237, 227, 0.1);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(31, 27, 54, 0.9), rgba(17, 15, 30, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+  transform: perspective(900px) rotateY(-8deg) rotateX(3deg);
+  transition: transform 0.7s var(--ease);
+}
+.tavuru:hover .tv-rack, .tavuru.awake .tv-rack, .tavuru:focus-visible .tv-rack { transform: perspective(900px) rotateY(0) rotateX(0); }
+/* the bus on the left that the packets run along */
+.tv-rack .bus { position: absolute; left: 1rem; top: 1.2rem; bottom: 1.2rem; width: 2px; border-radius: 2px; background: rgba(139, 92, 246, 0.25); overflow: hidden; }
+.tv-rack .bus i { position: absolute; left: 0; width: 2px; height: 26px; border-radius: 2px; background: linear-gradient(to top, transparent, var(--tv-c)); opacity: 0; }
+.tv-unit {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(242, 237, 227, 0.08);
+  border-radius: 10px;
+  background: linear-gradient(90deg, #1d1a33, #16142a);
+  transition: transform 0.6s var(--spring), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.tv-unit::before { content: ""; position: absolute; left: -1.2rem; top: 50%; width: 1.2rem; height: 2px; background: rgba(139, 92, 246, 0.25); }
+.tv-unit b { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.01em; }
+.tv-unit .vent { height: 10px; border-radius: 3px; background: repeating-linear-gradient(90deg, rgba(242, 237, 227, 0.12) 0 2px, transparent 2px 6px); }
+.tv-unit .leds { display: flex; gap: 5px; }
+.tv-unit .leds i { width: 7px; height: 7px; border-radius: 50%; background: #3a3456; transition: background 0.3s ease, box-shadow 0.3s ease; }
+.tavuru:hover .tv-unit, .tavuru.awake .tv-unit, .tavuru:focus-visible .tv-unit { transform: translateX(-14px); border-color: rgba(139, 92, 246, 0.35); box-shadow: 0 14px 30px -18px rgba(59, 130, 246, 0.7); }
+.tavuru:hover .tv-unit:nth-child(3), .tavuru.awake .tv-unit:nth-child(3) { transition-delay: 0.07s; }
+.tavuru:hover .tv-unit:nth-child(4), .tavuru.awake .tv-unit:nth-child(4) { transition-delay: 0.14s; }
+.tavuru:hover .tv-unit:nth-child(5), .tavuru.awake .tv-unit:nth-child(5) { transition-delay: 0.21s; }
+.tavuru:hover .tv-unit .leds i:first-child, .tavuru.awake .tv-unit .leds i:first-child { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tavuru:hover::before, .tavuru.awake::before, .tavuru:focus-visible::before { animation: tv-spin 3.2s linear infinite; }
+  .tavuru:hover .tv-mark::after, .tavuru.awake .tv-mark::after, .tavuru:focus-visible .tv-mark::after { opacity: 1; animation: tv-shine 2.4s var(--ease) 0.15s infinite; }
+  .tavuru:hover .tv-tag .dot, .tavuru.awake .tv-tag .dot { animation: tv-pulse 1.6s ease-out infinite; }
+  .tavuru:hover .tv-unit .leds i:nth-child(2), .tavuru.awake .tv-unit .leds i:nth-child(2) { animation: tv-blink 0.9s steps(2, jump-none) infinite; }
+  .tavuru:hover .tv-unit .leds i:nth-child(3), .tavuru.awake .tv-unit .leds i:nth-child(3) { animation: tv-blink 1.3s steps(2, jump-none) infinite 0.2s; }
+  .tavuru:hover .tv-unit:nth-child(3) .leds i, .tavuru.awake .tv-unit:nth-child(3) .leds i { animation-duration: 0.7s; }
+  .tavuru:hover .tv-unit:nth-child(4) .leds i, .tavuru.awake .tv-unit:nth-child(4) .leds i { animation-duration: 1.1s; }
+  .tavuru:hover .tv-unit:nth-child(5) .leds i, .tavuru.awake .tv-unit:nth-child(5) .leds i { animation-duration: 0.8s; }
+  .tavuru:hover .tv-rack .bus i, .tavuru.awake .tv-rack .bus i { animation: tv-packet 1.6s linear infinite; }
+  .tv-rack .bus i:nth-child(2) { animation-delay: 0.55s !important; }
+  .tv-rack .bus i:nth-child(3) { animation-delay: 1.1s !important; }
+}
+@keyframes tv-spin { to { --tv-angle: 360deg; } }
+@keyframes tv-shine { 0% { background-position: 150% 0; } 60%, 100% { background-position: -60% 0; } }
+@keyframes tv-pulse { 0% { box-shadow: 0 0 0 0 rgba(143, 209, 139, 0.6); } 100% { box-shadow: 0 0 0 8px rgba(143, 209, 139, 0); } }
+@keyframes tv-blink { 0% { background: #3a3456; box-shadow: none; } 100% { background: var(--tv-b); box-shadow: 0 0 8px var(--tv-b); } }
+@keyframes tv-packet { 0% { top: 100%; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: -26px; opacity: 0; } }
+@media (max-width: 800px) {
+  .tavuru { grid-template-columns: 1fr; }
+  .tv-rack { transform: none; }
+}
