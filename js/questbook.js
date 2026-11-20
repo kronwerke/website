@@ -289,7 +289,7 @@
       b.setAttribute("aria-label", plain(tr(q.title)));
       const ic = q.icon || firstItem(q);
       b.append(document.createElement("i"));
-      if (ic) b.append(icon(ic));
+      if (ic) { const im = icon(ic); im.loading = "eager"; b.append(im); }  // a chapter has at most some 80, all in view
       else { const t = document.createElement("span"); t.className = "qb-check"; t.innerHTML = mark("check"); b.append(t); }
       b.addEventListener("click", () => openQuest(ch, q, true));
       b.addEventListener("pointerenter", () => tip(b, q));
