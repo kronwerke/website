@@ -99,7 +99,7 @@ html.sky-still body:not([data-page="start"])::before { opacity: 0.5; }
   display: block;
   z-index: -1;
   opacity: 0;
-  transition: opacity 1.6s ease;
+  transition: opacity 0.9s ease;
 }
 #sky.on { opacity: 1; }
 html.sky-poster body > :not(#sky) { display: none !important; }

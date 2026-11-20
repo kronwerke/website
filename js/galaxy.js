@@ -8,8 +8,9 @@
 // moving through them, which is how real spiral galaxies behave.
 //
 // What the visitor sees first is a still of this very scene (img/sky/, rendered with
-// ?poster). The simulation starts only after the page has loaded and the browser is
-// idle, builds its stars in a worker, and fades in over the still. It then watches its
+// ?poster), there from the first paint. The simulation starts right after that paint,
+// builds its stars in a worker (this same file, loaded a second time), and fades in
+// over the still. It then watches its
 // own frame rate: when a device cannot keep up it lowers the resolution and the number
 // of stars step by step, and when even the lowest step is too much it fades out again
 // and leaves the still. Weak devices (software rendering, little memory, data saver,
@@ -23,6 +24,17 @@
 
 (function () {
   "use strict";
+
+  // As a worker this file only builds the stars. A worker from a blob would be simpler,
+  // but the site's Content-Security-Policy allows scripts from its own address only.
+  if (typeof document === "undefined") {
+    self.onmessage = (e) => {
+      const r = build(e.data);
+      self.postMessage(r, [r.galaxy.buffer, r.field.buffer]);
+    };
+    return;
+  }
+  const self_url = document.currentScript && document.currentScript.src;
 
   const canvas = document.getElementById("sky");
   if (!canvas) return;
@@ -171,17 +183,13 @@
 
   function particles(counts) {
     return new Promise((resolve) => {
-      let url = null;
+      if (!self_url || !window.Worker) { resolve(build(counts)); return; }
       try {
-        const src = "const build = " + build.toString() + ";\n" +
-          "onmessage = (e) => { const r = build(e.data); postMessage(r, [r.galaxy.buffer, r.field.buffer]); };";
-        url = URL.createObjectURL(new Blob([src], { type: "text/javascript" }));
-        const w = new Worker(url);
-        w.onmessage = (e) => { w.terminate(); URL.revokeObjectURL(url); resolve(e.data); };
-        w.onerror = () => { w.terminate(); URL.revokeObjectURL(url); resolve(build(counts)); };
+        const w = new Worker(self_url);
+        w.onmessage = (e) => { w.terminate(); resolve(e.data); };
+        w.onerror = () => { w.terminate(); resolve(build(counts)); };
         w.postMessage(counts);
       } catch (e) {
-        if (url) URL.revokeObjectURL(url);
         resolve(build(counts));
       }
     });
@@ -904,11 +912,6 @@
 
   // ---- go --------------------------------------------------------------------------
 
-  // the still behind the page, once the page itself is there
-  function still() { document.documentElement.classList.add("sky-still"); }
-  if (document.readyState === "complete") still();
-  else window.addEventListener("load", still, { once: true });
-
   if (posterMode) {
     document.documentElement.classList.add("sky-poster");
     start();
@@ -916,13 +919,9 @@
     const weak = forced || tryAnyway ? "" : weakDevice();
     if (reduceMotion) log("still only: reduced motion");
     else if (weak) log("still only:", weak);
-    else if (document.readyState === "complete") later();
-    else window.addEventListener("load", later, { once: true });
-  }
-
-  // after the load event and once the browser is idle, so the page itself comes first
-  function later() {
-    if ("requestIdleCallback" in window) window.requestIdleCallback(start, { timeout: 3000 });
-    else setTimeout(start, 400);
+    // after the first paint, so the page shows before the graphics card gets to work.
+    // It used to wait for the load event and an idle browser, which on a page with many
+    // pictures meant seconds of the still.
+    else requestAnimationFrame(() => setTimeout(start, 0));
   }
 })();

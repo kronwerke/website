@@ -70,6 +70,7 @@
 
   $("logout").addEventListener("click", async () => {
     await fetch("api/auth/logout", { method: "POST", credentials: "same-origin" }).catch(() => {});
+    try { localStorage.removeItem("kw-me"); } catch (e) {} // site.js keeps the head there
     location.reload();
   });
 

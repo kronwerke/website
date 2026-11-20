@@ -12,7 +12,7 @@ window.KW.fmt = function (n) { return Math.round(Number(n) || 0).toString().repl
 window.KW.names = {
   stages: {
     stage1: { n: 1, stage: "Steinwerk", goal: "Fundament des Kronwerks" },
-    stage2: { n: 2, stage: "Messingwerk", goal: "Die Messingmaschine" },
+    stage2: { n: 2, stage: "Messingwerk", goal: "Das Messingwerk" },
     stage3: { n: 3, stage: "Stahlwerk", goal: "Der Ofen schläft nie" },
     stage4: { n: 4, stage: "Sternwerk", goal: "Licht des Drachen" },
     stage5: { n: 5, stage: "Chaoswerk", goal: "Der Chaoswächter" },

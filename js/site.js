@@ -204,35 +204,65 @@
     who.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>' + (inEn ? "Sign in" : "Anmelden") + "</span>";
     const btn = top.querySelector(".btn");
     top.insertBefore(who, btn);
+    const signedOut = who.innerHTML;
+    // what the page shows of the account: the head in the header and the whitelist line
+    function show(me) {
+      window.KW = window.KW || {};
+      window.KW.me = me;
+      const wl = document.getElementById("me-wl");
+      if (!me) {
+        who.classList.remove("in");
+        who.removeAttribute("title");
+        who.innerHTML = signedOut;
+        if (wl) wl.hidden = true;
+        return;
+      }
+      const head = (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name);
+      who.classList.add("in");
+      who.title = me.name;
+      who.innerHTML = '<img alt="" width="24" height="24" src="' + head + '"><span></span>';
+      who.querySelector("span").textContent = me.name;
+      if (!wl) return;
+      const w = me.whitelist || {};
+      wl.hidden = false;
+      wl.classList.toggle("on", !!w.on);
+      let t;
+      if (w.on && w.by) t = (inEn ? "You are on the whitelist, on " : "Du bist auf der Whitelist, über den Platz von ") + w.by + ".";
+      else if (w.on) t = inEn ? "You are on the whitelist." : "Du bist auf der Whitelist.";
+      else t = inEn ? "Not on the whitelist yet. A streamer or your community gives you a place, ask in the Discord." : "Noch nicht auf der Whitelist. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
+      const line = wl.querySelector("span");
+      line.textContent = t;
+      if (!me.discord) {
+        const a = document.createElement("a");
+        a.href = (inEn ? "../" : "") + "anmelden";
+        a.textContent = inEn ? "Link Discord" : "Discord verknüpfen";
+        line.append(" ", a);
+      }
+      wl.querySelector("b").textContent = me.name;
+      const img = wl.querySelector("img");
+      if (img.getAttribute("src") !== head) img.src = head;
+    }
+    // The browser remembers the last answer (name and whitelist place, nothing else), so
+    // the head is there with the page instead of after a question to the server. The
+    // server's answer still decides: it corrects the line or signs the page out.
+    const KEY = "kw-me";
+    let known = "";
+    try {
+      known = localStorage.getItem(KEY) || "";
+      const last = known && JSON.parse(known);
+      if (last && last.name) show(last);
+    } catch (e) { known = ""; }
     fetch((inEn ? "../" : "") + "api/me", { cache: "no-store", credentials: "same-origin" })
       .then((r) => (r.ok ? r.json() : null))
       .then((me) => {
-        if (!me || !me.name) return;
-        window.KW = window.KW || {};
-        window.KW.me = me;
-        who.classList.add("in");
-        who.title = me.name;
-        who.innerHTML = '<img alt="" width="24" height="24" src="' + (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name) + '"><span></span>';
-        who.querySelector("span").textContent = me.name;
-        const wl = document.getElementById("me-wl");
-        if (wl) {
-          const w = me.whitelist || {};
-          wl.hidden = false;
-          wl.classList.toggle("on", !!w.on);
-          let t;
-          if (w.on && w.by) t = (inEn ? "You are on the whitelist, on " : "Du bist auf der Whitelist, über den Platz von ") + w.by + ".";
-          else if (w.on) t = inEn ? "You are on the whitelist." : "Du bist auf der Whitelist.";
-          else t = inEn ? "Not on the whitelist yet. A streamer or your community gives you a place, ask in the Discord." : "Noch nicht auf der Whitelist. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
-          wl.querySelector("span").textContent = t;
-          if (!me.discord) {
-            const a = document.createElement("a");
-            a.href = (inEn ? "../" : "") + "anmelden";
-            a.textContent = inEn ? "Link Discord" : "Discord verknüpfen";
-            wl.querySelector("span").append(" ", a);
-          }
-          wl.querySelector("b").textContent = me.name;
-          wl.querySelector("img").src = (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name);
-        }
+        if (me === null) return; // the server did not answer properly: keep what is shown
+        const keep = me.name ? JSON.stringify({ name: me.name, whitelist: me.whitelist || null, discord: !!me.discord }) : "";
+        if (keep === known) return;
+        show(me.name ? JSON.parse(keep) : null);
+        try {
+          if (keep) localStorage.setItem(KEY, keep);
+          else localStorage.removeItem(KEY);
+        } catch (e) {}
       })
       .catch(() => {});
   }
