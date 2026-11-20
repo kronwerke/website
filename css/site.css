@@ -4,6 +4,9 @@
    things move when you hover, press or scroll to them, and the mobs of the stages have
    a small life of their own. With prefers-reduced-motion everything stands still. */
 
+/* hidden always wins, whatever display a class sets */
+[hidden] { display: none !important; }
+
 @font-face {
   font-family: "Schibsted Grotesk";
   src: url("../fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2-variations"),
