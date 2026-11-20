@@ -7,6 +7,8 @@
 
   const list = document.getElementById("mods");
   const q = document.getElementById("q");
+  // the build writes a fingerprint of all pictures and data on <html>
+  const V = document.documentElement.dataset.v ? "?v=" + document.documentElement.dataset.v : "";
   const count = document.getElementById("count");
   const chips = document.getElementById("groups");
   const stageChips = document.getElementById("stages");
@@ -60,7 +62,7 @@
     const li = make("li", "mod");
     if (m.icon) {
       const img = make("img");
-      img.src = m.icon;
+      img.src = m.icon + V;
       img.alt = "";
       img.loading = "lazy";
       img.width = 48;
@@ -69,7 +71,7 @@
     } else {
       li.append(make("span", "noicon"));
     }
-    const h = make("h3", "", m.name);
+    const h = make("h2", "", m.name);
     li.append(h);
     const info = stageInfo(m);
     if (info) {
@@ -140,7 +142,7 @@
   q.value = params.get("q") || "";
   q.addEventListener("input", render);
 
-  fetch("data/mods.json")
+  fetch("data/mods.json" + V)
     .then((r) => r.json())
     .then((data) => { mods = data; render(); })
     .catch(() => { count.textContent = "Die Liste konnte nicht geladen werden."; });

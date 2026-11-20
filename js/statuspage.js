@@ -5,7 +5,8 @@
 (function () {
   "use strict";
 
-  const API = "/api/status";
+  // the build writes a fingerprint of all pictures on <html>
+  const V = document.documentElement.dataset.v ? "?v=" + document.documentElement.dataset.v : "";
   const N = window.KW.names;
   const nf = { format: window.KW.fmt };
   const $ = (id) => document.getElementById(id);
@@ -52,7 +53,7 @@
     const icon = N.icons[id];
     if (icon) {
       const img = make("img");
-      img.src = "img/items/" + icon + ".png";
+      img.src = "img/items/" + icon + ".png" + V;
       img.alt = "";
       img.width = 24;
       img.height = 24;
@@ -87,7 +88,7 @@
     const mob = N.mobs[g.id];
     if (mob) {
       const img = make("img", "mob mob-" + mob);
-      img.src = "img/mobs/" + mob + ".webp";
+      img.src = "img/mobs/" + mob + ".webp" + V;
       img.alt = "";
       img.loading = "lazy";
       card.append(img);
@@ -175,11 +176,18 @@
     el.append(stage);
   }
 
+  // every script of a page shares one answer of /api/status; after five seconds it is asked again
+  function statusOnce() {
+    const w = window, now = Date.now();
+    if (!w.kwStatus || now - w.kwStatus.at > 5000) {
+      w.kwStatus = { at: now, p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) };
+    }
+    return w.kwStatus.p;
+  }
   async function load() {
     try {
-      const r = await fetch(API, { cache: "no-store" });
-      if (!r.ok) throw new Error(r.status);
-      const data = await r.json();
+      const data = await statusOnce();
+      if (!data) throw new Error("no answer");
       showServer(data.server, data.season);
       showObelisk(data.season);
       showGoals(window.KW.offSeason(data) ? null : data.goals);

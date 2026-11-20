@@ -42,14 +42,21 @@
   let current = null, selected = null;
   let view = { x: 0, y: 0, z: 1 };
 
-  const get = (url) => fetch(url, { cache: "force-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  // the build writes a fingerprint of the quest book's data (qd) and of its pictures (qi)
+  // on <html>: with it an address names one exact content and never has to be asked for again
+  const DS = document.documentElement.dataset;
+  const VD = DS.qd ? "?v=" + DS.qd : "", VI = DS.qi ? "?v=" + DS.qi : "";
+  const get = (url) => fetch(url + VD, VD ? { cache: "force-cache" } : {}).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  // item names are only needed once a quest is open or the search runs: they load after the map
+  let itemsReady = null, itemsLoaded = false;
+  const needItems = () => itemsReady || (itemsReady = get(Q + "items.json").then((it) => { items = it || {}; itemsLoaded = true; }));
   const tr = (o) => (o && typeof o === "object" ? o[lang] || o.de || "" : o || "");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
   function iconUrl(id) {
     if (!id) return "";
     const [ns, path] = id.split(":");
-    return Q + "icons/" + ns + "/" + path + ".webp";
+    return Q + "icons/" + ns + "/" + path + ".webp" + VI;
   }
   function itemName(id) {
     const it = items[id];
@@ -113,7 +120,7 @@
   function helpHtml(text) {
     let s = esc(text);
     s = s.replace(/\[\[([a-z0-9_.-]+:[a-z0-9_./-]+)\]\]/g, (_, id) =>
-      '<span class="qb-chip"><img alt="" loading="lazy" src="' + iconUrl(id) + '" onerror="this.remove()">' + esc(itemName(id)) + "</span>");
+      '<span class="qb-chip"><img alt="" loading="lazy" src="' + iconUrl(id) + '" data-miss="remove">' + esc(itemName(id)) + "</span>");
     s = s.replace(/\{\{([a-z0-9_]+)\/([a-z0-9_]+)\}\}/g, (_, c, q) =>
       '<a href="#' + c + "/" + q + '" data-link="' + c + "/" + q + '">' + esc(c + "/" + q) + "</a>");
     s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
@@ -190,9 +197,26 @@
     for (const q of ch.quests) grow(q.x, q.y, q.size || 1, q.size || 1);
     for (const im of ch.images || []) grow(im.x, im.y, im.w, im.h);
     const w = (x1 - x0 + 2) * U, h = (y1 - y0 + 2) * U;
-    view.z = Math.max(0.25, Math.min(1.4, Math.min(box.width / w, box.height / h)));
-    view.x = box.width / 2 - ((x0 + x1) / 2) * U * view.z;
-    view.y = box.height / 2 - ((y0 + y1) / 2) * U * view.z;
+    const all = Math.min(box.width / w, box.height / h);
+    // a finger needs 24 px: on touch screens a wide chapter opens at its start instead of
+    // shrinking until nothing can be hit
+    const least = matchMedia("(pointer: coarse)").matches ? 26 / U : 0.25;
+    view.z = Math.max(least, Math.min(1.4, all));
+    let cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+    if (all < least) {
+      const roots = ch.quests.filter((q) => !(q.deps || []).length);
+      const first = roots.sort((a, b) => (b.size || 1) - (a.size || 1))[0] || ch.quests[0];
+      if (first) {
+        // the start in view, and as much of the chapter beside it as fits
+        const halfW = box.width / 2 / (U * view.z), halfH = box.height / 2 / (U * view.z);
+        cx = Math.min(Math.max(first.x, x0 - 1 + halfW), Math.max(x0 - 1 + halfW, x1 + 1 - halfW));
+        cy = Math.min(Math.max(first.y, y0 - 1 + halfH), Math.max(y0 - 1 + halfH, y1 + 1 - halfH));
+        if (w * view.z <= box.width) cx = (x0 + x1) / 2;
+        if (h * view.z <= box.height) cy = (y0 + y1) / 2;
+      }
+    }
+    view.x = box.width / 2 - cx * U * view.z;
+    view.y = box.height / 2 - cy * U * view.z;
     applyView();
   }
   function centerOn(q) {
@@ -213,6 +237,23 @@
     return deps.every((d) => { const p = ch.quests.find((x) => x.name === d); return p && progress.done.has(p.id); }) ? "" : "locked";
   }
 
+  // the progress arrived after the map was drawn: mark the quests and lines, leave the view alone
+  function restate() {
+    if (!current) return;
+    const by = {};
+    for (const q of current.quests) by[q.name] = q;
+    const states = ["done", "started", "locked", "open"];
+    for (const b of document.querySelectorAll(".qb-q")) {
+      const s = by[b.dataset.quest] && state(current, by[b.dataset.quest]);
+      b.classList.remove(...states);
+      if (s) b.classList.add(s);
+    }
+    for (const l of document.querySelectorAll(".qb-lines line")) {
+      const s = by[l.dataset.to] && state(current, by[l.dataset.to]);
+      l.classList.remove(...states);
+      if (s) l.classList.add(s === "done" ? "done" : s === "locked" ? "locked" : "open");
+    }
+  }
   async function draw(name, questName) {
     const ch = await chapter(name);
     if (!ch) return;
@@ -236,13 +277,17 @@
     // pictures and banners under the quests
     for (const im of (ch.images || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0))) {
       const img = document.createElement("img");
-      const [ns, p] = im.image.split(":");
-      img.src = Q + "tex/" + ns + "/" + p.replace(/^textures\//, "").replace(/\.png$/, ".webp");
+      // lettering is a picture of words: in English its English twin, which has its own width
+      const pic = lang === "en" && im.en ? im.en : im;
+      const w = pic.w || im.w;
+      const [ns, p] = pic.image.split(":");
+      img.src = Q + "tex/" + ns + "/" + p.replace(/^textures\//, "").replace(/\.png$/, ".webp") + VI;
+      if (!world.firstChild) img.fetchPriority = "high";  // the chapter's banner is the first thing to see
       img.alt = "";
       img.className = "qb-img " + (im.kind || "");
-      img.style.left = (im.x - im.w / 2) * U + "px";
+      img.style.left = (im.x - w / 2) * U + "px";
       img.style.top = (im.y - im.h / 2) * U + "px";
-      img.style.width = im.w * U + "px";
+      img.style.width = w * U + "px";
       img.style.height = im.h * U + "px";
       if (im.rot) img.style.transform = "rotate(" + im.rot + "deg)";
       world.append(img);
@@ -283,13 +328,14 @@
       b.style.top = q.y * U - size / 2 + "px";
       b.style.width = size + "px";
       b.style.height = size + "px";
-      b.style.setProperty("--bg", "url(" + Q + "shapes/" + shape + "-background.webp)");
-      b.style.setProperty("--ol", "url(" + Q + "shapes/" + shape + "-outline.webp)");
+      b.style.setProperty("--bg", "url(" + Q + "shapes/" + shape + "-background.webp" + VI + ")");
+      b.style.setProperty("--ol", "url(" + Q + "shapes/" + shape + "-outline.webp" + VI + ")");
       b.dataset.quest = q.name;
       b.setAttribute("aria-label", plain(tr(q.title)));
       const ic = q.icon || firstItem(q);
       b.append(document.createElement("i"));
-      if (ic) { const im = icon(ic); im.loading = "eager"; b.append(im); }  // a chapter has at most some 80, all in view
+      // a chapter has at most some 80, all on the map: fetched at once, but after the banners
+      if (ic) { const im = icon(ic); im.loading = "eager"; im.fetchPriority = "low"; b.append(im); }
       else { const t = document.createElement("span"); t.className = "qb-check"; t.innerHTML = mark("check"); b.append(t); }
       b.addEventListener("click", () => openQuest(ch, q, true));
       b.addEventListener("pointerenter", () => tip(b, q));
@@ -328,6 +374,8 @@
   async function openQuest(ch, q, push) {
     selected = q;
     untip();
+    // opened before the names are there: show it now, and once more with the names
+    if (!itemsLoaded) needItems().then(() => { if (selected === q) openQuest(ch, q, false); });
     for (const b of document.querySelectorAll(".qb-q")) b.classList.toggle("sel", b.dataset.quest === q.name);
     for (const l of document.querySelectorAll(".qb-lines line")) l.classList.toggle("hl", l.dataset.to === q.name || l.dataset.from === q.name);
     if (push) history.replaceState(null, "", "#" + ch.name + "/" + q.name);
@@ -335,7 +383,7 @@
     const t = T[lang];
     const s = state(ch, q);
     let html = '<button type="button" class="qb-x" aria-label="' + t.close + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
-    html += '<div class="qb-qhead">' + (q.icon || firstItem(q) ? '<img class="qb-big" alt="" src="' + iconUrl(q.icon || firstItem(q)) + '" onerror="this.remove()">' : "")
+    html += '<div class="qb-qhead">' + (q.icon || firstItem(q) ? '<img class="qb-big" alt="" src="' + iconUrl(q.icon || firstItem(q)) + '" data-miss="remove">' : "")
       + "<div><h2>" + styled(tr(q.title)) + "</h2>" + (q.subtitle ? "<p>" + styled(tr(q.subtitle)) + "</p>" : "") + "</div></div>";
     html += '<p class="qb-meta"><span class="qb-st" style="--c:var(--s' + ch.stage + ')">' + t.stage + " " + ch.stage + "</span>"
       + (q.optional ? "<span>" + t.optional + "</span>" : "")
@@ -379,19 +427,19 @@
     }
   }
   function link(ch, x) {
-    return '<a href="#' + ch.name + "/" + x.name + '">' + (x.icon || firstItem(x) ? '<img alt="" src="' + iconUrl(x.icon || firstItem(x)) + '" onerror="this.remove()">' : "") + esc(plain(tr(x.title))) + "</a>";
+    return '<a href="#' + ch.name + "/" + x.name + '">' + (x.icon || firstItem(x) ? '<img alt="" src="' + iconUrl(x.icon || firstItem(x)) + '" data-miss="remove">' : "") + esc(plain(tr(x.title))) + "</a>";
   }
   function task(k) {
     const t = T[lang];
     if (k.type === "item") {
       const id = k.item && k.item.id ? k.item.id : k.item;
-      return '<img alt="" src="' + iconUrl(id) + '" onerror="this.classList.add(\'none\')"><span>' + (k.count > 1 ? "<b>" + k.count + "×</b> " : "")
+      return '<img alt="" src="' + iconUrl(id) + '" data-miss="none"><span>' + (k.count > 1 ? "<b>" + k.count + "×</b> " : "")
         + esc(k.title ? plain(tr(k.title)) : itemName(id)) + (k.consume_items ? ' <small>' + t.consumed + "</small>" : "") + "</span>";
     }
     if (k.type === "kill") {
       const w = words[k.entity];
       // the mob's spawn egg, as the game shows it; the sword where there is none
-      return '<img alt="" src="' + iconUrl(k.entity + "_spawn_egg") + '" data-mark="kill" onerror="this.outerHTML=window.qbMark(this.dataset.mark)"><span>' + t.kill + ": "
+      return '<img alt="" src="' + iconUrl(k.entity + "_spawn_egg") + '" data-mark="kill" data-miss="mark"><span>' + t.kill + ": "
         + (k.value > 1 ? "<b>" + k.value + "×</b> " : "") + esc(k.title ? plain(tr(k.title)) : w ? w[lang] : k.entity) + "</span>";
     }
     if (k.type === "dimension") {
@@ -415,15 +463,23 @@
   function mark(kind, cls) {
     return '<span class="qb-k' + (cls ? " " + cls : "") + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + MARKS[kind] + "</svg></span>";
   }
-  window.qbMark = mark;
+  // a picture that does not load: what stands there instead is written on its tag (data-miss).
+  // One listener for all of them, so no page needs a script inside its markup.
+  document.addEventListener("error", (e) => {
+    const t = e.target;
+    if (!(t instanceof HTMLImageElement) || !t.dataset.miss) return;
+    if (t.dataset.miss === "remove") t.remove();
+    else if (t.dataset.miss === "mark") t.outerHTML = mark(t.dataset.mark);
+    else t.classList.add("none");
+  }, true);
   function reward(r) {
     const t = T[lang];
     if (r.type === "item") {
       const id = r.item && r.item.id ? r.item.id : r.item;
-      return '<img alt="" src="' + iconUrl(id) + '" onerror="this.classList.add(\'none\')"><span>' + ((r.count || 1) > 1 ? "<b>" + r.count + "×</b> " : "") + esc(itemName(id)) + "</span>";
+      return '<img alt="" src="' + iconUrl(id) + '" data-miss="none"><span>' + ((r.count || 1) > 1 ? "<b>" + r.count + "×</b> " : "") + esc(itemName(id)) + "</span>";
     }
     if (r.type === "xp_levels") return '<span class="qb-k xp">XP</span><span><b>' + r.xp_levels + "</b> " + t.xp + "</span>";
-    if (r.type === "loot") return '<img alt="" src="' + iconUrl(r.icon || "ftbquests:lootcrate") + '" onerror="this.classList.add(\'none\')"><span>' + esc(plain(tr(r.title))) + "</span>";
+    if (r.type === "loot") return '<img alt="" src="' + iconUrl(r.icon || "ftbquests:lootcrate") + '" data-miss="none"><span>' + esc(plain(tr(r.title))) + "</span>";
     return mark("plus") + "<span>" + esc(r.type) + "</span>";
   }
   function closeQuest(push) {
@@ -546,6 +602,7 @@
     const words = text.toLowerCase().trim().split(/\s+/).filter(Boolean);
     if (!words.length) { hits.hidden = true; $("qb-chapters").hidden = false; return; }
     if (!search) search = await get(Q + "search.json");
+    await needItems();
     if (!search) return;
     const res = [];
     for (const [c, n, de, en, its] of search) {
@@ -581,6 +638,7 @@
       const r = await fetch("/api/me/quests", { credentials: "same-origin", cache: "no-store" });
       if (!r.ok) return;
       const d = await r.json();
+      if (!d || !d.name) return;  // not signed in
       progress = { done: new Set(d.done || []), started: new Set(d.started || []), name: d.name, team: d.team };
     } catch (e) { /* not signed in, or no server */ }
   }
@@ -622,13 +680,25 @@
   }
 
   async function start() {
-    const [b, it, w] = await Promise.all([get(Q + "book.json"), get(Q + "items.json"), get(Q + "words.json")]);
+    // the chapter the address names (or the first one) is asked for together with the book,
+    // not after it
+    const want = decodeURIComponent(location.hash.slice(1)).split("/")[0] || document.body.dataset.first;
+    if (want && /^[a-z0-9_]+$/.test(want)) chapter(want);
+    // the map does not wait for the sign in: who is signed in gets the progress drawn in afterwards
+    loadProgress().then(() => {
+      if (!progress || !book) return;
+      me();
+      countProgress();
+      restate();
+      if (current && selected) openQuest(current, selected, false);
+    });
+    const [b, w] = await Promise.all([get(Q + "book.json"), get(Q + "words.json")]);
     if (!b) { $("qb-title").textContent = "Das Questbuch konnte nicht geladen werden."; return; }
-    book = b; items = it || {}; words = w || {};
-    await loadProgress();
+    book = b; words = w || {};
     wire();
     setLang(lang);
     route();
+    (window.requestIdleCallback || setTimeout)(needItems);
   }
   start();
 })();

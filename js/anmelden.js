@@ -38,7 +38,8 @@
   async function me() {
     try {
       const r = await fetch("api/me", { cache: "no-store", credentials: "same-origin" });
-      return r.ok ? await r.json() : null;
+      const d = r.ok ? await r.json() : null;
+      return d && d.name ? d : null;  // signed out is an empty name
     } catch (e) { return null; }
   }
 

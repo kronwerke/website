@@ -118,10 +118,23 @@
       .then((list) => { const rel = list.find((x) => !x.draft && !x.prerelease && complete(x)); return rel ? number(rel) : null; })
       .catch(() => null);
   }
-  fetch("/api/status", { cache: "no-store" })
-    .then((r) => r.json())
-    .then((d) => (d.server && /^\d+\.\d+\.\d+$/.test(d.server.pack || "") ? released(d.server.pack) : null))
+  // every script of a page shares one answer of /api/status; after five seconds it is asked again
+  function statusOnce() {
+    const w = window, now = Date.now();
+    if (!w.kwStatus || now - w.kwStatus.at > 5000) {
+      w.kwStatus = { at: now, p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) };
+    }
+    return w.kwStatus.p;
+  }
+  // The bot knows which version to offer (server.download: it reads the pack's releases).
+  // Only a bot that does not say so yet leaves the question to GitHub, as before.
+  const ok = (v) => /^\d+\.\d+\.\d+$/.test(v || "");
+  statusOnce()
+    .then((d) => {
+      const s = (d && d.server) || {};
+      if (ok(s.download)) return s.download;
+      return (ok(s.pack) ? released(s.pack) : Promise.resolve(null)).then((v) => v || newest());
+    })
     .catch(() => null)
-    .then((v) => v || newest())
     .then((v) => { if (v) setVersion(v); });
 })();

@@ -76,6 +76,8 @@ The page should look like it was made for this server and nothing else.
 | `tools/modstages.py` | Builds `js/modstages.js` from the pack's stage files and the mod jars of a server |
 | `tools/render_sky.py` | Renders the stills of the sky from `js/galaxy.js` |
 | `tools/fonts.sh` | Fetches the font from npm into `fonts/`, pinned and checksummed |
+| `tools/build.sh` | Builds the site as it is served into a folder: copies the pages, minifies styles and scripts with esbuild, and runs `tools/stamp.py` |
+| `tools/stamp.py` | Writes a fingerprint of each file into the addresses that point to it (`css/site.css?v=3f9a01c2d4`), so the bot can tell browsers to keep the file for a year |
 
 ## Quick look
 
@@ -85,7 +87,7 @@ python3 tools/modlist.py ../pack .
 python3 -m http.server 8000
 ```
 
-Then open http://127.0.0.1:8000. CI builds the same folder and keeps it as the `site` artifact. A tag `v*` publishes it as `site.tar.gz` in a release; the [bot](https://github.com/kronwerke/bot) picks up every new release and serves it.
+Then open http://127.0.0.1:8000. The pages work as they are in the repository; CI builds them once more with `sh tools/build.sh dist` (minified, with fingerprinted addresses) and keeps that folder as the `site` artifact. A tag `v*` publishes it as `site.tar.gz` in a release; the [bot](https://github.com/kronwerke/bot) picks up every new release and serves it.
 
 ## Licence
 

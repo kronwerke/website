@@ -206,8 +206,13 @@
     });
     if (!gl) return;
     if (!posterMode && !forced && !tryAnyway) {
-      const info = gl.getExtension("WEBGL_debug_renderer_info");
-      const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+      // Firefox names the graphics card in RENDERER and warns about the old extension;
+      // Chrome only says "WebKit WebGL" there and needs it
+      let renderer = String(gl.getParameter(gl.RENDERER) || "");
+      if (!renderer || /^webkit webgl$/i.test(renderer)) {
+        const info = gl.getExtension("WEBGL_debug_renderer_info");
+        renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+      }
       if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) {
         log("still only: software rendering", renderer);
         return;

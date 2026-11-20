@@ -4,8 +4,6 @@
 (function () {
   "use strict";
 
-  // the bot serves this page and the API from the same host
-  const API = "/api/status";
   const statusEl = document.getElementById("status");
   const goalEl = document.getElementById("goal");
   const nf = { format: window.KW.fmt };
@@ -110,11 +108,18 @@
     }
   }
 
+  // every script of a page shares one answer of /api/status; after five seconds it is asked again
+  function statusOnce() {
+    const w = window, now = Date.now();
+    if (!w.kwStatus || now - w.kwStatus.at > 5000) {
+      w.kwStatus = { at: now, p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) };
+    }
+    return w.kwStatus.p;
+  }
   async function load() {
     try {
-      const r = await fetch(API, { cache: "no-store" });
-      if (!r.ok) return;
-      const data = await r.json();
+      const data = await statusOnce();
+      if (!data) return;
       showServer(data.server, data.season);
       if (!window.KW.offSeason(data)) showGoal(data.goals, data.season);
     } catch (e) {

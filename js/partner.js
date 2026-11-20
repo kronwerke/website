@@ -148,8 +148,15 @@
     const m = season && /^\d{4}-(\d{2})-(\d{2})/.exec(season.start || "");
     return m ? ", Start " + Number(m[2]) + ". " + MONTHS[Number(m[1]) - 1] : "";
   }
-  fetch("/api/status", { headers: { Accept: "application/json" } })
-    .then(function (r) { return r.ok ? r.json() : null; })
+  // every script of a page shares one answer of /api/status; after five seconds it is asked again
+  function statusOnce() {
+    const w = window, now = Date.now();
+    if (!w.kwStatus || now - w.kwStatus.at > 5000) {
+      w.kwStatus = { at: now, p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) };
+    }
+    return w.kwStatus.p;
+  }
+  statusOnce()
     .then(function (d) {
       const s = d && d.server;
       if (!s) return;

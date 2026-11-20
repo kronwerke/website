@@ -69,12 +69,19 @@
   }
 
   // ---- how far away the start is
+  // every script of a page shares one answer of /api/status; after five seconds it is asked again
+  function statusOnce() {
+    const w = window, now = Date.now();
+    if (!w.kwStatus || now - w.kwStatus.at > 5000) {
+      w.kwStatus = { at: now, p: fetch("/api/status", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null) };
+    }
+    return w.kwStatus.p;
+  }
   const cd = document.getElementById("countdown");
   if (cd) {
     // the planned start; the server's own (Kronwerke Core's seasonStart, through the bot) wins
     let start = Date.parse("2027-01-16T18:00:00+01:00");
-    fetch((location.pathname.includes("/en/") ? "../" : "") + "api/status", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
+    statusOnce()
       .then((d) => {
         const v = d && d.season && d.season.start;
         if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v || "")) return;
@@ -163,8 +170,7 @@
   if (live) {
     const label = live.querySelector("span:not(.dot)");
     const nf = { format: (n) => inEn ? new Intl.NumberFormat("en").format(n) : String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f") };
-    fetch((inEn ? "../" : "") + "api/status", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
+    statusOnce()
       .then((d) => {
         const s = d && d.server;
         if (d && d.season && !d.season.running) {
@@ -251,13 +257,15 @@
     const img = document.createElement("img");
     img.alt = "";
     img.loading = "lazy";
+    img.onload = () => { img.width = img.naturalWidth; img.height = img.naturalHeight; };
     let last = "";
     const pick = () => {
       let n;
       do { n = names[Math.floor(Math.random() * names.length)]; } while (n === last);
       last = n;
       img.style.setProperty("--h", VISITORS[n]);
-      img.src = (inEn ? "../" : "") + "img/mobs/" + n + ".webp";
+      // the build writes a fingerprint of all pictures on <html>: the address then names one exact picture
+      img.src = (inEn ? "../" : "") + "img/mobs/" + n + ".webp" + (document.documentElement.dataset.v ? "?v=" + document.documentElement.dataset.v : "");
     };
     pick();
     box.append(img);
