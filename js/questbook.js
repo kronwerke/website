@@ -180,6 +180,8 @@
   function applyView() {
     $("qb-world").style.transform = "translate(" + view.x + "px," + view.y + "px) scale(" + view.z + ")";
     $("qb-canvas").style.setProperty("--z", view.z);
+    // icons are 64 px: smooth when shown smaller, crisp pixels when shown larger
+    $("qb-world").classList.toggle("near", view.z * U * 0.64 >= 64);
   }
   function fit(ch) {
     const box = $("qb-canvas").getBoundingClientRect();
@@ -288,7 +290,7 @@
       const ic = q.icon || firstItem(q);
       b.append(document.createElement("i"));
       if (ic) b.append(icon(ic));
-      else { const t = document.createElement("span"); t.className = "qb-check"; t.textContent = "✓"; b.append(t); }
+      else { const t = document.createElement("span"); t.className = "qb-check"; t.innerHTML = mark("check"); b.append(t); }
       b.addEventListener("click", () => openQuest(ch, q, true));
       b.addEventListener("pointerenter", () => tip(b, q));
       b.addEventListener("pointerleave", untip);
@@ -332,7 +334,7 @@
     const box = $("qb-quest");
     const t = T[lang];
     const s = state(ch, q);
-    let html = '<button type="button" class="qb-x" aria-label="' + t.close + '">×</button>';
+    let html = '<button type="button" class="qb-x" aria-label="' + t.close + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
     html += '<div class="qb-qhead">' + (q.icon || firstItem(q) ? '<img class="qb-big" alt="" src="' + iconUrl(q.icon || firstItem(q)) + '" onerror="this.remove()">' : "")
       + "<div><h2>" + styled(tr(q.title)) + "</h2>" + (q.subtitle ? "<p>" + styled(tr(q.subtitle)) + "</p>" : "") + "</div></div>";
     html += '<p class="qb-meta"><span class="qb-st" style="--c:var(--s' + ch.stage + ')">' + t.stage + " " + ch.stage + "</span>"
@@ -359,6 +361,12 @@
     box.hidden = false;
     box.scrollTop = 0;
     document.body.classList.add("qb-quest-open");
+    // beside the map on a wide screen: bring the quest back if the panel took its place
+    const sel = document.querySelector('.qb-q.sel'), cvBox = $("qb-canvas").getBoundingClientRect();
+    if (sel && push) {
+      const r = sel.getBoundingClientRect();
+      if (r.right > cvBox.right - 12 || r.left < cvBox.left + 12 || r.bottom > cvBox.bottom - 12 || r.top < cvBox.top + 12) centerOn(q);
+    }
     box.querySelector(".qb-x").addEventListener("click", () => closeQuest(true));
     const h = await help(ch.name);
     const entry = h && h[q.name];
@@ -382,15 +390,32 @@
     }
     if (k.type === "kill") {
       const w = words[k.entity];
-      return '<span class="qb-k">⚔</span><span>' + t.kill + ": " + (k.value > 1 ? "<b>" + k.value + "×</b> " : "") + esc(k.title ? plain(tr(k.title)) : w ? w[lang] : k.entity) + "</span>";
+      // the mob's spawn egg, as the game shows it; the sword where there is none
+      return '<img alt="" src="' + iconUrl(k.entity + "_spawn_egg") + '" data-mark="kill" onerror="this.outerHTML=window.qbMark(this.dataset.mark)"><span>' + t.kill + ": "
+        + (k.value > 1 ? "<b>" + k.value + "×</b> " : "") + esc(k.title ? plain(tr(k.title)) : w ? w[lang] : k.entity) + "</span>";
     }
     if (k.type === "dimension") {
       const w = words[k.dimension];
-      return '<span class="qb-k">◎</span><span>' + t.dim + ": " + esc(w ? w[lang] : k.dimension) + "</span>";
+      return mark("dim") + "<span>" + t.dim + ": " + esc(w ? w[lang] : k.dimension) + "</span>";
     }
-    if (k.type === "advancement") return '<span class="qb-k">★</span><span>' + esc(k.title ? plain(tr(k.title)) : k.advancement) + "</span>";
-    return '<span class="qb-k">✓</span><span>' + esc(k.title ? plain(tr(k.title)) : t.check) + "</span>";
+    if (k.type === "advancement") {
+      const w = words[k.advancement];
+      return mark("adv") + "<span>" + esc(k.title ? plain(tr(k.title)) : w ? w[lang] || w.de : k.advancement) + "</span>";
+    }
+    return mark("check") + "<span>" + esc(k.title ? plain(tr(k.title)) : t.check) + "</span>";
   }
+  // small drawn marks for what has no item: they sit centred, whatever font is loaded
+  const MARKS = {
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    kill: '<path d="M14.5 3.5H20v5.500L9.5 19.500M4 20l3-3M6.5 14.500l3 3M3.5 17l3.5 3.5"/>',
+    dim: '<rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M10 7v10M14 7v10"/>',
+    adv: '<path d="M12 3.500l2.6 5.3 5.9.900-4.2 4.1 1 5.800L12 16.900l-5.3 2.7 1-5.800L3.5 9.700l5.9-.900z"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+  };
+  function mark(kind, cls) {
+    return '<span class="qb-k' + (cls ? " " + cls : "") + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + MARKS[kind] + "</svg></span>";
+  }
+  window.qbMark = mark;
   function reward(r) {
     const t = T[lang];
     if (r.type === "item") {
@@ -399,7 +424,7 @@
     }
     if (r.type === "xp_levels") return '<span class="qb-k xp">XP</span><span><b>' + r.xp_levels + "</b> " + t.xp + "</span>";
     if (r.type === "loot") return '<img alt="" src="' + iconUrl(r.icon || "ftbquests:lootcrate") + '" onerror="this.classList.add(\'none\')"><span>' + esc(plain(tr(r.title))) + "</span>";
-    return '<span class="qb-k">+</span><span>' + esc(r.type) + "</span>";
+    return mark("plus") + "<span>" + esc(r.type) + "</span>";
   }
   function closeQuest(push) {
     selected = null;
@@ -423,7 +448,11 @@
     const cv = $("qb-canvas");
     const pts = new Map();
     let last = null, moved = 0;
+    const hintOff = () => $("qb-hint").classList.add("gone");
+    setTimeout(hintOff, 9000);
+    cv.addEventListener("wheel", hintOff, { passive: true, once: true });
     cv.addEventListener("pointerdown", (e) => {
+      hintOff();
       pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
       moved = 0;
       if (pts.size === 1) last = { x: e.clientX, y: e.clientY };

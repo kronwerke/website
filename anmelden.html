@@ -56,9 +56,15 @@
 </section>
 
 <section class="account" id="account" hidden>
+  <p class="acc-note" id="acc-note" role="status" hidden></p>
   <div class="account-card">
-    <img id="acc-head" alt="" width="64" height="64" src="data:,">
-    <div><p class="label">Angemeldet als</p><h2 id="acc-name"></h2><p id="acc-wl"></p></div>
+    <img id="acc-head" alt="" width="72" height="72" src="data:,">
+    <div class="acc-who"><p class="label">Angemeldet als</p><h2 id="acc-name"></h2></div>
+    <ul class="acc-rows">
+      <li id="row-wl"><span class="k">Whitelist</span><span class="v" id="acc-wl"></span></li>
+      <li id="row-dc"><span class="k">Discord</span><span class="v" id="acc-dc"></span><a class="btn small dc" id="dc-link" href="api/auth/discord" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Mit Discord verknüpfen</a></li>
+    </ul>
+    <p class="acc-hint" id="dc-hint" hidden>Das ist dasselbe wie <code>/link</code> im Discord: Streamer und Spieler aus Season&nbsp;1 kommen damit direkt auf die Whitelist, alle anderen sind startklar, sobald ihnen jemand einen Platz gibt. Discord fragt dich einmal, ob Kronwerke deinen Account erkennen darf.</p>
   </div>
   <p class="cta"><a class="btn" href="questbuch">Zum Questbuch mit deinem Fortschritt</a><a class="link" href="whitelist/">Whitelist verwalten</a><button class="link" type="button" id="logout">Abmelden</button></p>
 </section>
@@ -66,7 +72,7 @@
 <section class="sec">
   <h2>Was dabei passiert</h2>
   <p>Beim Verbinden meldet sich dein Spiel bei Mojang an wie bei jedem Server. Unser Anmelde-Server fragt Mojang, ob das wirklich dein Konto war, und zeigt dir dann den Code. Dein Passwort sieht dabei niemand außer Mojang.</p>
-  <p>Wir behalten deinen Minecraft-Namen und deine UUID, solange du angemeldet bist, höchstens 30 Tage. Mehr dazu im <a href="datenschutz">Datenschutz</a>.</p>
+  <p>Du bleibst auf diesem Gerät sechs Monate angemeldet, und jeder Besuch verlängert das wieder auf sechs Monate. Solange behalten wir deinen Minecraft-Namen und deine UUID. Abmelden löscht beides sofort. Mehr dazu im <a href="datenschutz">Datenschutz</a>, Abschnitt 3a.</p>
 </section>
 </main>
 

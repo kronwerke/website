@@ -13,10 +13,26 @@
     $("acc-head").src = "whitelist/head/" + encodeURIComponent(me.name);
     const w = me.whitelist || {};
     const p = $("acc-wl");
-    p.className = w.on ? "wl on" : "wl";
+    $("row-wl").className = w.on ? "on" : "";
     p.textContent = w.on
-      ? (w.by ? "Auf der Whitelist, über den Platz von " + w.by + "." : "Auf der Whitelist.")
-      : "Noch nicht auf der Whitelist. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
+      ? (w.by ? "Du bist drauf, über den Platz von " + w.by + "." : "Du bist drauf.")
+      : "Noch nicht. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
+    const d = me.discord;
+    $("row-dc").className = d ? "on" : "";
+    $("acc-dc").textContent = d ? "Verknüpft" + (d.name ? " mit " + d.name : "") + "." : "Noch nicht verknüpft.";
+    $("dc-link").hidden = !!d;
+    $("dc-hint").hidden = !!d;
+  }
+
+  // what the trip to Discord answered, in the fragment so it reaches no log
+  function note() {
+    const m = /^#(discord|discordfehler)=(.*)$/.exec(location.hash);
+    if (!m) return;
+    const el = $("acc-note");
+    el.hidden = false;
+    el.className = "acc-note " + (m[1] === "discord" ? "ok" : "bad");
+    try { el.textContent = decodeURIComponent(m[2].replace(/\+/g, " ")); } catch (e) { el.textContent = ""; }
+    history.replaceState(null, "", location.pathname + location.search);
   }
 
   async function me() {
@@ -56,5 +72,6 @@
     location.reload();
   });
 
+  note();
   me().then(show);
 })();
