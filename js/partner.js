@@ -172,3 +172,19 @@
     })
     .catch(function () {});
 })();
+
+// the Nycole card wakes up like the Tavuru card: on hover, or in view on touch screens
+(function () {
+  "use strict";
+  const hover = window.matchMedia("(hover: hover)").matches;
+  for (const card of document.querySelectorAll(".nycole")) {
+    if (hover) {
+      card.addEventListener("pointerenter", function () { card.classList.add("out"); });
+      card.addEventListener("pointerleave", function () { card.classList.remove("out"); });
+    } else if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        for (const en of entries) en.target.classList.toggle("out", en.isIntersecting);
+      }, { threshold: 0.6 }).observe(card);
+    }
+  }
+})();
