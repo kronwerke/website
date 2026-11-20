@@ -17,6 +17,8 @@ rm -f qb/icons/missing.txt
 # tools/icons-ingame holds every item as it looks in an inventory, 64 px, rendered by the test
 # client (pack tools/iconclient notes in Core's IconExport: probe line "icons LIST 64"). An item
 # that came into the book after the last render keeps its icons.py picture until the next one.
+# Drawn by hand, not rendered: Draconic Evolution's chaos shard and its fragments. The game draws
+# them with a shader that comes out as a black shape in a render.
 cp -r tools/icons-ingame/. qb/icons/
 # A picture in a quest text that names an item texture the mod does not have (the item is a
 # 3D model, or its texture has another name) gets the item's icon instead of a hole.

@@ -87,7 +87,7 @@
     const mob = N.mobs[g.id];
     if (mob) {
       const img = make("img", "mob mob-" + mob);
-      img.src = "img/mascots/" + mob + ".webp";
+      img.src = "img/mobs/" + mob + ".webp";
       img.alt = "";
       img.loading = "lazy";
       card.append(img);

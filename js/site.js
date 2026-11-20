@@ -218,10 +218,50 @@
           else if (w.on) t = inEn ? "You are on the whitelist." : "Du bist auf der Whitelist.";
           else t = inEn ? "Not on the whitelist yet. A streamer or your community gives you a place, ask in the Discord." : "Noch nicht auf der Whitelist. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
           wl.querySelector("span").textContent = t;
+          if (!me.discord) {
+            const a = document.createElement("a");
+            a.href = (inEn ? "../" : "") + "anmelden";
+            a.textContent = inEn ? "Link Discord" : "Discord verknüpfen";
+            wl.querySelector("span").append(" ", a);
+          }
           wl.querySelector("b").textContent = me.name;
           wl.querySelector("img").src = (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name);
         }
       })
       .catch(() => {});
+  }
+
+  // ---- a visitor on the footer's line: another mob of the pack on every page view --------
+  // the heights are in blocks, so a fox stays a fox next to an iron golem
+  const VISITORS = { cat: 0.7, cat_black: 0.7, cat_b: 0.7, fox: 0.7, fox_snow: 0.7, axolotl: 0.5, axolotl_blue: 0.5, frog: 0.55, frog_green: 0.55,
+    bee: 0.65, chicken: 0.75, rabbit: 0.55, parrot: 0.95, parrot_blue: 0.95, parrot_cyan: 0.95, turtle: 0.45, armadillo: 0.7, allay: 0.95,
+    starbuncle: 0.75, robit: 0.95, owl: 0.8, crow: 0.5, sniffer: 1.75, camel: 2.4, panda: 1.25, goat: 1.3, sheep: 1.3, sheep_pink: 1.3,
+    pig: 0.9, cow: 1.4, mooshroom: 1.4, snow_golem: 1.9, iron_golem: 2.7, villager_cleric: 1.95, villager_cartographer: 1.95,
+    villager_mason: 1.95, villager_armorer: 1.95, witch: 2.3, wandering_trader: 1.95, llama: 1.87, creeper: 1.7, enderman: 2.9,
+    skeleton: 2, strider: 1.7, slime: 1.05, slime_small: 0.52, piglin: 1.95, drygmy: 1, whirlisprig: 0.9, wixie: 1, mimic: 1,
+    moa: 2.1, aerbunny: 0.7, phyg: 0.9, flying_cow: 1.4, polar_bear: 1.4, wolf: 0.85, wolf_spotted: 0.85, horse: 1.6, donkey: 1.5,
+    glow_squid: 0.9, dolphin: 0.6 };
+  const foot = document.querySelector("footer.bottom");
+  if (foot) {
+    const names = Object.keys(VISITORS);
+    const box = document.createElement("button");
+    box.type = "button";
+    box.className = "scene visitor";
+    box.setAttribute("aria-label", inEn ? "Another visitor" : "Anderer Besuch");
+    const img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    let last = "";
+    const pick = () => {
+      let n;
+      do { n = names[Math.floor(Math.random() * names.length)]; } while (n === last);
+      last = n;
+      img.style.setProperty("--h", VISITORS[n]);
+      img.src = (inEn ? "../" : "") + "img/mobs/" + n + ".webp";
+    };
+    pick();
+    box.append(img);
+    box.addEventListener("click", () => { box.classList.remove("hop"); void box.offsetWidth; box.classList.add("hop"); pick(); });
+    foot.append(box);
   }
 })();
