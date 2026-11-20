@@ -439,7 +439,8 @@
     if (k.type === "kill") {
       const w = words[k.entity];
       // the mob's spawn egg, as the game shows it; the sword where there is none
-      return '<img alt="" src="' + iconUrl(k.entity + "_spawn_egg") + '" data-mark="kill" data-miss="mark"><span>' + t.kill + ": "
+      // a task for every variant of a mob names a tag, not one entity: the sword then
+      return (k.entity ? '<img alt="" src="' + iconUrl(k.entity + "_spawn_egg") + '" data-mark="kill" data-miss="mark">' : mark("kill")) + "<span>" + t.kill + ": "
         + (k.value > 1 ? "<b>" + k.value + "×</b> " : "") + esc(k.title ? plain(tr(k.title)) : w ? w[lang] : k.entity) + "</span>";
     }
     if (k.type === "dimension") {
@@ -448,7 +449,10 @@
     }
     if (k.type === "advancement") {
       const w = words[k.advancement];
-      return mark("adv") + "<span>" + esc(k.title ? plain(tr(k.title)) : w ? w[lang] || w.de : k.advancement) + "</span>";
+      // "any of these" tasks are advancements with an item to show (one of the variants)
+      const icon = k.icon_item || (k.icon && (k.icon.id || k.icon));
+      return (icon ? '<img alt="" src="' + iconUrl(icon) + '" data-miss="none">' : mark("adv"))
+        + "<span>" + esc(k.title ? plain(tr(k.title)) : w ? w[lang] || w.de : k.advancement) + "</span>";
     }
     return mark("check") + "<span>" + esc(k.title ? plain(tr(k.title)) : t.check) + "</span>";
   }
