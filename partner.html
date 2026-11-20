@@ -106,34 +106,27 @@
     </a>
     <a class="nycole" href="https://nycole.art" rel="noopener" aria-label="Nycole, unsere Art-Partnerin">
       <div class="ny-canvas" aria-hidden="true">
-        <svg viewBox="0 0 240 230" role="presentation">
+        <svg viewBox="0 0 240 200" role="presentation">
           <defs>
-            <linearGradient id="ny-grad" gradientUnits="userSpaceOnUse" x1="0" y1="55" x2="0" y2="215"><stop offset="0" stop-color="#ffc94a"/><stop offset="0.45" stop-color="#ff9f6b"/><stop offset="1" stop-color="#ff7eb6"/></linearGradient>
             <filter id="ny-rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter>
-            <clipPath id="ny-crown"><path d="M40 170 30 80 80 120 120 50 160 120 210 80 200 170Z"/></clipPath>
           </defs>
-          <line class="ny-guide" x1="10" y1="80" x2="230" y2="80"/>
-          <line class="ny-guide" x1="10" y1="170" x2="230" y2="170"/>
-          <line class="ny-guide" x1="120" y1="20" x2="120" y2="200"/>
-          <circle class="ny-guide" cx="120" cy="120" r="96"/>
-          <g class="ny-paint">
-            <g clip-path="url(#ny-crown)">
-              <path class="ny-fill" fill="url(#ny-grad)" d="M0 60 Q30 48 60 60 T120 60 T180 60 T240 60 V240 H0Z"/>
-            </g>
-            <path class="ny-drip" d="M75 168 V205"/>
-            <path class="ny-drip" d="M150 168 V218"/>
-            <path class="ny-drip" d="M188 168 V196"/>
-            <circle class="ny-jewel" cx="30" cy="80" r="9" fill="#ffc94a" stroke="#2a2420" stroke-width="2.5"/>
-            <circle class="ny-jewel" cx="120" cy="50" r="10" fill="#ff7eb6" stroke="#2a2420" stroke-width="2.5"/>
-            <circle class="ny-jewel" cx="210" cy="80" r="9" fill="#ff9f6b" stroke="#2a2420" stroke-width="2.5"/>
-          </g>
           <g class="ny-sketch" filter="url(#ny-rough)">
-            <path class="draw" style="--len:620" d="M40 170 30 80 80 120 120 50 160 120 210 80 200 170Z"/>
-            <path class="draw" style="--len:620" d="M42 172 31 83 81 123 121 53 159 122 208 83 198 172Z"/>
-            <path class="draw" style="--len:200" d="M28 182 H212"/>
+            <path d="M28 62 C70 34 110 82 150 58 S205 40 214 52"/>
+            <path d="M24 104 C64 82 104 124 146 100 S196 84 218 96"/>
+            <path d="M30 146 C72 124 112 166 154 142 S200 128 210 138"/>
+          </g>
+          <g class="ny-paint">
+            <path class="ny-stroke" style="--len:240;stroke:#ffc94a" d="M28 62 C70 34 110 82 150 58 S205 40 214 52"/>
+            <path class="ny-stroke" style="--len:250;stroke:#ff9f6b" d="M24 104 C64 82 104 124 146 100 S196 84 218 96"/>
+            <path class="ny-stroke" style="--len:240;stroke:#ff7eb6" d="M30 146 C72 124 112 166 154 142 S200 128 210 138"/>
+            <path class="ny-drip" d="M118 154 V184"/>
+            <path class="ny-drip" d="M164 140 V172"/>
+            <path class="ny-drip" d="M196 132 V150"/>
+            <path class="ny-spark" d="M206 18 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4z"/>
+            <path class="ny-spark" d="M22 18 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
+            <path class="ny-spark" d="M226 166 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z"/>
           </g>
         </svg>
-        <p class="ny-note">Unser Platzhalter. Das echte Logo zeichnet Nycole.</p>
       </div>
       <div class="ny-copy">
         <span class="ny-tag">Art-Partnerin</span>
