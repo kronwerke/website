@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de" class="sky-still">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anmelden, Kronwerke</title>
+<meta name="description" content="Mit deinem Minecraft-Konto auf kronwerke.com anmelden: Whitelist-Status und Fortschritt im Questbuch sehen, ohne Passwort.">
+<meta name="theme-color" content="#0d0b10">
+<meta property="og:title" content="Anmelden, Kronwerke">
+<meta property="og:description" content="Mit deinem Minecraft-Konto auf kronwerke.com anmelden: Whitelist-Status und Fortschritt im Questbuch sehen, ohne Passwort.">
+<meta property="og:site_name" content="Kronwerke">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://kronwerke.com/anmelden">
+<meta property="og:url" content="https://kronwerke.com/anmelden">
+<meta property="og:image" content="https://kronwerke.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body class="page" data-page="anmelden">
+<a class="skip" href="#main">Zum Inhalt</a>
+<header class="top">
+  <a class="mark" href="./" aria-label="Kronwerke, Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 18h18M4 17l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>Kronwerke</a>
+  <nav aria-label="Seiten">
+    <a href="stufen">Stufen</a>
+    <a href="herkunft">Herkunft</a>
+    <a href="mods">Mods</a>
+    <a href="questbuch">Questbuch</a>
+    <a href="installieren">Installieren</a>
+    <a href="streamer">Streamer</a>
+    <a href="faq">Fragen</a>
+  </nav>
+  <a class="live" id="live" href="status"><span class="dot"></span><span>Start 16. Januar</span></a>
+  <a class="btn small" href="https://discord.gg/DZs3XyyHDj">Discord</a>
+</header>
+
+<main id="main">
+<div class="intro"><h1>Anmelden</h1><p class="lede">Mit deinem Minecraft-Konto, ohne Passwort. Du verbindest dich kurz mit unserem Anmelde-Server und bekommst einen Code. Einen Platz auf der Whitelist brauchst du dafür nicht.</p></div>
+
+<section class="signin" id="signin">
+  <ol class="signin-steps">
+    <li><h3>Server hinzufügen</h3><p>Minecraft Java ab Version 1.20.2 starten, dann <strong>Mehrspieler</strong> und <strong>Server hinzufügen</strong> mit dieser Adresse:</p><p><button class="copy big" type="button" data-copy="auth.kronwerke.com">auth.kronwerke.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></p><p class="aside">Ein Modpack brauchst du dafür nicht, jede normale Minecraft-Installation geht.</p></li>
+    <li><h3>Verbinden</h3><p>Du wirst sofort wieder getrennt, und auf dem Bildschirm steht dein Code mit sechs Zeichen. Er gilt zehn Minuten.</p></li>
+    <li><h3>Code eingeben</h3>
+      <form class="code-form" id="code-form" autocomplete="off">
+        <label for="code" class="sr">Code</label>
+        <input id="code" name="code" inputmode="text" maxlength="8" placeholder="K7Q2XP" spellcheck="false" autocapitalize="characters" required>
+        <button class="btn" type="submit">Anmelden</button>
+      </form>
+      <p class="code-msg" id="code-msg" role="status"></p>
+    </li>
+  </ol>
+</section>
+
+<section class="account" id="account" hidden>
+  <div class="account-card">
+    <img id="acc-head" alt="" width="64" height="64" src="data:,">
+    <div><p class="label">Angemeldet als</p><h2 id="acc-name"></h2><p id="acc-wl"></p></div>
+  </div>
+  <p class="cta"><a class="btn" href="questbuch">Zum Questbuch mit deinem Fortschritt</a><a class="link" href="whitelist/">Whitelist verwalten</a><button class="link" type="button" id="logout">Abmelden</button></p>
+</section>
+
+<section class="sec">
+  <h2>Was dabei passiert</h2>
+  <p>Beim Verbinden meldet sich dein Spiel bei Mojang an wie bei jedem Server. Unser Anmelde-Server fragt Mojang, ob das wirklich dein Konto war, und zeigt dir dann den Code. Dein Passwort sieht dabei niemand außer Mojang.</p>
+  <p>Wir behalten deinen Minecraft-Namen und deine UUID, solange du angemeldet bist, höchstens 30 Tage. Mehr dazu im <a href="datenschutz">Datenschutz</a>.</p>
+</section>
+</main>
+
+
+<footer class="bottom">
+  <div class="cols">
+    <div><h4>Spielen</h4><a href="stufen">Stufen</a><a href="herkunft">Herkunft und Rolle</a><a href="mods">Mods</a><a href="questbuch">Questbuch</a><a href="installieren">Installieren</a><a href="faq">Fragen</a><a href="status">Status</a></div>
+    <div><h4>Mitmachen</h4><a href="https://discord.gg/DZs3XyyHDj">Discord</a><a href="streamer">Für Streamer</a><a href="partner">Partner</a><a href="overlay">Stream-Overlay</a><a href="whitelist/">Whitelist verwalten</a></div>
+    <div><h4>Projekt</h4><a href="https://github.com/kronwerke">GitHub</a><a href="discord-bot">Discord-Bot</a><a href="impressum">Impressum</a><a href="datenschutz">Datenschutz</a><a href="en/install" lang="en">English</a></div>
+  </div>
+  <p class="made">Ein Projekt von <a href="https://elchi.dev">Elchi Studios</a>, die Server laufen bei unserem Partner <a href="https://tavuru.com">Tavuru</a>. Kein offizielles Minecraft-Produkt, nicht von Mojang oder Microsoft genehmigt oder mit ihnen verbunden.</p>
+</footer>
+
+<script src="js/site.js" defer></script>
+<script src="js/anmelden.js" defer></script>
+</body>
+</html>

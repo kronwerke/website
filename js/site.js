@@ -187,4 +187,41 @@
       })
       .catch(() => {});
   }
+
+  // ---- signed in with Minecraft (kronwerke.com/anmelden): a small head in the header, and
+  // on the start page whether the account is on the whitelist
+  const top = document.querySelector(".top");
+  if (top && !document.querySelector(".top .who")) {
+    const who = document.createElement("a");
+    who.className = "who";
+    who.href = (inEn ? "../" : "") + "anmelden";
+    who.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>' + (inEn ? "Sign in" : "Anmelden") + "</span>";
+    const btn = top.querySelector(".btn");
+    top.insertBefore(who, btn);
+    fetch((inEn ? "../" : "") + "api/me", { cache: "no-store", credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((me) => {
+        if (!me || !me.name) return;
+        window.KW = window.KW || {};
+        window.KW.me = me;
+        who.classList.add("in");
+        who.title = me.name;
+        who.innerHTML = '<img alt="" width="24" height="24" src="' + (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name) + '"><span></span>';
+        who.querySelector("span").textContent = me.name;
+        const wl = document.getElementById("me-wl");
+        if (wl) {
+          const w = me.whitelist || {};
+          wl.hidden = false;
+          wl.classList.toggle("on", !!w.on);
+          let t;
+          if (w.on && w.by) t = (inEn ? "You are on the whitelist, on " : "Du bist auf der Whitelist, über den Platz von ") + w.by + ".";
+          else if (w.on) t = inEn ? "You are on the whitelist." : "Du bist auf der Whitelist.";
+          else t = inEn ? "Not on the whitelist yet. A streamer or your community gives you a place, ask in the Discord." : "Noch nicht auf der Whitelist. Einen Platz gibt dir ein Streamer oder deine Community, frag im Discord.";
+          wl.querySelector("span").textContent = t;
+          wl.querySelector("b").textContent = me.name;
+          wl.querySelector("img").src = (inEn ? "../" : "") + "whitelist/head/" + encodeURIComponent(me.name);
+        }
+      })
+      .catch(() => {});
+  }
 })();
