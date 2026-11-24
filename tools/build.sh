@@ -9,7 +9,7 @@ cd "$(dirname "$0")/.."
 out="${1:-dist}"
 rm -rf "$out"
 mkdir -p "$out"
-cp -r *.html en favicon.svg robots.txt sitemap.xml css js fonts img data qb "$out"/
+cp -r *.html en favicon.png apple-touch-icon.png robots.txt sitemap.xml css js fonts img data qb "$out"/
 if command -v esbuild >/dev/null 2>&1; then
   # comments and spaces are for people, not for browsers
   for f in "$out"/css/*.css "$out"/js/*.js; do

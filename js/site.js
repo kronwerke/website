@@ -9,20 +9,6 @@
   const root = document.documentElement;
   const inEn = document.documentElement.lang === "en";
 
-  // ---- the name: every letter on its own, so it can be poked
-  const name = document.getElementById("name");
-  if (name && !reduced) {
-    const text = name.textContent;
-    name.textContent = "";
-    for (const ch of text) {
-      const s = document.createElement("span");
-      s.className = "l";
-      s.textContent = ch;
-      name.append(s);
-    }
-    name.setAttribute("aria-label", text);
-  }
-
   // ---- the sky moves a little with the pointer, the page stays where it is
   if (!reduced && matchMedia("(pointer: fine)").matches) {
     let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;

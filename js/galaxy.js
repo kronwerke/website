@@ -922,6 +922,15 @@
     // after the first paint, so the page shows before the graphics card gets to work.
     // It used to wait for the load event and an idle browser, which on a page with many
     // pictures meant seconds of the still.
-    else requestAnimationFrame(() => setTimeout(start, 0));
+    else {
+      // On the start page the logo is the largest thing of the first screen: it is painted
+      // first, then the graphics card gets to work.
+      const go = () => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(start, 0)));
+      const logo = document.querySelector("#name img");
+      if (logo && !logo.complete) {
+        logo.addEventListener("load", go, { once: true });
+        logo.addEventListener("error", go, { once: true });
+      } else go();
+    }
   }
 })();

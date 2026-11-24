@@ -8,7 +8,7 @@ in the browser for a year, because a changed file gets a new address. Without th
 release made every browser fetch every file again.
 
 Stamped are the addresses in the stylesheets (url(...)) and then those in the pages
-(href, src, data-src, data-skin, data-cape, poster), in that order, so a page's
+(href, src, srcset, data-src, data-skin, data-cape, poster), in that order, so a page's
 fingerprint of a stylesheet covers the stamps inside it. For the addresses that scripts
 build, <html> gets data-v (all pictures and data) and, on the quest book, data-qd and
 data-qi (its data and its pictures).
@@ -101,6 +101,20 @@ def main(root):
                 return m.group(0).replace(m.group(2), new, 1)
 
             out = pattern.sub(sub, text)
+            if files is pages:
+                # srcset names several files, each followed by its width or density
+                def srcset(m):
+                    nonlocal count
+                    parts = []
+                    for part in m.group(1).split(","):
+                        bits = part.split()
+                        if bits:
+                            new = mark(root, base, bits[0], cache, (qd, qi))
+                            count += new != bits[0]
+                            bits[0] = new
+                        parts.append(" ".join(bits))
+                    return 'srcset="' + ", ".join(parts) + '"'
+                out = re.sub(r'\bsrcset="([^"]*)"', srcset, out)
             if out != text:
                 with open(p, "w", encoding="utf-8") as f:
                     f.write(out)

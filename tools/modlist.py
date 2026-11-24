@@ -40,7 +40,7 @@ OVERRIDE = {
     "kronwerke-core": "tech", "botania": "magic", "jei": "comfort", "jade": "comfort",
 }
 # icons that live in this repository
-LOCAL_ICONS = {"kronwerke-core": "favicon.svg"}
+LOCAL_ICONS = {"kronwerke-core": "favicon.png"}
 # mods Modrinth does not know: (group, description)
 KNOWN = {
     "Ars Elemental": ("magic", "Elemental schools, foci and armour for Ars Nouveau."),
