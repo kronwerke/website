@@ -1205,8 +1205,9 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 }
 .tv-servers.wip .tv-net .on::before { background: var(--s2); box-shadow: 0 0 0 3px rgba(229, 180, 81, 0.2); }
 
-/* Partner card: Nycole, who draws. A sheet of sketch paper on the night sky, taped down;
-   on hover it is picked up and a brush paints her colours (sun yellow into pink). */
+/* Partner card: Nycole, who drew the logo. A sheet of sketch paper on the night sky, taped
+   down, with the logo on it; on hover it is picked up and a brush paints her colours (sun
+   yellow into pink) behind it. */
 .nycole {
   --ny-a: #ffc94a;
   --ny-b: #ff9f6b;
@@ -1246,6 +1247,14 @@ mark { background: rgba(229, 180, 81, 0.35); color: inherit; border-radius: 2px;
 
 .ny-canvas { position: relative; display: grid; place-items: center; }
 .ny-canvas svg { width: 100%; max-width: 26rem; height: auto; overflow: visible; }
+/* her finished work lies on the sheet: the season's logo, over the lines it began as */
+.ny-logo {
+  position: absolute; top: 50%; left: 50%; width: 94%; max-width: 25rem; height: auto;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  filter: drop-shadow(0 0.4rem 0 rgba(42, 36, 32, 0.1)) drop-shadow(0 0.9rem 1.1rem rgba(42, 36, 32, 0.28));
+  transition: transform 0.6s var(--spring);
+}
+.nycole.out .ny-logo, .nycole:focus-visible .ny-logo { transform: translate(-50%, -53%) rotate(1deg) scale(1.05); }
 /* at rest three pencil lines; on hover a brush paints them in her colours, one after the
    other, the last one drips and a few sparkles pop */
 .ny-sketch path { fill: none; stroke: #7a6f63; stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 5 6; }
